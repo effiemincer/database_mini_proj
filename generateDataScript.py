@@ -35,9 +35,8 @@ with open("familyTies.sql", "w") as file:
         while relationReaderID == readerID:
             relationReaderID = random.randint(1, 33333) * 2 % 33333
         relation = RELATIONTPYE[random.randint(0,3)]
-        expiryDate = fake.date_this_decade(before_today=True, after_today=True)
-        file.write(f"INSERT INTO FamilyTies (ReaderID, RelationType, ExpirationDate) "
-                   f"VALUES ('{readerID}', '{relation}', '{expiryDate}');\n")
+        file.write(f"INSERT INTO FamilyTies (ReaderID, RelatedReaderID, RelationType) "
+                   f"VALUES ('{readerID}', '{relationReaderID}', '{relation}');\n")
 
 loanDates = []
 returnDates = []
@@ -81,7 +80,7 @@ with open("booksReturned.sql", "w") as file:
         
 
 
-# Generate sample data for Notfications
+# Generate sample data for Notifications
 with open("notifications.sql", "w") as file:
     # books that were on loan and are now returned (may be on loan again but now to a new reader)
     for _ in returnDates:
@@ -90,7 +89,7 @@ with open("notifications.sql", "w") as file:
             message = "Your book is due in 1 week! Please return it on time."
             sentDate = _ - timedelta(weeks=1)
             isRead = fake.boolean(chance_of_getting_true=50)
-            file.write(f"INSERT INTO Notfications (ReaderID, Message, SentDate, IsRead) "
+            file.write(f"INSERT INTO Notifications (ReaderID, Message, SentDate, IsRead) "
                     f"VALUES ('{readerID}', '{message}', '{sentDate}', '{isRead}');\n")
         
 

@@ -12,7 +12,7 @@ CREATE TABLE FamilyTies (
     TieID SERIAL PRIMARY KEY,
     ReaderID INT NOT NULL,
     RelatedReaderID INT NOT NULL,
-    RelationType VARCHAR(50) NOT NULL,
+    RelationType VARCHAR(50) CHECK (RelationType IN ('Parent', 'Child', 'Spouse', 'Sibling') OR RelationType IS NULL),
     FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID),
     FOREIGN KEY (RelatedReaderID) REFERENCES Readers(ReaderID)
 );
@@ -22,7 +22,7 @@ CREATE TABLE ReaderCard (
     CardID SERIAL PRIMARY KEY,
     ReaderID INT NOT NULL,
     CardType VARCHAR(20) CHECK (CardType IN ('Electronic', 'Physical')),
-    ExpirationDate DATE NOT NULL.
+    ExpirationDate DATE NOT NULL,
     FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID)
 );
 

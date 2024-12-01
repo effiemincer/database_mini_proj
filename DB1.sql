@@ -14,7 +14,7 @@ CREATE TABLE FamilyTies (
     RelatedReaderID INT NOT NULL,
     RelationType VARCHAR(8) CHECK (RelationType IN ('Parent', 'Child', 'Spouse', 'Sibling')),
     FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID),
-    FOREIGN KEY (RelatedReaderID) REFERENCES Readers(ReaderID)
+    FOREIGN KEY (RelatedReaderID) REFERENCES Readers(ReaderID) ON DELETE CASCADE
 );
 
 -- Table for ReaderCard
@@ -23,7 +23,7 @@ CREATE TABLE ReaderCard (
     ReaderID INT NOT NULL,
     CardType VARCHAR(20) CHECK (CardType IN ('Electronic', 'Physical')),
     ExpirationDate DATE NOT NULL,
-    FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID)
+    FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID) ON DELETE CASCADE
 );
 
 -- Table for BooksOnLoan
@@ -33,7 +33,7 @@ CREATE TABLE BooksOnLoan (
     BookID INT NOT NULL,
     LoanDate DATE NOT NULL,
     ReturnDate DATE NOT NULL,
-    FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID)
+    FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID) ON DELETE CASCADE
 );
 
 -- Table for BooksReturned

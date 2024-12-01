@@ -32,7 +32,7 @@ CREATE TABLE BooksOnLoan (
     ReaderID INT NOT NULL,
     BookID INT NOT NULL,
     LoanDate DATE NOT NULL,
-    ReturnDate DATE,
+    ReturnDate DATE NOT NULL,
     FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID)
 );
 
@@ -40,7 +40,17 @@ CREATE TABLE BooksOnLoan (
 CREATE TABLE BooksReturned (
     ReturnID SERIAL PRIMARY KEY,
     LoanID INT NOT NULL,
-    ConditionOnReturn TEXT,
+    ConditionOnReturn TEXT NOT NULL,
     ReturnDate DATE NOT NULL,
     FOREIGN KEY (LoanID) REFERENCES BooksOnLoan(LoanID) ON DELETE CASCADE
+);
+
+-- Table for Notifications
+CREATE TABLE Notifications (
+    NotificationID SERIAL PRIMARY KEY,
+    ReaderID INT NOT NULL,
+    Message TEXT NOT NULL,
+    SentDate DATE NOT NULL,
+    IsRead BOOLEAN NOT NULL,
+    FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID) ON DELETE CASCADE
 );

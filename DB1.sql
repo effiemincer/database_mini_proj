@@ -36,9 +36,6 @@ CREATE TABLE BooksOnLoan (
     FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID)
 );
 
--- Set the starting value of LoanID's sequence to 50000 becasue 50000 loans have been returned in our sample data
-ALTER SEQUENCE books_on_loan_loanid_seq RESTART WITH 50001;
-
 -- Table for BooksReturned
 CREATE TABLE BooksReturned (
     ReturnID SERIAL PRIMARY KEY,

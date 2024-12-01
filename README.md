@@ -4,6 +4,71 @@ Mini project for Database systems
 # ERD
 ![ERD](https://github.com/user-attachments/assets/07aa464f-10e5-4968-a0fc-585dcc354261)
 
+### *Why These Entities Were Chosen*
+
+1. *Readers*:
+   - Represents the primary users of the library system. All interactions, including loans, notifications, and relationships, are centered around readers. The entity ensures each reader is uniquely identifiable with attributes like ReaderID and PhoneNumber.
+
+2. *FamilyTies*:
+   - Allows the library to establish and track family-based relationships between readers. This is particularly useful for family-oriented libraries that offer shared memberships, discounts, or policies based on familial connections (e.g., parental borrowing limits for children).
+
+3. *ReaderCard*:
+   - Captures the details of library cards issued to readers. Including attributes like ExpirationDate ensures that card usage is valid and allows the library to send reminders for renewal or deactivation of expired cards.
+
+4. *Books*:
+   - Represents the library's inventory, ensuring that every book is uniquely identifiable. Attributes like ISBN and Genre allow efficient categorization and retrieval.
+
+5. *BooksOnLoan*:
+   - Tracks active loans, connecting specific readers to borrowed books. Attributes like LoanDate and DueDate allow the library to monitor borrowing periods and assess overdue penalties.
+
+6. *BooksReturned*:
+   - Captures return-related details, including the condition of the book and the date of return. This ensures proper inventory management and accountability for damages.
+
+7. *Notifications*:
+   - Central to the library’s communication system, Notifications tracks messages sent to readers. Notifications are used for:
+     - Reminders about upcoming due dates for books.
+     - Alerts about expired or expiring library cards.
+     - General updates or announcements (e.g., new book arrivals).
+   - Attributes like SentDate and IsRead ensure each notification is traceable and its status is tracked for better user engagement.
+
+---
+
+### *How the Design Was Built*
+
+1. *Use Cases*:
+   - *Readers*: Track user details for issuing loans, notifications, and library card management.
+   - *FamilyTies*: Provide support for libraries with family-based borrowing privileges or discounts.
+   - *ReaderCard*: Enable both physical and electronic access to library services, ensuring cards remain valid via expiration tracking.
+   - *Books and Loans*: Allow seamless tracking of which books are borrowed, by whom, and when they are due or returned.
+   - *Notifications*: Automate and track communication with readers, ensuring timely updates about their accounts and loans.
+
+2. *Target Users*:
+   - *Library Staff*: For managing books, loans, returns, and issuing cards.
+   - *Readers*: For viewing their loan history, managing notifications, and using library cards.
+   - *Library Management*: For maintaining accountability and ensuring compliance with borrowing policies.
+
+3. *Normalization (3NF)*:
+   - The design follows strict normalization rules:
+     - Each entity is unique and stores only attributes directly related to it.
+     - Relationships are properly represented using join tables (e.g., FamilyTies).
+     - All attributes are atomic and depend only on the primary key of their respective entities.
+
+4. *Notifications Integration*:
+   - The Notifications entity is linked to the Readers entity through the "Notified" relationship.
+   - Each notification is uniquely identified using NotificationID and captures:
+     - *Who*: The ReaderID associated with the notification.
+     - *What*: The Message content of the notification.
+     - *When*: The SentDate of the notification.
+     - *Status*: Whether the notification has been read (IsRead).
+
+5. *Why Notifications Matter*:
+   - Ensures proactive communication, reducing overdue books and keeping readers engaged.
+   - Provides accountability by logging sent notifications and their read status.
+
+6. *What Parts Are Not Covered*:
+   - Notifications currently do not include automation logic (e.g., generating notifications based on due dates or card expiration). This could be added later as part of a task scheduler or trigger system.
+   - Advanced notification categories (e.g., promotional messages) are not part of the current implementation but could be added as an attribute.
+
 
 # DSD
 ![image (1)](https://github.com/user-attachments/assets/8976634e-3431-47e2-82bb-db4bba49aa64)

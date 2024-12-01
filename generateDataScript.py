@@ -1,5 +1,6 @@
 from faker import Faker
 import random
+from datetime import datetime, timedelta
 
 fake = Faker()
 
@@ -38,6 +39,8 @@ with open("familyTies.sql", "w") as file:
         file.write(f"INSERT INTO FamilyTies (ReaderID, CardType, ExpirationDate) "
                    f"VALUES ('{readerID}', '{cardType}', '{expiryDate}');\n")
 
+loanDates = []
+returnDates = []
 
 # Generate sample data for BooksOnLoan
 with open("booksOnLoan.sql", "w") as file:
@@ -45,10 +48,12 @@ with open("booksOnLoan.sql", "w") as file:
     for _ in range(50000):  
         readerID = random.randint(1, 33333)
         bookID = random.randint(1, 100000)
-        loanDate = fake.date_between(start_date='-15y', end_date='-2m')
-        returnDate = fake.date_between(start_date=loanDate, end_date='today')
+        loanDate = fake.date_between(start_date='-15y', end_date='-1m')
+        loanDates.append(loanDate)
+        returnDate = loanDate + timedelta(weeks=4)
+        returnDates.append(returnDate)
         file.write(f"INSERT INTO BooksOnLoan (ReaderID, BookID, LoanDate, ReturnDate) "
-                   f"VALUES ('{readerID}', '{cardType}', '{loanDate}', '{returnDate}');\n")
+                   f"VALUES ('{readerID}', '{bookID}', '{loanDate}', '{returnDate}');\n")
         
     
     # all loans are still outstanding
@@ -56,9 +61,10 @@ with open("booksOnLoan.sql", "w") as file:
         readerID = random.randint(1, 33333)
         bookID = random.randint(1, 100000)
         loanDate = fake.date_between(start_date='-1m', end_date='today')
-        returnDate = fake.date_between(start_date='today', end_date='+1m')
+        returnDate = loanDate + timedelta(weeks=4)
+        returnDates.append(returnDate)
         file.write(f"INSERT INTO BooksOnLoan (ReaderID, BookID, LoanDate, ReturnDate) "
-                   f"VALUES ('{readerID}', '{cardType}', '{loanDate}', '{returnDate}');\n")
+                   f"VALUES ('{readerID}', '{bookID}', '{loanDate}', '{returnDate}');\n")
         
     
 CONDITION = ['Excellent', 'Good', 'Fair', 'Poor', 'Damaged']
@@ -68,9 +74,24 @@ with open("booksReturned.sql", "w") as file:
     for _ in range(50000):  
         loanID = _ + 1
         conditionOnReturn = CONDITION[random.randint(0, 4)]
-        returnDate = fake.date_between(start_date='-15y', end_date='today')
+        startDate = loanDates[_]
+        returnDate = fake.date_between(start_date=startDate, end_date='today')
         file.write(f"INSERT INTO BooksReturned (LoanID, CondtionOnReturn, ReturnDate) "
                    f"VALUES ('{loanID}', '{conditionOnReturn}', '{returnDate}');\n")
+        
+
+
+# Generate sample data for Notfications
+with open("notfications.sql", "w") as file:
+    # books that were on loan and are now returned (may be on loan again but now to a new reader)
+    for _ in returnDates:
+        if _ <= (datetime.today() + timedelta(weeks=1)).date():
+            readerID = random.randint(1, 33333)
+            message = "Your book is due in 1 week! Please return it on time."
+            sentDate = _ - timedelta(weeks=1)
+            isRead = fake.boolean(chance_of_getting_true=50)
+            file.write(f"INSERT INTO Notfications (ReaderID, Message, SentDate, IsRead) "
+                    f"VALUES ('{readerID}', '{message}', '{sentDate}', '{isRead}');\n")
         
 
         

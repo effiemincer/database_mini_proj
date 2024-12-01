@@ -6,4 +6,4 @@ Mini project for Database systems
 
 
 # DSD
-![DSD_readers](https://github.com/user-attachments/assets/3d699001-356c-4005-9630-01eda0d719a2)
+![image (1)](https://github.com/user-attachments/assets/8976634e-3431-47e2-82bb-db4bba49aa64)

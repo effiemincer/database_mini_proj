@@ -71,4 +71,5 @@ Mini project for Database systems
 
 
 # DSD
-![image (1)](https://github.com/user-attachments/assets/8976634e-3431-47e2-82bb-db4bba49aa64)
+![image (2)](https://github.com/user-attachments/assets/56b2ba59-7ec7-46e9-b3c1-fe1d7e815bee)
+

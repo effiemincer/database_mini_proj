@@ -1,0 +1,135 @@
+pg_dump: last built-in OID is 16383
+pg_dump: reading extensions
+pg_dump: identifying extension members
+pg_dump: reading schemas
+pg_dump: reading user-defined tables
+pg_dump: reading user-defined functions
+pg_dump: reading user-defined types
+pg_dump: reading procedural languages
+pg_dump: reading user-defined aggregate functions
+pg_dump: reading user-defined operators
+pg_dump: reading user-defined access methods
+pg_dump: reading user-defined operator classes
+pg_dump: reading user-defined operator families
+pg_dump: reading user-defined text search parsers
+pg_dump: reading user-defined text search templates
+pg_dump: reading user-defined text search dictionaries
+pg_dump: reading user-defined text search configurations
+pg_dump: reading user-defined foreign-data wrappers
+pg_dump: reading user-defined foreign servers
+pg_dump: reading default privileges
+pg_dump: reading user-defined collations
+pg_dump: reading user-defined conversions
+pg_dump: reading type casts
+pg_dump: reading transforms
+pg_dump: reading table inheritance information
+pg_dump: reading event triggers
+pg_dump: finding extension tables
+pg_dump: finding inheritance relationships
+pg_dump: reading column info for interesting tables
+pg_dump: finding table default expressions
+pg_dump: finding table check constraints
+pg_dump: flagging inherited columns in subtables
+pg_dump: reading partitioning data
+pg_dump: reading indexes
+pg_dump: flagging indexes in partitioned tables
+pg_dump: reading extended statistics
+pg_dump: reading constraints
+pg_dump: reading triggers
+pg_dump: reading rewrite rules
+pg_dump: reading policies
+pg_dump: reading row-level security policies
+pg_dump: reading publications
+pg_dump: reading publication membership of tables
+pg_dump: reading publication membership of schemas
+pg_dump: reading subscriptions
+pg_dump: reading subscription membership of tables
+pg_dump: reading large objects
+pg_dump: reading dependency data
+pg_dump: saving encoding = UTF8
+pg_dump: saving "standard_conforming_strings = on"
+pg_dump: saving "search_path = "
+pg_dump: dropping FK CONSTRAINT readercard readercard_readerid_fkey
+pg_dump: dropping FK CONSTRAINT notifications notifications_readerid_fkey
+pg_dump: dropping FK CONSTRAINT familyties familyties_relatedreaderid_fkey
+pg_dump: dropping FK CONSTRAINT familyties familyties_readerid_fkey
+pg_dump: dropping FK CONSTRAINT booksreturned booksreturned_loanid_fkey
+pg_dump: dropping FK CONSTRAINT booksonloan booksonloan_readerid_fkey
+pg_dump: dropping CONSTRAINT readers readers_pkey
+pg_dump: dropping CONSTRAINT readercard readercard_pkey
+pg_dump: dropping CONSTRAINT notifications notifications_pkey
+pg_dump: dropping CONSTRAINT familyties familyties_pkey
+pg_dump: dropping CONSTRAINT booksreturned booksreturned_pkey
+pg_dump: dropping CONSTRAINT booksonloan booksonloan_pkey
+pg_dump: dropping DEFAULT readers readerid
+pg_dump: dropping DEFAULT readercard cardid
+pg_dump: dropping DEFAULT notifications notificationid
+pg_dump: dropping DEFAULT familyties tieid
+pg_dump: dropping DEFAULT booksreturned returnid
+pg_dump: dropping DEFAULT booksonloan loanid
+pg_dump: dropping SEQUENCE readers_readerid_seq
+pg_dump: dropping TABLE readers
+pg_dump: dropping SEQUENCE readercard_cardid_seq
+pg_dump: dropping TABLE readercard
+pg_dump: dropping SEQUENCE notifications_notificationid_seq
+pg_dump: dropping TABLE notifications
+pg_dump: dropping SEQUENCE familyties_tieid_seq
+pg_dump: dropping TABLE familyties
+pg_dump: dropping SEQUENCE booksreturned_returnid_seq
+pg_dump: dropping TABLE booksreturned
+pg_dump: dropping SEQUENCE booksonloan_loanid_seq
+pg_dump: dropping TABLE booksonloan
+pg_dump: creating TABLE "public.booksonloan"
+pg_dump: creating SEQUENCE "public.booksonloan_loanid_seq"
+pg_dump: creating SEQUENCE OWNED BY "public.booksonloan_loanid_seq"
+pg_dump: creating TABLE "public.booksreturned"
+pg_dump: creating SEQUENCE "public.booksreturned_returnid_seq"
+pg_dump: creating SEQUENCE OWNED BY "public.booksreturned_returnid_seq"
+pg_dump: creating TABLE "public.familyties"
+pg_dump: creating SEQUENCE "public.familyties_tieid_seq"
+pg_dump: creating SEQUENCE OWNED BY "public.familyties_tieid_seq"
+pg_dump: creating TABLE "public.notifications"
+pg_dump: creating SEQUENCE "public.notifications_notificationid_seq"
+pg_dump: creating SEQUENCE OWNED BY "public.notifications_notificationid_seq"
+pg_dump: creating TABLE "public.readercard"
+pg_dump: creating SEQUENCE "public.readercard_cardid_seq"
+pg_dump: creating SEQUENCE OWNED BY "public.readercard_cardid_seq"
+pg_dump: creating TABLE "public.readers"
+pg_dump: creating SEQUENCE "public.readers_readerid_seq"
+pg_dump: creating SEQUENCE OWNED BY "public.readers_readerid_seq"
+pg_dump: creating DEFAULT "public.booksonloan loanid"
+pg_dump: creating DEFAULT "public.booksreturned returnid"
+pg_dump: creating DEFAULT "public.familyties tieid"
+pg_dump: creating DEFAULT "public.notifications notificationid"
+pg_dump: creating DEFAULT "public.readercard cardid"
+pg_dump: creating DEFAULT "public.readers readerid"
+pg_dump: processing data for table "public.booksonloan"
+pg_dump: dumping contents of table "public.booksonloan"
+pg_dump: processing data for table "public.booksreturned"
+pg_dump: dumping contents of table "public.booksreturned"
+pg_dump: processing data for table "public.familyties"
+pg_dump: dumping contents of table "public.familyties"
+pg_dump: processing data for table "public.notifications"
+pg_dump: dumping contents of table "public.notifications"
+pg_dump: processing data for table "public.readercard"
+pg_dump: dumping contents of table "public.readercard"
+pg_dump: processing data for table "public.readers"
+pg_dump: dumping contents of table "public.readers"
+pg_dump: executing SEQUENCE SET booksonloan_loanid_seq
+pg_dump: executing SEQUENCE SET booksreturned_returnid_seq
+pg_dump: executing SEQUENCE SET familyties_tieid_seq
+pg_dump: executing SEQUENCE SET notifications_notificationid_seq
+pg_dump: executing SEQUENCE SET readercard_cardid_seq
+pg_dump: executing SEQUENCE SET readers_readerid_seq
+pg_dump: creating CONSTRAINT "public.booksonloan booksonloan_pkey"
+pg_dump: creating CONSTRAINT "public.booksreturned booksreturned_pkey"
+pg_dump: creating CONSTRAINT "public.familyties familyties_pkey"
+pg_dump: creating CONSTRAINT "public.notifications notifications_pkey"
+pg_dump: creating CONSTRAINT "public.readercard readercard_pkey"
+pg_dump: creating CONSTRAINT "public.readers readers_pkey"
+pg_dump: creating FK CONSTRAINT "public.booksonloan booksonloan_readerid_fkey"
+pg_dump: creating FK CONSTRAINT "public.booksreturned booksreturned_loanid_fkey"
+pg_dump: creating FK CONSTRAINT "public.familyties familyties_readerid_fkey"
+pg_dump: creating FK CONSTRAINT "public.familyties familyties_relatedreaderid_fkey"
+pg_dump: creating FK CONSTRAINT "public.notifications notifications_readerid_fkey"
+pg_dump: creating FK CONSTRAINT "public.readercard readercard_readerid_fkey"

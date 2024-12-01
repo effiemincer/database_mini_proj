@@ -1,6 +1,9 @@
 # database_mini_proj
 Mini project for Database systems
 
+
+# Stage 1
+
 # ERD
 ![ERD](https://github.com/user-attachments/assets/07aa464f-10e5-4968-a0fc-585dcc354261)
 
@@ -81,3 +84,13 @@ Screenshots of the dump:
 ![image](https://github.com/user-attachments/assets/b8016182-b651-40e2-bc54-02d06790b8a7)
 
 
+
+# Stage 2
+## Backup
+Command for SQL backup: pg_dump -U postgres -h localhost -d "Mini Project" --file=backupSQL.sql --verbose --clean --if-exists 2> backupSQL.log
+
+Command for PSQL backup: pg_dump -U postgres -h localhost -d "Mini Project" --file=backupPSQL.sql --verbose --clean --if-exists -F c 2> backupPSQL.log
+
+Command for PSQL Restore: pg_restore -U postgres -h localhost -v -d "Mini Project" -F c backupPSQL.SQL 2> backupPSQL.log
+
+Everything from these dumps is in the folder titled: "Backup for Stage 2".

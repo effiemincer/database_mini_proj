@@ -34,10 +34,10 @@ with open("familyTies.sql", "w") as file:
         relationReaderID = random.randint(1, 33333) * 37 % 33333
         while relationReaderID == readerID:
             relationReaderID = random.randint(1, 33333) * 2 % 33333
-        cardType = CARDTYPE[random.randint(0,1)]
+        relation = RELATIONTPYE[random.randint(0,3)]
         expiryDate = fake.date_this_decade(before_today=True, after_today=True)
-        file.write(f"INSERT INTO FamilyTies (ReaderID, CardType, ExpirationDate) "
-                   f"VALUES ('{readerID}', '{cardType}', '{expiryDate}');\n")
+        file.write(f"INSERT INTO FamilyTies (ReaderID, RelationType, ExpirationDate) "
+                   f"VALUES ('{readerID}', '{relation}', '{expiryDate}');\n")
 
 loanDates = []
 returnDates = []
@@ -76,13 +76,13 @@ with open("booksReturned.sql", "w") as file:
         conditionOnReturn = CONDITION[random.randint(0, 4)]
         startDate = loanDates[_]
         returnDate = fake.date_between(start_date=startDate, end_date='today')
-        file.write(f"INSERT INTO BooksReturned (LoanID, CondtionOnReturn, ReturnDate) "
+        file.write(f"INSERT INTO BooksReturned (LoanID, ConditionOnReturn, ReturnDate) "
                    f"VALUES ('{loanID}', '{conditionOnReturn}', '{returnDate}');\n")
         
 
 
 # Generate sample data for Notfications
-with open("notfications.sql", "w") as file:
+with open("notifications.sql", "w") as file:
     # books that were on loan and are now returned (may be on loan again but now to a new reader)
     for _ in returnDates:
         if _ <= (datetime.today() + timedelta(weeks=1)).date():

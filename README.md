@@ -76,4 +76,8 @@ Mini project for Database systems
 
 # pg_dump
 pg_dump -U postgres -h localhost -d "Mini Project" > MiniProjectDump.sql
+Screenshots of the dump:
+![Uploading image.png…]()
+![image](https://github.com/user-attachments/assets/b8016182-b651-40e2-bc54-02d06790b8a7)
+
 

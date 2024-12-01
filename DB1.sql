@@ -4,7 +4,7 @@ CREATE TABLE Readers (
     FirstName VARCHAR(50) NOT NULL,
     LastName VARCHAR(50) NOT NULL,
     Address TEXT NOT NULL,
-    PhoneNumber VARCHAR(15)
+    PhoneNumber VARCHAR(25)
 );
 
 -- Table for FamilyTies

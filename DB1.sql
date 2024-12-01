@@ -12,7 +12,7 @@ CREATE TABLE FamilyTies (
     TieID SERIAL PRIMARY KEY,
     ReaderID INT NOT NULL,
     RelatedReaderID INT NOT NULL,
-    RelationType VARCHAR(50) CHECK (RelationType IN ('Parent', 'Child', 'Spouse', 'Sibling') OR RelationType IS NULL),
+    RelationType VARCHAR(8) CHECK (RelationType IN ('Parent', 'Child', 'Spouse', 'Sibling')),
     FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID),
     FOREIGN KEY (RelatedReaderID) REFERENCES Readers(ReaderID)
 );

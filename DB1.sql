@@ -22,8 +22,7 @@ CREATE TABLE ReaderCard (
     CardID SERIAL PRIMARY KEY,
     ReaderID INT NOT NULL,
     CardType VARCHAR(20) CHECK (CardType IN ('Electronic', 'Physical')),
-    ExpirationDate DATE NOT NULL,
-    IsActive BOOLEAN NOT NULL,
+    ExpirationDate DATE NOT NULL.
     FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID)
 );
 

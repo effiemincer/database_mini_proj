@@ -1,0 +1,49 @@
+{
+  "entities": {
+    "Readers": {
+      "attributes": ["ReaderID", "FirstName", "LastName", "Address", "PhoneNumber"]
+    },
+    "FamilyTies": {
+      "attributes": ["TieID", "ReaderID", "RelatedReaderID", "RelationshipType"]
+    },
+    "ReaderCard": {
+      "attributes": ["CardID", "ReaderID", "CardType", "ExpirationDate", "IsActive"]
+    },
+    "Books": {
+      "attributes": ["BookID", "Title", "Author", "ISBN", "Genre"]
+    },
+    "BooksOnLoan": {
+      "attributes": ["LoanID", "ReaderID", "BookID", "LoanDate", "DueDate"]
+    },
+    "BooksReturned": {
+      "attributes": ["ReturnID", "LoanID", "ReturnDate", "ConditionOnReturn"]
+    }
+  },
+  "relationships": {
+    "Family Relationship": {
+      "type": "Many-to-Many",
+      "entities": ["Readers", "Readers"],
+      "attributes": ["RelationshipType"]
+    },
+    "Borrowed": {
+      "type": "One-to-Many",
+      "entities": ["Readers", "BooksOnLoan"],
+      "attributes": []
+    },
+    "Loans": {
+      "type": "Many-to-One",
+      "entities": ["BooksOnLoan", "Books"],
+      "attributes": []
+    },
+    "Returned": {
+      "type": "One-to-One",
+      "entities": ["BooksOnLoan", "BooksReturned"],
+      "attributes": []
+    },
+    "Assigned": {
+      "type": "One-to-Many",
+      "entities": ["Readers", "ReaderCard"],
+      "attributes": []
+    }
+  }
+}

@@ -36,11 +36,14 @@ CREATE TABLE BooksOnLoan (
     FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID)
 );
 
+-- Set the starting value of LoanID's sequence to 30000
+ALTER SEQUENCE books_on_loan_loanid_seq RESTART WITH 30000;
+
 -- Table for BooksReturned
 CREATE TABLE BooksReturned (
     ReturnID SERIAL PRIMARY KEY,
     LoanID INT NOT NULL,
     ConditionOnReturn TEXT,
     ReturnDate DATE NOT NULL,
-    FOREIGN KEY (LoanID) REFERENCES BooksOnLoan(LoanID)
+    FOREIGN KEY (LoanID) REFERENCES BooksOnLoan(LoanID) ON DELETE CASCADE
 );

@@ -87,10 +87,11 @@ Screenshots of the dump:
 # Stage 2
 ## Backup
 Run these commands in windows powershell in cd 'C:\Program Files\PostgreSQL\17\bin':
-Command for SQL backup: Measure-Command {.\pg_dump -U postgres -h localhost -d "Mini Project" --file=backupSQL.sql --verbose --clean --if-exists 2> backupSQL.log}
 
-Command for PSQL backup: Measure-Command {.\pg_dump -U postgres -h localhost -d "Mini Project" --file=backupPSQL.sql --verbose --clean --if-exists -F c 2> backupPSQL.log}
+*Command for SQL backup:* Measure-Command {.\pg_dump -U postgres -h localhost -d "Mini Project" --file=backupSQL.sql --verbose --clean --if-exists 2> backupSQL.log}
 
-Command for PSQL Restore: Measure-Command {.\pg_restore -U postgres -h localhost -v -d "Mini Project" -F c --if-exists --clean backupPSQL.SQL 2> restorePSQL.log}
+*Command for PSQL backup:* Measure-Command {.\pg_dump -U postgres -h localhost -d "Mini Project" --file=backupPSQL.sql --verbose --clean --if-exists -F c 2> backupPSQL.log}
+
+*Command for PSQL Restore:* Measure-Command {.\pg_restore -U postgres -h localhost -v -d "Mini Project" -F c --if-exists --clean backupPSQL.SQL 2> restorePSQL.log}
 
 Everything from these dumps is in the folder titled: "Backup for Stage 2".

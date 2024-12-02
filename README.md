@@ -99,6 +99,9 @@ Run these commands in windows powershell as Administrator:
 
 The files with timing information is stored in the folder titled: "Backup for Stage 2".
 
+![WhatsApp Image 2024-12-02 at 17 15 43_db1db7cc](https://github.com/user-attachments/assets/263941aa-45e4-4ffb-a394-c6c9121a9dae)
+
+
 
 ## Queries
 Any query or parameterized query that returned tables are stored as csv files in /Query Responses. Responses that are just a message are commented in the sql file underneath the query.

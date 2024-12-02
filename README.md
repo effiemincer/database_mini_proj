@@ -5,7 +5,8 @@ Mini project for Database systems
 # Stage 1
 
 # ERD
-![updatedERD](https://github.com/user-attachments/assets/fc4d4c2b-ccdd-4799-833f-18c76c632c3a)
+![image](https://github.com/user-attachments/assets/7ea9b400-9193-4dca-854a-fdfc6a8af3b3)
+
 
 
 ### *Why These Entities Were Chosen*

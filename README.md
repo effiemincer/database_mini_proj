@@ -103,7 +103,7 @@ The files with timing information is stored in the folder titled: ["Backup for S
 
 
 ## Queries
-Any query or parameterized query that returned tables are stored as csv files in [Query Responses](https://github.com/effiemincer/database_mini_proj/tree/main/Query%20Responses). Responses that are just a message are commented in the sql file underneath the query.
+Any query or parameterized query that returned tables are stored as csv files in [Query Responses](https://github.com/effiemincer/database_mini_proj/tree/main/Query%20Responses). Responses that are just a message are commented in the sql file underneath the query. The log file with timing and output is [here](https://github.com/effiemincer/database_mini_proj/blob/main/QueriesOutputLog.log).
 
 ![WhatsApp Image 2024-12-02 at 17 13 50_76a35d22](https://github.com/user-attachments/assets/0653f90d-1da0-43bc-aa86-6b6483f8a723)
 
@@ -119,7 +119,7 @@ Here are the queries in our own words, they are all available in full with timin
 8. Remove a specific reader from the system (and cascade delete related loans).
 
 ## Parameterized Queries
-Any query or parameterized query that returned tables are stored as csv files in /Query Responses. Responses that are just a message are commented in the sql file underneath the query.
+Any query or parameterized query that returned tables are stored as csv files in [Query Responses](https://github.com/effiemincer/database_mini_proj/tree/main/Query%20Responses). Responses that are just a message are commented in the sql file underneath the query. The log file with timing and output is [here](https://github.com/effiemincer/database_mini_proj/blob/main/ParamsQueriesOutputLog.log).
 
 Here are the paramterized queries in our own words, they are all available in full with timing information in [ParamsQueries.sql](https://github.com/effiemincer/database_mini_proj/blob/main/ParamsQueries.sql):
 1. Retrieve All Family Members for a Specific Reader.

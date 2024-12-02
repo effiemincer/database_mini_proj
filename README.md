@@ -202,6 +202,28 @@ ON BooksOnLoan (ReaderID, LoanDate DESC);
 5. **idx_booksonloan_readerid_loandate**: Speeds up joins and efficiently retrieves the most recent LoanDate for each ReaderID.
 
 
+Timing of commands before and after indices:
+
+| Query # | Time before indices   | Time after indices   |
+|------------|------------|------------|
+| 1| 00.169s | 00.169s |
+| 2| 02:15.844s | 00.217s |
+| 3| 00.112s | 00.112s |
+| 4| 00.125s | 00.125s |
+| 5| 00.422s | 00.422s |
+| 6| 00.432s | 00.432s |
+| 7| 00.045s | 00.045s |
+| 8| 00.050s | 00.050s |
+
+| Parameterized Query # | Time before indices   | Time after indices   |
+|------------|------------|------------|
+| 1| 00.046s | 00.046s |
+| 2| 00.060s | 00.060s |
+| 3| 00.190s | 00.190s |
+| 4| 01:06.616s | 02.627s |
+
+As we can see our 2 longest commands have been significantly reduced!
+
 ## Constraints
 
 To see Constraints see the file [Constraints.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Constraints.sql). 

@@ -158,7 +158,7 @@ ON Notifications (SentDate DESC);
 
 ---
 
-### *Index 4
+### *Index 4*
 
 sql
 CREATE INDEX idx_notifications_readerid_sentdate
@@ -169,7 +169,7 @@ ON Notifications (ReaderID, SentDate DESC);
 
 ---
 
-### *Index 5
+### *Index 5*
 
 sql
 CREATE INDEX idx_booksonloan_readerid_loandate

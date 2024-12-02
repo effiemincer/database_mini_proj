@@ -39,7 +39,7 @@ with open("familyTies.sql", "w") as file:
                    f"VALUES ('{readerID}', '{relationReaderID}', '{relation}');\n")
 
 loanDates = []
-returnDates = []
+dueDates = []
 
 # Generate sample data for BooksOnLoan
 with open("booksOnLoan.sql", "w") as file:
@@ -49,21 +49,22 @@ with open("booksOnLoan.sql", "w") as file:
         bookID = random.randint(1, 100000)
         loanDate = fake.date_between(start_date='-15y', end_date='-1m')
         loanDates.append(loanDate)
-        returnDate = loanDate + timedelta(weeks=4)
-        returnDates.append(returnDate)
-        file.write(f"INSERT INTO BooksOnLoan (ReaderID, BookID, LoanDate, ReturnDate) "
-                   f"VALUES ('{readerID}', '{bookID}', '{loanDate}', '{returnDate}');\n")
+        dueDate = loanDate + timedelta(weeks=4)
+        dueDates.append(dueDate)
+        file.write(f"INSERT INTO BooksOnLoan (ReaderID, BookID, LoanDate, DueDate) "
+                   f"VALUES ('{readerID}', '{bookID}', '{loanDate}', '{dueDate}');\n")
         
-    
+    fake = Faker()
+
     # all loans are still outstanding
     for _ in range(50000):  
         readerID = random.randint(1, 33333)
         bookID = random.randint(1, 100000)
-        loanDate = fake.date_between(start_date='-1m', end_date='today')
-        returnDate = loanDate + timedelta(weeks=4)
-        returnDates.append(returnDate)
-        file.write(f"INSERT INTO BooksOnLoan (ReaderID, BookID, LoanDate, ReturnDate) "
-                   f"VALUES ('{readerID}', '{bookID}', '{loanDate}', '{returnDate}');\n")
+        loanDate = fake.date_between(start_date='-4w', end_date='today')
+        dueDate = loanDate + timedelta(weeks=4)
+        dueDates.append(dueDate)
+        file.write(f"INSERT INTO BooksOnLoan (ReaderID, BookID, LoanDate, DueDate) "
+                   f"VALUES ('{readerID}', '{bookID}', '{loanDate}', '{dueDate}');\n")
         
     
 CONDITION = ['Excellent', 'Good', 'Fair', 'Poor', 'Damaged']
@@ -83,7 +84,7 @@ with open("booksReturned.sql", "w") as file:
 # Generate sample data for Notifications
 with open("notifications.sql", "w") as file:
     # books that were on loan and are now returned (may be on loan again but now to a new reader)
-    for _ in returnDates:
+    for _ in dueDates:
         if _ <= (datetime.today() + timedelta(weeks=1)).date():
             readerID = random.randint(1, 33333)
             message = "Your book is due in 1 week! Please return it on time."

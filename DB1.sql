@@ -32,7 +32,7 @@ CREATE TABLE BooksOnLoan (
     ReaderID INT NOT NULL,
     BookID INT NOT NULL,
     LoanDate DATE NOT NULL,
-    ReturnDate DATE NOT NULL,
+    DueDate DATE NOT NULL,
     FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID) ON DELETE CASCADE
 );
 

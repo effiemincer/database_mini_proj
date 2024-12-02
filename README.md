@@ -102,6 +102,9 @@ The files with timing information is stored in the folder titled: "Backup for St
 ## Queries
 Any query or parameterized query that returned tables are stored as csv files in /Query Responses. Responses that are just a message are commented in the sql file underneath the query.
 
+![WhatsApp Image 2024-12-02 at 17 13 50_76a35d22](https://github.com/user-attachments/assets/0653f90d-1da0-43bc-aa86-6b6483f8a723)
+
+
 Here are the queries in our own words, they are all available in full with timing information in Queries.sql:
 1. Retrieve a list of all readers along with the total number of books they have ever borrowed.
 2. Find the last notification sent to each reader and its status.
@@ -164,7 +167,7 @@ ON Notifications (SentDate DESC);
 
 ---
 
-### *Index 4*
+### *Index 4: Optimize Notifications for Reader-Specific Lookups and Recent Activity*
 
 sql
 CREATE INDEX idx_notifications_readerid_sentdate
@@ -175,7 +178,7 @@ ON Notifications (ReaderID, SentDate DESC);
 
 ---
 
-### *Index 5*
+### *Index 5: Optimize Book Loan Activity and Inactive Reader Filtering*
 
 sql
 CREATE INDEX idx_booksonloan_readerid_loandate
@@ -193,12 +196,19 @@ ON BooksOnLoan (ReaderID, LoanDate DESC);
 4. **idx_notifications_readerid_sentdate**: Enables fast lookups, sorting, and aggregation of notifications based on ReaderID.
 5. **idx_booksonloan_readerid_loandate**: Speeds up joins and efficiently retrieves the most recent LoanDate for each ReaderID.
 
+The create queries for the above indices are stored in Constraints.sql.
+
 
 ## Constraints
 
 To see Constraints see the file Constraints.sql. 
 
-To see Tests done on the restraints as well as errors thrown see the file ConstraintsErrorMessages.log. For a summary of the inputs and outputs, see below.
+To see Tests done on the restraints as well as errors thrown see the file ConstraintsErrorMessages.log. 
+
+![WhatsApp Image 2024-12-02 at 17 39 36_a2b8ca57](https://github.com/user-attachments/assets/bea7f139-c143-46aa-a4eb-090aa22973be)
+
+
+For a summary of the inputs and outputs, see below.
 
 Here's a summary of the tests conducted along with the explanation of the errors thrown:
 
@@ -269,3 +279,8 @@ Here's a summary of the tests conducted along with the explanation of the errors
 #### **BooksReturned**
 - **Test**: Updated the condition of a returned book to an invalid value.
 - **Error**: Violates the `chk_conditiononreturn` constraint.
+
+  Here is a screenshot of an example of a query that fails to follow our databases constraints.
+
+  ![WhatsApp Image 2024-12-02 at 17 39 04_4f8eb440](https://github.com/user-attachments/assets/4f4bc2f2-8632-4756-a78c-a1701d83b176)
+

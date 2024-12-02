@@ -5,8 +5,8 @@ Mini project for Database systems
 # Stage 1
 
 # ERD
+[ERD.json](https://github.com/effiemincer/database_mini_proj/blob/main/ERD.json)
 ![image](https://github.com/user-attachments/assets/7ea9b400-9193-4dca-854a-fdfc6a8af3b3)
-
 
 
 ### *Why These Entities Were Chosen*
@@ -72,7 +72,7 @@ Mini project for Database systems
 ![image (3)](https://github.com/user-attachments/assets/d723f5ab-8abb-48d4-b187-5df511ac8272)
 
 # SQL File Reflecting Database Build
-The file titled DB1.sql has our database schema and build.
+The file titled [DB1.sql](https://github.com/effiemincer/database_mini_proj/blob/main/DB1.sql) has our database schema and build.
 
 # Data Population Script and SQL Files
 [Link to the folder with the population script and population sql files](https://github.com/effiemincer/database_mini_proj/tree/main/Population%20Script%20and%20Files)

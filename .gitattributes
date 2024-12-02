@@ -1,1 +1,9 @@
-*.sql filter=lfs diff=lfs merge=lfs -text
+booksOnLoan.sql filter=lfs diff=lfs merge=lfs -text
+booksReturned.sql filter=lfs diff=lfs merge=lfs -text
+familyTies.sql filter=lfs diff=lfs merge=lfs -text
+notifications.sql filter=lfs diff=lfs merge=lfs -text
+readerCard.sql filter=lfs diff=lfs merge=lfs -text
+readers.sql filter=lfs diff=lfs merge=lfs -text
+backupPSQL.sql filter=lfs diff=lfs merge=lfs -text
+backupSQL.sql filter=lfs diff=lfs merge=lfs -text
+MiniProjectDump.sql filter=lfs diff=lfs merge=lfs -text

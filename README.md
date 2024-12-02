@@ -95,3 +95,7 @@ Run these commands in windows powershell as Administrator:
 *Command for PSQL Restore:* Measure-Command {pg_restore -U postgres -h localhost -v -d "Mini Project" -F c --if-exists --clean backupPSQL.SQL 2> restorePSQL.log}
 
 The files with timing information is stored in the folder titled: "Backup for Stage 2".
+
+
+
+## Constraints

@@ -76,6 +76,9 @@ Mini project for Database systems
 # DSD
 ![image (3)](https://github.com/user-attachments/assets/d723f5ab-8abb-48d4-b187-5df511ac8272)
 
+# SQL File Reflecting Database Build
+The file titled DB1.sql has our database schema and build.
+
 # pg_dump
 pg_dump -U postgres -h localhost -d "Mini Project" > MiniProjectDump.sql
 Screenshots of the dump:

@@ -96,6 +96,25 @@ Run these commands in windows powershell as Administrator:
 
 The files with timing information is stored in the folder titled: "Backup for Stage 2".
 
+
+## Queries
+Here are the queries in our own words, they are all available in full with timing information in Queries.sql:
+1. Retrieve a list of all readers along with the total number of books they have ever borrowed.
+2. Find the last notification sent to each reader and its status.
+3. Calculate the average number of books borrowed by readers for each card type ('Electronic' or 'Physical').
+4. Retrieve a list of readers along with the number of their family members and the total number of books borrowed by their family members.
+5. Update unread notifications older than a month to indicate follow-up is needed.
+6. Extend the return date for all overdue loans by 14 days.
+7. Delete all loan records with a ReturnDate older than one year.
+8. Remove a specific reader from the system (and cascade delete related loans).
+
+## Parameterized Queries
+Here are the paramterized queries in our own words, they are all available in full with timing information in ParamsQueries.sql:
+1. Retrieve All Family Members for a Specific Reader.
+2. Find Readers Who Borrowed More Than a Specified Number of Books Within a Date Range.
+3. Update the expiration date of reader cards by extending them by one year for readers who have borrowed more than a specified number of books within the last year.
+4. Delete readers who have not borrowed any books in the last x years.
+
 ## Indexes
 ### *Index 1: Optimize Reader and ReaderCard Relationships*
 *Purpose*: Enhance performance for operations that join Readers and ReaderCard tables. This relationship is fundamental since every reader has an associated card.
@@ -139,13 +158,34 @@ ON Notifications (SentDate DESC);
 
 ---
 
+### *Index 4
+
+sql
+CREATE INDEX idx_notifications_readerid_sentdate
+ON Notifications (ReaderID, SentDate DESC);
+
+*Reason*:
+- This index optimizes queries by enabling fast lookups, sorting, and aggregation of notifications based on ReaderID and the most recent SentDate.
+
+---
+
+### *Index 5
+
+sql
+CREATE INDEX idx_booksonloan_readerid_loandate
+ON BooksOnLoan (ReaderID, LoanDate DESC);
+
+*Reason*:
+- This index speeds up joins and efficiently retrieves the most recent LoanDate for each ReaderID to optimize filtering inactive readers.
+
+---
+
 ### *Summary of Indices*
 1. **idx_reader_card_readerid**: Supports efficient joins between Readers and ReaderCard.
 2. **idx_booksreturned_loanid**: Optimizes the workflow between loans and returns for books.
 3. **idx_notifications_sentdate**: Enhances access to notifications, especially for recent or date-based queries.
-
-These indices are designed to address the key relationships and patterns inherent in your database design, ensuring better performance across typical operations. Let me know if you'd like to tailor these further!
-
+4. **idx_notifications_readerid_sentdate**: Enables fast lookups, sorting, and aggregation of notifications based on ReaderID.
+5. **idx_booksonloan_readerid_loandate**: Speeds up joins and efficiently retrieves the most recent LoanDate for each ReaderID.
 
 
 ## Constraints

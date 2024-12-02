@@ -96,6 +96,25 @@ Run these commands in windows powershell as Administrator:
 
 The files with timing information is stored in the folder titled: "Backup for Stage 2".
 
+
+## Queries
+Here are the queries in our own words, they are all available in full with timing information in Queries.sql:
+1. Retrieve a list of all readers along with the total number of books they have ever borrowed.
+2. Find the last notification sent to each reader and its status.
+3. Calculate the average number of books borrowed by readers for each card type ('Electronic' or 'Physical').
+4. Retrieve a list of readers along with the number of their family members and the total number of books borrowed by their family members.
+5. Update unread notifications older than a month to indicate follow-up is needed.
+6. Extend the return date for all overdue loans by 14 days.
+7. Delete all loan records with a ReturnDate older than one year.
+8. Remove a specific reader from the system (and cascade delete related loans).
+
+## Parameterized Queries
+Here are the paramterized queries in our own words, they are all available in full with timing information in ParamsQueries.sql:
+1. Retrieve All Family Members for a Specific Reader.
+2. Find Readers Who Borrowed More Than a Specified Number of Books Within a Date Range.
+3. Update the expiration date of reader cards by extending them by one year for readers who have borrowed more than a specified number of books within the last year.
+4. Delete readers who have not borrowed any books in the last x years.
+
 ## Indexes
 ### *Index 1: Optimize Reader and ReaderCard Relationships*
 *Purpose*: Enhance performance for operations that join Readers and ReaderCard tables. This relationship is fundamental since every reader has an associated card.
@@ -139,13 +158,108 @@ ON Notifications (SentDate DESC);
 
 ---
 
+### *Index 4
+
+sql
+CREATE INDEX idx_notifications_readerid_sentdate
+ON Notifications (ReaderID, SentDate DESC);
+
+*Reason*:
+- This index optimizes queries by enabling fast lookups, sorting, and aggregation of notifications based on ReaderID and the most recent SentDate.
+
+---
+
+### *Index 5
+
+sql
+CREATE INDEX idx_booksonloan_readerid_loandate
+ON BooksOnLoan (ReaderID, LoanDate DESC);
+
+*Reason*:
+- This index speeds up joins and efficiently retrieves the most recent LoanDate for each ReaderID to optimize filtering inactive readers.
+
+---
+
 ### *Summary of Indices*
 1. **idx_reader_card_readerid**: Supports efficient joins between Readers and ReaderCard.
 2. **idx_booksreturned_loanid**: Optimizes the workflow between loans and returns for books.
 3. **idx_notifications_sentdate**: Enhances access to notifications, especially for recent or date-based queries.
-
-These indices are designed to address the key relationships and patterns inherent in your database design, ensuring better performance across typical operations. Let me know if you'd like to tailor these further!
-
+4. **idx_notifications_readerid_sentdate**: Enables fast lookups, sorting, and aggregation of notifications based on ReaderID.
+5. **idx_booksonloan_readerid_loandate**: Speeds up joins and efficiently retrieves the most recent LoanDate for each ReaderID.
 
 
 ## Constraints
+
+To see Constraints see the file Constraints.sql. 
+
+To see Tests done on the restraints as well as errors thrown see the file ConstraintsErrorMessages.log. For a summary of the inputs and outputs, see below.
+
+Here's a summary of the tests conducted along with the explanation of the errors thrown:
+
+### **1. Readers Table Constraints**
+#### **A. Invalid Phone Number Insertion**
+- **Test**: Inserted a record with an invalid phone number.
+- **Error**: Violates the `chk_phone_number` constraint, which ensures that the phone number follows a valid format.
+
+#### **B. Duplicate Contact**
+- **Test**: Inserted two identical records with the same name and phone number.
+- **Error**: Violates the `unique_reader_contact` constraint, which enforces unique combinations of `FirstName`, `LastName`, and `PhoneNumber`.
+
+---
+
+### **2. FamilyTies Constraints**
+#### **A. Self-Referencing Family Tie**
+- **Test**: Attempted to create a family tie where a reader is related to themselves.
+- **Error**: Violates the `chk_different_readers` constraint, which ensures `ReaderID` and `RelatedReaderID` are different.
+
+#### **B. Invalid Relation Type**
+- **Test**: Inserted a family tie with an invalid `RelationType` value.
+- **Error**: Violates the `familyties_relationtype_check` constraint, which ensures `RelationType` contains predefined valid values.
+
+#### **C. Duplicate Family Tie**
+- **Test**: Inserted two identical family ties between the same `ReaderID` and `RelatedReaderID`.
+- **Error**: Violates the `unique_family_relation` constraint, which prevents duplicate relationships.
+
+---
+
+### **3. ReaderCard Constraints**
+#### **A. Expired Card**
+- **Test**: Attempted to insert a card with an already expired `ExpirationDate`.
+- **Error**: Not explicitly mentioned as invalid expiration date; error instead refers to a `unique_reader_card` constraint, possibly due to a pre-existing card of the same type.
+
+#### **B. Multiple Cards of Same Type**
+- **Test**: Inserted multiple cards of the same type for one reader.
+- **Error**: Violates the `unique_reader_card` constraint, which ensures a reader can only have one card of each type.
+
+---
+
+### **4. BooksOnLoan Constraints**
+#### **A. Invalid Date Range**
+- **Test**: Created a loan where the `DueDate` is earlier than the `LoanDate`.
+- **Error**: Violates the `chk_loan_dates` constraint, which ensures the `DueDate` is later than the `LoanDate`.
+
+---
+
+### **5. BooksReturned Constraints**
+#### **A. Invalid Book Condition**
+- **Test**: Returned a book with an invalid `ConditionOnReturn` value.
+- **Error**: Violates the `chk_conditiononreturn` constraint, which restricts `ConditionOnReturn` to predefined acceptable values.
+
+---
+
+### **6. Update Constraint Violation Tests**
+#### **Readers Table**
+- **Test**: Updated a reader's phone number to an invalid value.
+- **Error**: Violates the `chk_phone_number` constraint.
+
+#### **FamilyTies**
+- **Test**: Updated a family tie to make it self-referencing.
+- **Error**: Violates the `chk_different_readers` constraint.
+
+#### **BooksOnLoan**
+- **Test**: Updated a loan record to have a `DueDate` earlier than `LoanDate`.
+- **Error**: Violates the `chk_loan_dates` constraint.
+
+#### **BooksReturned**
+- **Test**: Updated the condition of a returned book to an invalid value.
+- **Error**: Violates the `chk_conditiononreturn` constraint.

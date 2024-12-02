@@ -5,12 +5,14 @@ Mini project for Database systems
 # Stage 1
 
 # ERD
-![ERD](https://github.com/user-attachments/assets/07aa464f-10e5-4968-a0fc-585dcc354261)
+![image](https://github.com/user-attachments/assets/7ea9b400-9193-4dca-854a-fdfc6a8af3b3)
+
+
 
 ### *Why These Entities Were Chosen*
 
 1. *Readers*:
-   - Represents the primary users of the library system. All interactions, including loans, notifications, and relationships, are centered around readers. The entity ensures each reader is uniquely identifiable with attributes like ReaderID and PhoneNumber.
+   - Represents the primary users of the library system. All interactions, including loans, notifications, and relationships, are centered around readers. The entity ensures each reader is uniquely identifiable by ReaderID.
 
 2. *FamilyTies*:
    - Allows the library to establish and track family-based relationships between readers. This is particularly useful for family-oriented libraries that offer shared memberships, discounts, or policies based on familial connections (e.g., parental borrowing limits for children).
@@ -18,16 +20,13 @@ Mini project for Database systems
 3. *ReaderCard*:
    - Captures the details of library cards issued to readers. Including attributes like ExpirationDate ensures that card usage is valid and allows the library to send reminders for renewal or deactivation of expired cards.
 
-4. *Books*:
-   - Represents the library's inventory, ensuring that every book is uniquely identifiable. Attributes like ISBN and Genre allow efficient categorization and retrieval.
-
-5. *BooksOnLoan*:
+4. *BooksOnLoan*:
    - Tracks active loans, connecting specific readers to borrowed books. Attributes like LoanDate and DueDate allow the library to monitor borrowing periods and assess overdue penalties.
 
-6. *BooksReturned*:
+5. *BooksReturned*:
    - Captures return-related details, including the condition of the book and the date of return. This ensures proper inventory management and accountability for damages.
 
-7. *Notifications*:
+6. *Notifications*:
    - Central to the library’s communication system, Notifications tracks messages sent to readers. Notifications are used for:
      - Reminders about upcoming due dates for books.
      - Alerts about expired or expiring library cards.
@@ -68,10 +67,6 @@ Mini project for Database systems
    - Ensures proactive communication, reducing overdue books and keeping readers engaged.
    - Provides accountability by logging sent notifications and their read status.
 
-6. *What Parts Are Not Covered*:
-   - Notifications currently do not include automation logic (e.g., generating notifications based on due dates or card expiration). This could be added later as part of a task scheduler or trigger system.
-   - Advanced notification categories (e.g., promotional messages) are not part of the current implementation but could be added as an attribute.
-
 
 # DSD
 ![image (3)](https://github.com/user-attachments/assets/d723f5ab-8abb-48d4-b187-5df511ac8272)
@@ -80,7 +75,9 @@ Mini project for Database systems
 The file titled DB1.sql has our database schema and build.
 
 # pg_dump
-pg_dump -U postgres -h localhost -d "Mini Project" > MiniProjectDump.sql
+### pg_dump command: 
+   pg_dump -U postgres -h localhost -d "Mini Project" > MiniProjectDump.sql
+   
 Screenshots of the dump:
 ![image](https://github.com/user-attachments/assets/7fb5832f-ee11-4314-bea3-0591a2e70494)
 ![image](https://github.com/user-attachments/assets/b8016182-b651-40e2-bc54-02d06790b8a7)
@@ -89,7 +86,7 @@ Screenshots of the dump:
 
 # Stage 2
 ## Backup
-Run these commands in windows powershell as Administrator:
+Run these commands in windows powershell:
 
 *Command for SQL backup:* Measure-Command {pg_dump -U postgres -h localhost -d "Mini Project" --file=backupSQL.sql --verbose --clean --if-exists 2> backupSQL.log}
 
@@ -99,9 +96,14 @@ Run these commands in windows powershell as Administrator:
 
 The files with timing information is stored in the folder titled: "Backup for Stage 2".
 
+![WhatsApp Image 2024-12-02 at 17 15 43_e289a98e](https://github.com/user-attachments/assets/f13a1715-7b19-4f43-96fc-b5613efce293)
+
 
 ## Queries
 Any query or parameterized query that returned tables are stored as csv files in /Query Responses. Responses that are just a message are commented in the sql file underneath the query.
+
+![WhatsApp Image 2024-12-02 at 17 13 50_76a35d22](https://github.com/user-attachments/assets/0653f90d-1da0-43bc-aa86-6b6483f8a723)
+
 
 Here are the queries in our own words, they are all available in full with timing information in Queries.sql:
 1. Retrieve a list of all readers along with the total number of books they have ever borrowed.
@@ -165,7 +167,7 @@ ON Notifications (SentDate DESC);
 
 ---
 
-### *Index 4*
+### *Index 4: Optimize Notifications for Reader-Specific Lookups and Recent Activity*
 
 sql
 CREATE INDEX idx_notifications_readerid_sentdate
@@ -176,7 +178,7 @@ ON Notifications (ReaderID, SentDate DESC);
 
 ---
 
-### *Index 5*
+### *Index 5: Optimize Book Loan Activity and Inactive Reader Filtering*
 
 sql
 CREATE INDEX idx_booksonloan_readerid_loandate
@@ -194,12 +196,19 @@ ON BooksOnLoan (ReaderID, LoanDate DESC);
 4. **idx_notifications_readerid_sentdate**: Enables fast lookups, sorting, and aggregation of notifications based on ReaderID.
 5. **idx_booksonloan_readerid_loandate**: Speeds up joins and efficiently retrieves the most recent LoanDate for each ReaderID.
 
+The create queries for the above indices are stored in Constraints.sql.
+
 
 ## Constraints
 
 To see Constraints see the file Constraints.sql. 
 
-To see Tests done on the restraints as well as errors thrown see the file ConstraintsErrorMessages.log. For a summary of the inputs and outputs, see below.
+To see Tests done on the restraints as well as errors thrown see the file ConstraintsErrorMessages.log. 
+
+![WhatsApp Image 2024-12-02 at 17 39 36_a2b8ca57](https://github.com/user-attachments/assets/bea7f139-c143-46aa-a4eb-090aa22973be)
+
+
+For a summary of the inputs and outputs, see below.
 
 Here's a summary of the tests conducted along with the explanation of the errors thrown:
 
@@ -270,3 +279,8 @@ Here's a summary of the tests conducted along with the explanation of the errors
 #### **BooksReturned**
 - **Test**: Updated the condition of a returned book to an invalid value.
 - **Error**: Violates the `chk_conditiononreturn` constraint.
+
+  Here is a screenshot of an example of a query that fails to follow our databases constraints.
+
+  ![WhatsApp Image 2024-12-02 at 17 39 04_4f8eb440](https://github.com/user-attachments/assets/4f4bc2f2-8632-4756-a78c-a1701d83b176)
+

@@ -12,7 +12,7 @@ Mini project for Database systems
 ### *Why These Entities Were Chosen*
 
 1. *Readers*:
-   - Represents the primary users of the library system. All interactions, including loans, notifications, and relationships, are centered around readers. The entity ensures each reader is uniquely identifiable with attributes like ReaderID and PhoneNumber.
+   - Represents the primary users of the library system. All interactions, including loans, notifications, and relationships, are centered around readers. The entity ensures each reader is uniquely identifiable by ReaderID.
 
 2. *FamilyTies*:
    - Allows the library to establish and track family-based relationships between readers. This is particularly useful for family-oriented libraries that offer shared memberships, discounts, or policies based on familial connections (e.g., parental borrowing limits for children).
@@ -20,16 +20,13 @@ Mini project for Database systems
 3. *ReaderCard*:
    - Captures the details of library cards issued to readers. Including attributes like ExpirationDate ensures that card usage is valid and allows the library to send reminders for renewal or deactivation of expired cards.
 
-4. *Books*:
-   - Represents the library's inventory, ensuring that every book is uniquely identifiable. Attributes like ISBN and Genre allow efficient categorization and retrieval.
-
-5. *BooksOnLoan*:
+4. *BooksOnLoan*:
    - Tracks active loans, connecting specific readers to borrowed books. Attributes like LoanDate and DueDate allow the library to monitor borrowing periods and assess overdue penalties.
 
-6. *BooksReturned*:
+5. *BooksReturned*:
    - Captures return-related details, including the condition of the book and the date of return. This ensures proper inventory management and accountability for damages.
 
-7. *Notifications*:
+6. *Notifications*:
    - Central to the library’s communication system, Notifications tracks messages sent to readers. Notifications are used for:
      - Reminders about upcoming due dates for books.
      - Alerts about expired or expiring library cards.
@@ -70,10 +67,6 @@ Mini project for Database systems
    - Ensures proactive communication, reducing overdue books and keeping readers engaged.
    - Provides accountability by logging sent notifications and their read status.
 
-6. *What Parts Are Not Covered*:
-   - Notifications currently do not include automation logic (e.g., generating notifications based on due dates or card expiration). This could be added later as part of a task scheduler or trigger system.
-   - Advanced notification categories (e.g., promotional messages) are not part of the current implementation but could be added as an attribute.
-
 
 # DSD
 ![image (3)](https://github.com/user-attachments/assets/d723f5ab-8abb-48d4-b187-5df511ac8272)
@@ -82,7 +75,9 @@ Mini project for Database systems
 The file titled DB1.sql has our database schema and build.
 
 # pg_dump
-pg_dump -U postgres -h localhost -d "Mini Project" > MiniProjectDump.sql
+### pg_dump command: 
+   pg_dump -U postgres -h localhost -d "Mini Project" > MiniProjectDump.sql
+   
 Screenshots of the dump:
 ![image](https://github.com/user-attachments/assets/7fb5832f-ee11-4314-bea3-0591a2e70494)
 ![image](https://github.com/user-attachments/assets/b8016182-b651-40e2-bc54-02d06790b8a7)
@@ -91,7 +86,7 @@ Screenshots of the dump:
 
 # Stage 2
 ## Backup
-Run these commands in windows powershell as Administrator:
+Run these commands in windows powershell:
 
 *Command for SQL backup:* Measure-Command {pg_dump -U postgres -h localhost -d "Mini Project" --file=backupSQL.sql --verbose --clean --if-exists 2> backupSQL.log}
 
@@ -100,6 +95,8 @@ Run these commands in windows powershell as Administrator:
 *Command for PSQL Restore:* Measure-Command {pg_restore -U postgres -h localhost -v -d "Mini Project" -F c --if-exists --clean backupPSQL.SQL 2> restorePSQL.log}
 
 The files with timing information is stored in the folder titled: "Backup for Stage 2".
+
+![WhatsApp Image 2024-12-02 at 17 15 43_e289a98e](https://github.com/user-attachments/assets/f13a1715-7b19-4f43-96fc-b5613efce293)
 
 
 ## Queries

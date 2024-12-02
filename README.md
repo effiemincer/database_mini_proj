@@ -122,6 +122,9 @@ Here are the paramterized queries in our own words, they are all available in fu
 3. Update the expiration date of reader cards by extending them by one year for readers who have borrowed more than a specified number of books within the last year.
 4. Delete readers who have not borrowed any books in the last x years.
 
+![WhatsApp Image 2024-12-02 at 17 13 49_4d4312c6](https://github.com/user-attachments/assets/248f74a9-1368-4d55-b775-33028fea8ea0)
+
+
 ## Indexes
 ### *Index 1: Optimize Reader and ReaderCard Relationships*
 *Purpose*: Enhance performance for operations that join Readers and ReaderCard tables. This relationship is fundamental since every reader has an associated card.

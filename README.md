@@ -101,6 +101,8 @@ The files with timing information is stored in the folder titled: "Backup for St
 
 
 ## Queries
+Any query or parameterized query that returned tables are stored as csv files in /Query Responses. Responses that are just a message are commented in the sql file underneath the query.
+
 Here are the queries in our own words, they are all available in full with timing information in Queries.sql:
 1. Retrieve a list of all readers along with the total number of books they have ever borrowed.
 2. Find the last notification sent to each reader and its status.
@@ -112,6 +114,8 @@ Here are the queries in our own words, they are all available in full with timin
 8. Remove a specific reader from the system (and cascade delete related loans).
 
 ## Parameterized Queries
+Any query or parameterized query that returned tables are stored as csv files in /Query Responses. Responses that are just a message are commented in the sql file underneath the query.
+
 Here are the paramterized queries in our own words, they are all available in full with timing information in ParamsQueries.sql:
 1. Retrieve All Family Members for a Specific Reader.
 2. Find Readers Who Borrowed More Than a Specified Number of Books Within a Date Range.

@@ -43,3 +43,108 @@ ERROR:  Failing row contains (10002, 19, 55, Sister).new row for relation "famil
 ERROR:  new row for relation "familyties" violates check constraint "familyties_relationtype_check"
 SQL state: 23514
 Detail: Failing row contains (10002, 19, 55, Sister).
+
+-- C. Attempt to create duplicate family tie
+INSERT INTO FamilyTies (ReaderID, RelatedReaderID, RelationType)
+VALUES (230, 2, 'Sibling');
+INSERT INTO FamilyTies (ReaderID, RelatedReaderID, RelationType)
+VALUES (230, 2, 'Sibling');
+
+ERROR:  Key (readerid, relatedreaderid)=(230, 2) already exists.duplicate key value violates unique constraint "unique_family_relation" 
+
+ERROR:  duplicate key value violates unique constraint "unique_family_relation"
+SQL state: 23505
+Detail: Key (readerid, relatedreaderid)=(230, 2) already exists.
+
+-- 3. ReaderCard Constraints
+-- A. Attempt to insert expired card
+INSERT INTO ReaderCard (ReaderID, CardType, ExpirationDate)
+VALUES (1, 'Electronic', '2023-01-01');
+
+ERROR:  Key (readerid, cardtype)=(1, Electronic) already exists.duplicate key value violates unique constraint "unique_reader_card" 
+
+ERROR:  duplicate key value violates unique constraint "unique_reader_card"
+SQL state: 23505
+Detail: Key (readerid, cardtype)=(1, Electronic) already exists.
+
+-- B. Attempt to create multiple cards of same type
+INSERT INTO ReaderCard (ReaderID, CardType, ExpirationDate)
+VALUES (1, 'Electronic', CURRENT_DATE + INTERVAL '1 year');
+
+ERROR:  Key (readerid, cardtype)=(1, Electronic) already exists.duplicate key value violates unique constraint "unique_reader_card" 
+
+ERROR:  duplicate key value violates unique constraint "unique_reader_card"
+SQL state: 23505
+Detail: Key (readerid, cardtype)=(1, Electronic) already exists.
+
+
+-- 4. BooksOnLoan Constraints
+-- A. Attempt to create loan with invalid date range
+INSERT INTO BooksOnLoan (ReaderID, BookID, LoanDate, DueDate)
+VALUES (1, 100, CURRENT_DATE + INTERVAL '1 day', CURRENT_DATE);
+
+ERROR:  Failing row contains (100001, 1, 100, 2024-12-03, 2024-12-02).new row for relation "booksonloan" violates check constraint "chk_loan_dates" 
+
+ERROR:  new row for relation "booksonloan" violates check constraint "chk_loan_dates"
+SQL state: 23514
+Detail: Failing row contains (100001, 1, 100, 2024-12-03, 2024-12-02).
+
+-- 5. BooksReturned Constraints
+-- A. Attempt to return book with invalid condition
+INSERT INTO BooksReturned (LoanID, ConditionOnReturn, ReturnDate)
+VALUES (1, 'Gross', CURRENT_DATE);
+
+ERROR:  Failing row contains (50001, 1, Gross, 2024-12-02).new row for relation "booksreturned" violates check constraint "chk_conditiononreturn" 
+
+ERROR:  new row for relation "booksreturned" violates check constraint "chk_conditiononreturn"
+SQL state: 23514
+Detail: Failing row contains (50001, 1, Gross, 2024-12-02).
+
+
+
+
+-- UPDATE Constraint Violation Tests
+
+-- 1. Readers Table - Invalid Phone Number Update
+UPDATE Readers 
+SET PhoneNumber = 'invalid' 
+WHERE ReaderID = 1;
+
+ERROR:  Failing row contains (1, Jennifer, Brown, 90912 Blanchard Forge Suite 619, East Heather, VI 77913, invalid).new row for relation "readers" violates check constraint "chk_phone_number" 
+
+ERROR:  new row for relation "readers" violates check constraint "chk_phone_number"
+SQL state: 23514
+Detail: Failing row contains (1, Jennifer, Brown, 90912 Blanchard Forge Suite 619, East Heather, VI 77913, invalid).
+
+-- 2. FamilyTies - Attempt to Update to Self-Referencing Tie
+UPDATE FamilyTies 
+SET RelatedReaderID = ReaderID 
+WHERE TieID = 1;
+
+ERROR:  Failing row contains (1, 12620, 12620, Parent).new row for relation "familyties" violates check constraint "chk_different_readers" 
+
+ERROR:  new row for relation "familyties" violates check constraint "chk_different_readers"
+SQL state: 23514
+Detail: Failing row contains (1, 12620, 12620, Parent).
+
+-- 3. BooksOnLoan - Invalid Date Update
+UPDATE BooksOnLoan 
+SET DueDate = LoanDate - INTERVAL '1 day' 
+WHERE LoanID = 1;
+
+ERROR:  Failing row contains (1, 12918, 38900, 2010-04-24, 2010-04-23).new row for relation "booksonloan" violates check constraint "chk_loan_dates" 
+
+ERROR:  new row for relation "booksonloan" violates check constraint "chk_loan_dates"
+SQL state: 23514
+Detail: Failing row contains (1, 12918, 38900, 2010-04-24, 2010-04-23).
+
+-- 4. BooksReturned - Invalid Condition Update
+UPDATE BooksReturned 
+SET ConditionOnReturn = 'Destroyed' 
+WHERE ReturnID = 1;
+
+ERROR:  Failing row contains (1, 1, Destroyed, 2018-09-12).new row for relation "booksreturned" violates check constraint "chk_conditiononreturn" 
+
+ERROR:  new row for relation "booksreturned" violates check constraint "chk_conditiononreturn"
+SQL state: 23514
+Detail: Failing row contains (1, 1, Destroyed, 2018-09-12).

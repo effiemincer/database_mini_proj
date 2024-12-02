@@ -149,3 +149,77 @@ These indices are designed to address the key relationships and patterns inheren
 
 
 ## Constraints
+
+To see Constraints see the file Constraints.sql. 
+
+To see Tests done on the restraints as well as errors thrown see the file ConstraintsErrorMessages.log. For a summary of the inputs and outputs, see below.
+
+Here's a summary of the tests conducted along with the explanation of the errors thrown:
+
+### **1. Readers Table Constraints**
+#### **A. Invalid Phone Number Insertion**
+- **Test**: Inserted a record with an invalid phone number.
+- **Error**: Violates the `chk_phone_number` constraint, which ensures that the phone number follows a valid format.
+
+#### **B. Duplicate Contact**
+- **Test**: Inserted two identical records with the same name and phone number.
+- **Error**: Violates the `unique_reader_contact` constraint, which enforces unique combinations of `FirstName`, `LastName`, and `PhoneNumber`.
+
+---
+
+### **2. FamilyTies Constraints**
+#### **A. Self-Referencing Family Tie**
+- **Test**: Attempted to create a family tie where a reader is related to themselves.
+- **Error**: Violates the `chk_different_readers` constraint, which ensures `ReaderID` and `RelatedReaderID` are different.
+
+#### **B. Invalid Relation Type**
+- **Test**: Inserted a family tie with an invalid `RelationType` value.
+- **Error**: Violates the `familyties_relationtype_check` constraint, which ensures `RelationType` contains predefined valid values.
+
+#### **C. Duplicate Family Tie**
+- **Test**: Inserted two identical family ties between the same `ReaderID` and `RelatedReaderID`.
+- **Error**: Violates the `unique_family_relation` constraint, which prevents duplicate relationships.
+
+---
+
+### **3. ReaderCard Constraints**
+#### **A. Expired Card**
+- **Test**: Attempted to insert a card with an already expired `ExpirationDate`.
+- **Error**: Not explicitly mentioned as invalid expiration date; error instead refers to a `unique_reader_card` constraint, possibly due to a pre-existing card of the same type.
+
+#### **B. Multiple Cards of Same Type**
+- **Test**: Inserted multiple cards of the same type for one reader.
+- **Error**: Violates the `unique_reader_card` constraint, which ensures a reader can only have one card of each type.
+
+---
+
+### **4. BooksOnLoan Constraints**
+#### **A. Invalid Date Range**
+- **Test**: Created a loan where the `DueDate` is earlier than the `LoanDate`.
+- **Error**: Violates the `chk_loan_dates` constraint, which ensures the `DueDate` is later than the `LoanDate`.
+
+---
+
+### **5. BooksReturned Constraints**
+#### **A. Invalid Book Condition**
+- **Test**: Returned a book with an invalid `ConditionOnReturn` value.
+- **Error**: Violates the `chk_conditiononreturn` constraint, which restricts `ConditionOnReturn` to predefined acceptable values.
+
+---
+
+### **6. Update Constraint Violation Tests**
+#### **Readers Table**
+- **Test**: Updated a reader's phone number to an invalid value.
+- **Error**: Violates the `chk_phone_number` constraint.
+
+#### **FamilyTies**
+- **Test**: Updated a family tie to make it self-referencing.
+- **Error**: Violates the `chk_different_readers` constraint.
+
+#### **BooksOnLoan**
+- **Test**: Updated a loan record to have a `DueDate` earlier than `LoanDate`.
+- **Error**: Violates the `chk_loan_dates` constraint.
+
+#### **BooksReturned**
+- **Test**: Updated the condition of a returned book to an invalid value.
+- **Error**: Violates the `chk_conditiononreturn` constraint.

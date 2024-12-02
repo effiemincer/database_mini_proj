@@ -99,9 +99,6 @@ Run these commands in windows powershell as Administrator:
 
 The files with timing information is stored in the folder titled: "Backup for Stage 2".
 
-![WhatsApp Image 2024-12-02 at 17 15 43_db1db7cc](https://github.com/user-attachments/assets/263941aa-45e4-4ffb-a394-c6c9121a9dae)
-
-
 
 ## Queries
 Any query or parameterized query that returned tables are stored as csv files in /Query Responses. Responses that are just a message are commented in the sql file underneath the query.
@@ -124,9 +121,6 @@ Here are the paramterized queries in our own words, they are all available in fu
 2. Find Readers Who Borrowed More Than a Specified Number of Books Within a Date Range.
 3. Update the expiration date of reader cards by extending them by one year for readers who have borrowed more than a specified number of books within the last year.
 4. Delete readers who have not borrowed any books in the last x years.
-
-![WhatsApp Image 2024-12-02 at 17 13 49_4d4312c6](https://github.com/user-attachments/assets/248f74a9-1368-4d55-b775-33028fea8ea0)
-
 
 ## Indexes
 ### *Index 1: Optimize Reader and ReaderCard Relationships*

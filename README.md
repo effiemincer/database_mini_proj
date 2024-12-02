@@ -76,6 +76,9 @@ Mini project for Database systems
 # DSD
 ![image (3)](https://github.com/user-attachments/assets/d723f5ab-8abb-48d4-b187-5df511ac8272)
 
+# SQL File Reflecting Database Build
+The file titled DB1.sql has our database schema and build.
+
 # pg_dump
 pg_dump -U postgres -h localhost -d "Mini Project" > MiniProjectDump.sql
 Screenshots of the dump:
@@ -158,7 +161,7 @@ ON Notifications (SentDate DESC);
 
 ---
 
-### *Index 4
+### *Index 4*
 
 sql
 CREATE INDEX idx_notifications_readerid_sentdate
@@ -169,7 +172,7 @@ ON Notifications (ReaderID, SentDate DESC);
 
 ---
 
-### *Index 5
+### *Index 5*
 
 sql
 CREATE INDEX idx_booksonloan_readerid_loandate

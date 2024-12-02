@@ -74,8 +74,7 @@ Mini project for Database systems
 
 
 # DSD
-![image (1)](https://github.com/user-attachments/assets/bb1e56a1-d19e-4794-a601-6290fbf67eea)
-
+![image (3)](https://github.com/user-attachments/assets/d723f5ab-8abb-48d4-b187-5df511ac8272)
 
 # pg_dump
 pg_dump -U postgres -h localhost -d "Mini Project" > MiniProjectDump.sql

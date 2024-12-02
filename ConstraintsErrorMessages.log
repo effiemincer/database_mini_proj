@@ -1,0 +1,45 @@
+-- 1. Readers Table Constraints
+-- A. Attempt to insert invalid phone number
+INSERT INTO Readers (FirstName, LastName, Address, PhoneNumber) 
+VALUES ('John', 'Doe', '123 Main St', 'invalid');
+
+ERROR:  Failing row contains (33335, John, Doe, 123 Main St, invalid).new row for relation "readers" violates check constraint "chk_phone_number" 
+
+ERROR:  new row for relation "readers" violates check constraint "chk_phone_number"
+SQL state: 23514
+Detail: Failing row contains (33335, John, Doe, 123 Main St, invalid).
+
+
+-- B. Attempt to insert duplicate contact
+INSERT INTO Readers (FirstName, LastName, Address, PhoneNumber) 
+VALUES ('John', 'Doe', '456 Elm St', '+19234567890');
+INSERT INTO Readers (FirstName, LastName, Address, PhoneNumber) 
+VALUES ('John', 'Doe', '456 Elm St', '+19234567890');
+
+ERROR:  Key (firstname, lastname, phonenumber)=(John, Doe, +19234567890) already exists.duplicate key value violates unique constraint "unique_reader_contact" 
+
+ERROR:  duplicate key value violates unique constraint "unique_reader_contact"
+SQL state: 23505
+Detail: Key (firstname, lastname, phonenumber)=(John, Doe, +19234567890) already exists.
+
+
+-- 2. FamilyTies Constraints
+-- A. Attempt to create a family tie with same reader
+INSERT INTO FamilyTies (ReaderID, RelatedReaderID, RelationType)
+VALUES (1, 1, 'Sibling');
+
+ERROR:  Failing row contains (10001, 1, 1, Sibling).new row for relation "familyties" violates check constraint "chk_different_readers" 
+
+ERROR:  new row for relation "familyties" violates check constraint "chk_different_readers"
+SQL state: 23514
+Detail: Failing row contains (10001, 1, 1, Sibling).
+
+-- B. Attempt to create a family tie with invalid relation type
+INSERT INTO FamilyTies (ReaderID, RelatedReaderID, RelationType)
+VALUES (19, 55, 'Sister');
+
+ERROR:  Failing row contains (10002, 19, 55, Sister).new row for relation "familyties" violates check constraint "familyties_relationtype_check" 
+
+ERROR:  new row for relation "familyties" violates check constraint "familyties_relationtype_check"
+SQL state: 23514
+Detail: Failing row contains (10002, 19, 55, Sister).

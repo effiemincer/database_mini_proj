@@ -5,8 +5,8 @@ Mini project for Database systems
 # Stage 1
 
 # ERD
+[ERD.json](https://github.com/effiemincer/database_mini_proj/blob/main/ERD.json)
 ![image](https://github.com/user-attachments/assets/7ea9b400-9193-4dca-854a-fdfc6a8af3b3)
-
 
 
 ### *Why These Entities Were Chosen*
@@ -72,11 +72,14 @@ Mini project for Database systems
 ![image (3)](https://github.com/user-attachments/assets/d723f5ab-8abb-48d4-b187-5df511ac8272)
 
 # SQL File Reflecting Database Build
-The file titled DB1.sql has our database schema and build.
+The file titled [DB1.sql](https://github.com/effiemincer/database_mini_proj/blob/main/DB1.sql) has our database schema and build.
+
+# Data Population Script and SQL Files
+[Link to the folder with the population script and population sql files](https://github.com/effiemincer/database_mini_proj/tree/main/Population%20Script%20and%20Files)
 
 # pg_dump
 ### pg_dump command: 
-   pg_dump -U postgres -h localhost -d "Mini Project" > MiniProjectDump.sql
+   pg_dump -U postgres -h localhost -d "Mini Project" > [MiniProjectDump.sql](https://github.com/effiemincer/database_mini_proj/blob/main/MiniProjectDump.sql)
    
 Screenshots of the dump:
 ![image](https://github.com/user-attachments/assets/7fb5832f-ee11-4314-bea3-0591a2e70494)
@@ -94,18 +97,18 @@ Run these commands in windows powershell:
 
 *Command for PSQL Restore:* Measure-Command {pg_restore -U postgres -h localhost -v -d "Mini Project" -F c --if-exists --clean backupPSQL.SQL 2> restorePSQL.log}
 
-The files with timing information is stored in the folder titled: "Backup for Stage 2".
+The files with timing information is stored in the folder titled: ["Backup for Stage 2"](https://github.com/effiemincer/database_mini_proj/tree/main/Backup%20for%20Stage%202).
 
 ![WhatsApp Image 2024-12-02 at 17 15 43_e289a98e](https://github.com/user-attachments/assets/f13a1715-7b19-4f43-96fc-b5613efce293)
 
 
 ## Queries
-Any query or parameterized query that returned tables are stored as csv files in /Query Responses. Responses that are just a message are commented in the sql file underneath the query.
+Any query or parameterized query that returned tables are stored as csv files in [Query Responses](https://github.com/effiemincer/database_mini_proj/tree/main/Query%20Responses). Responses that are just a message are commented in the sql file underneath the query.
 
 ![WhatsApp Image 2024-12-02 at 17 13 50_76a35d22](https://github.com/user-attachments/assets/0653f90d-1da0-43bc-aa86-6b6483f8a723)
 
 
-Here are the queries in our own words, they are all available in full with timing information in Queries.sql:
+Here are the queries in our own words, they are all available in full with timing information in [Queries.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Queries.sql):
 1. Retrieve a list of all readers along with the total number of books they have ever borrowed.
 2. Find the last notification sent to each reader and its status.
 3. Calculate the average number of books borrowed by readers for each card type ('Electronic' or 'Physical').
@@ -118,13 +121,15 @@ Here are the queries in our own words, they are all available in full with timin
 ## Parameterized Queries
 Any query or parameterized query that returned tables are stored as csv files in /Query Responses. Responses that are just a message are commented in the sql file underneath the query.
 
-Here are the paramterized queries in our own words, they are all available in full with timing information in ParamsQueries.sql:
+Here are the paramterized queries in our own words, they are all available in full with timing information in [ParamsQueries.sql](https://github.com/effiemincer/database_mini_proj/blob/main/ParamsQueries.sql):
 1. Retrieve All Family Members for a Specific Reader.
 2. Find Readers Who Borrowed More Than a Specified Number of Books Within a Date Range.
 3. Update the expiration date of reader cards by extending them by one year for readers who have borrowed more than a specified number of books within the last year.
 4. Delete readers who have not borrowed any books in the last x years.
 
 ## Indexes
+The create queries for the above indices are stored in [Constraints.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Constraints.sql).
+
 ### *Index 1: Optimize Reader and ReaderCard Relationships*
 *Purpose*: Enhance performance for operations that join Readers and ReaderCard tables. This relationship is fundamental since every reader has an associated card.
 
@@ -196,17 +201,14 @@ ON BooksOnLoan (ReaderID, LoanDate DESC);
 4. **idx_notifications_readerid_sentdate**: Enables fast lookups, sorting, and aggregation of notifications based on ReaderID.
 5. **idx_booksonloan_readerid_loandate**: Speeds up joins and efficiently retrieves the most recent LoanDate for each ReaderID.
 
-The create queries for the above indices are stored in Constraints.sql.
-
 
 ## Constraints
 
-To see Constraints see the file Constraints.sql. 
+To see Constraints see the file [Constraints.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Constraints.sql). 
 
-To see Tests done on the restraints as well as errors thrown see the file ConstraintsErrorMessages.log. 
+To see Tests done on the restraints as well as errors thrown see the file [ConstraintsErrorMessages.log](https://github.com/effiemincer/database_mini_proj/blob/main/ConstraintsErrorMessages.log). 
 
 ![WhatsApp Image 2024-12-02 at 17 39 36_a2b8ca57](https://github.com/user-attachments/assets/bea7f139-c143-46aa-a4eb-090aa22973be)
-
 
 For a summary of the inputs and outputs, see below.
 

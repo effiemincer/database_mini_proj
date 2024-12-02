@@ -96,6 +96,56 @@ Run these commands in windows powershell as Administrator:
 
 The files with timing information is stored in the folder titled: "Backup for Stage 2".
 
+## Indexes
+### *Index 1: Optimize Reader and ReaderCard Relationships*
+*Purpose*: Enhance performance for operations that join Readers and ReaderCard tables. This relationship is fundamental since every reader has an associated card.
+
+sql
+CREATE INDEX idx_reader_card_readerid
+ON ReaderCard (ReaderID);
+
+
+*Reason*:
+- ReaderID in ReaderCard is frequently used for joining with the Readers table.
+- This index ensures quick access to all cards associated with a specific reader.
+
+---
+
+### *Index 2: Optimize Book Borrowing and Returning Workflow*
+*Purpose*: Support operations linking BooksOnLoan and BooksReturned. Since the loan and return tables are tightly coupled, efficient lookups between them are essential.
+
+sql
+CREATE INDEX idx_booksreturned_loanid
+ON BooksReturned (LoanID);
+
+
+*Reason*:
+- LoanID is the foreign key linking BooksReturned and BooksOnLoan.
+- This index optimizes queries that need to retrieve return records for a specific loan or join these two tables.
+
+---
+
+### *Index 3: Optimize Notifications for Recent Activity*
+*Purpose*: Facilitate efficient access to notifications based on SentDate. Notifications are typically accessed in chronological order or filtered by date ranges.
+
+sql
+CREATE INDEX idx_notifications_sentdate
+ON Notifications (SentDate DESC);
+
+
+*Reason*:
+- Sorting or filtering notifications by SentDate is a common use case.
+- This index enables efficient retrieval of recent notifications without needing to scan the entire table.
+
+---
+
+### *Summary of Indices*
+1. **idx_reader_card_readerid**: Supports efficient joins between Readers and ReaderCard.
+2. **idx_booksreturned_loanid**: Optimizes the workflow between loans and returns for books.
+3. **idx_notifications_sentdate**: Enhances access to notifications, especially for recent or date-based queries.
+
+These indices are designed to address the key relationships and patterns inherent in your database design, ensuring better performance across typical operations. Let me know if you'd like to tailor these further!
+
 
 
 ## Constraints

@@ -468,6 +468,8 @@ Understanding card usage: This query gives library administrators insights into 
 Trend analysis: Monitoring card type distributions over time can help libraries assess the effectiveness of initiatives to promote electronic cards.
 Operational planning: Knowing the proportions of each card type can inform resource allocation, such as focusing on maintaining digital card systems or processing physical cards.
 
+![card_types_pie_chart](https://github.com/user-attachments/assets/0a6a120a-1977-4c21-ac38-02cfe633aaad)
+
 ## Functions
 
 Functions can be viewed in the [Functions.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Functions.sql) file with all the timing and output information in [Functions.log](https://github.com/effiemincer/database_mini_proj/blob/main/Functions.log).
@@ -610,12 +612,3 @@ $$ LANGUAGE plpgsql;
 #### General Notes:
 - All functions use `plpgsql` as the procedural language for PostgreSQL.
 - These functions are designed to return specific metrics about readers, books, and notifications and can be used to generate reports or display user information in the library system.
-
-
-![card_types_pie_chart](https://github.com/user-attachments/assets/0a6a120a-1977-4c21-ac38-02cfe633aaad)
-
-## Functions
-
-Functions can be viewed in the [Functions.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Functions.sql) file with all the log information in [Functions.log](https://github.com/effiemincer/database_mini_proj/blob/main/Functions.log).
-
-Queries 1, 2, 3, and 4 had parts replaced with functions as can be seen in the [Queries.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Queries.sql) file with the original query from stage 2 below it in comments. Timing and results data is available in the [QueriesWithFunctions.log](https://github.com/effiemincer/database_mini_proj/blob/main/QueriesWithFunctions.log) file.

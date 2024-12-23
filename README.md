@@ -321,7 +321,7 @@ This query identifies readers with the highest number of books that remain unret
 ### **2. Count Family Members of Readers with Electronic Cards**  
 To better understand borrowing patterns within families, this query calculates the number of family members for each reader who holds an electronic card. It leverages the `Readers`, `ReaderCard`, and `FamilyTies` tables to filter by card type and aggregate family ties. The results are sorted to highlight readers with the largest family connections, supporting policies around family-based borrowing benefits.  
 
-### **3. Extend Expiration Dates for Readers with More Than 10 Loans in the Past Year**  
+### **3. Extend Expiration Dates for Readers with More Than 3 Loans in the Past Year**  
 Frequent borrowers receive a benefit through this query, which extends the expiration date of their reader cards by one year. By joining `Readers`, `BooksOnLoan`, and `ReaderCard`, the system identifies readers who have borrowed more than 3 books in the last year. Their cards are automatically updated, ensuring continued access to library services without manual intervention.  
 
 ### **Timing Results:**  

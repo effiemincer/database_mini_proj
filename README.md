@@ -317,17 +317,77 @@ Here's a summary of the tests conducted along with the explanation of the errors
 
 ## Multi-Table Queries: 
 
-The code for the 3 queries below can be found at [QueriesMultiTable.sql](https://github.com/effiemincer/database_mini_proj/blob/main/QueriesMultiTable.sql). 
+The code for the 3 queries below can be found at [QueriesMultiTable.sql](https://github.com/effiemincer/database_mini_proj/blob/main/QueriesMultiTable_Stage3.sql). 
 The results for these three queries are listed as the MultiQuery files in [Query Responses](https://github.com/effiemincer/database_mini_proj/tree/main/Query%20Responses).
 
 ### **1. Retrieve Top 5 Readers with the Most Unreturned Books in the Last 30 Days**  
 This query identifies readers with the highest number of books that remain unreturned, borrowed within the past 30 days. It uses joins across the `Readers`, `BooksOnLoan`, and `BooksReturned` tables to track overdue books. This information helps the library staff prioritize overdue notifications and manage book circulation more efficiently.  
+```sql
+SELECT
+    r.ReaderID,
+    r.FirstName,
+    r.LastName,
+    COUNT(bol.LoanID) AS UnreturnedBooks
+FROM
+    Readers r
+    JOIN BooksOnLoan bol ON r.ReaderID = bol.ReaderID
+    LEFT JOIN BooksReturned br ON bol.LoanID = br.LoanID
+WHERE
+    bol.LoanDate >= CURRENT_DATE - INTERVAL '30 days'
+    AND br.LoanID IS NULL  -- Books that have not been returned
+GROUP BY
+    r.ReaderID,
+    r.FirstName,
+    r.LastName
+ORDER BY
+    UnreturnedBooks DESC
+LIMIT 5;
+```
 
 ### **2. Count Family Members of Readers with Electronic Cards**  
 To better understand borrowing patterns within families, this query calculates the number of family members for each reader who holds an electronic card. It leverages the `Readers`, `ReaderCard`, and `FamilyTies` tables to filter by card type and aggregate family ties. The results are sorted to highlight readers with the largest family connections, supporting policies around family-based borrowing benefits.  
+```sql
+SELECT
+    r.ReaderID,
+    r.FirstName,
+    r.LastName,
+    COUNT(ft.RelatedReaderID) AS TotalFamilyMembers
+FROM
+    Readers r
+    JOIN ReaderCard rc ON r.ReaderID = rc.ReaderID
+    LEFT JOIN FamilyTies ft ON r.ReaderID = ft.ReaderID
+WHERE
+    rc.CardType = 'Electronic'
+GROUP BY
+    r.ReaderID,
+    r.FirstName,
+    r.LastName
+ORDER BY
+    TotalFamilyMembers DESC;
+```
 
 ### **3. Extend Expiration Dates for Readers with More Than 3 Loans in the Past Year**  
 Frequent borrowers receive a benefit through this query, which extends the expiration date of their reader cards by one year. By joining `Readers`, `BooksOnLoan`, and `ReaderCard`, the system identifies readers who have borrowed more than 3 books in the last year. Their cards are automatically updated, ensuring continued access to library services without manual intervention.  
+```sql
+WITH BorrowCounts AS (
+    SELECT
+        r.ReaderID,
+        COUNT(b.LoanID) AS BorrowCount
+    FROM
+        Readers r
+        JOIN BooksOnLoan b ON r.ReaderID = b.ReaderID
+    WHERE
+        b.LoanDate >= CURRENT_DATE - INTERVAL '1 year'
+    GROUP BY
+        r.ReaderID
+)
+UPDATE ReaderCard rc
+SET ExpirationDate = rc.ExpirationDate + INTERVAL '1 year'
+FROM BorrowCounts bc
+WHERE
+    rc.ReaderID = bc.ReaderID
+    AND bc.BorrowCount > 3;
+```
 
 ### **Timing Results:**  
 
@@ -446,13 +506,13 @@ GROUP BY DaysOverdue
 ORDER BY DaysOverdue DESC
 LIMIT 25;
 ```
-Explanation:
+Explanation: <br/>
 This query calculates how many days each loan is overdue (DaysOverdue) and groups all overdue loans by that number. For each group, it counts the number of loans overdue for the same number of days (LoanCount). The results are then ordered by the highest number of overdue days and limited to the top 25 results.
 
 Why It’s Useful:
-Insights into overdue loans: This query helps librarians see patterns in overdue loans, focusing on loans that are significantly overdue.
-Prioritization: By identifying groups of highly overdue loans, librarians can target their efforts to resolve the most pressing cases.
-Data aggregation: Grouping overdue loans by days simplifies the data, providing a clear picture of overdue trends.
+- Insights into overdue loans: This query helps librarians see patterns in overdue loans, focusing on loans that are significantly overdue.
+- Prioritization: By identifying groups of highly overdue loans, librarians can target their efforts to resolve the most pressing cases.
+- Data aggregation: Grouping overdue loans by days simplifies the data, providing a clear picture of overdue trends.
 
 ![overdue_loans_grouped_bar_chart](https://github.com/user-attachments/assets/a5e4a7bc-05b0-4784-b4b9-14a7e3173fd4)
 
@@ -466,13 +526,13 @@ SELECT
 FROM ReaderCard
 GROUP BY CardType;
 ```
-Explanation:
+Explanation:<br/>
 This query counts the total number of library cards for each CardType (e.g., "Electronic" or "Physical") by grouping the data based on the card type.
 
 Why It’s Useful:
-Understanding card usage: This query gives library administrators insights into the distribution of electronic and physical cards among users.
-Trend analysis: Monitoring card type distributions over time can help libraries assess the effectiveness of initiatives to promote electronic cards.
-Operational planning: Knowing the proportions of each card type can inform resource allocation, such as focusing on maintaining digital card systems or processing physical cards.
+- Understanding card usage: This query gives library administrators insights into the distribution of electronic and physical cards among users.
+- Trend analysis: Monitoring card type distributions over time can help libraries assess the effectiveness of initiatives to promote electronic cards.
+- Operational planning: Knowing the proportions of each card type can inform resource allocation, such as focusing on maintaining digital card systems or processing physical cards.
 
 ![card_types_pie_chart](https://github.com/user-attachments/assets/0a6a120a-1977-4c21-ac38-02cfe633aaad)
 
@@ -509,10 +569,6 @@ $$ LANGUAGE plpgsql;
 - This function queries the `BooksOnLoan` table, which stores the details of all books currently on loan.
 - It counts the `LoanID` values associated with the given `reader_id` to determine how many books the reader has borrowed.
 
-##### Considerations:
-- This function does not account for any returned books, so it only counts books that are still on loan.
-- The function could be extended to include conditions such as overdue books if needed.
-
 ---
 
 #### Function 2: `GetLastNotificationDetails`
@@ -541,10 +597,6 @@ $$ LANGUAGE plpgsql;
 - The function queries the `Notifications` table, filtering by `ReaderID`.
 - It orders the notifications by `SentDate` in descending order and limits the result to the most recent notification.
 - The result includes the message text (`Message_`), the `SentDate`, and a boolean (`IsRead`) indicating if the notification has been read.
-
-##### Considerations:
-- If there are no notifications for a reader, the function will return `NULL` values.
-- The function assumes that the `Notifications` table stores notifications with a timestamp for when they were sent.
 
 ---
 
@@ -579,10 +631,6 @@ $$ LANGUAGE plpgsql;
 - It uses a `LEFT JOIN` to connect with the `BooksOnLoan` table, counting the `LoanID` for each reader.
 - The result is grouped by `ReaderID`, and the function calculates the average of these counts.
 
-##### Considerations:
-- The function assumes that every reader has a card type, and it handles cases where no books are borrowed by a reader (i.e., `0` books will be counted).
-- A `LEFT JOIN` ensures that readers with no borrowed books are included in the average.
-
 ---
 
 #### Function 4: `GetFamilyBooksBorrowed`
@@ -610,10 +658,6 @@ $$ LANGUAGE plpgsql;
 ##### How It Works:
 - This function uses a `LEFT JOIN` to connect the `FamilyTies` table (which links family members) with the `BooksOnLoan` table.
 - It counts the total number of `LoanID` values for the reader and their related family members.
-
-##### Considerations:
-- The function assumes that the `FamilyTies` table correctly identifies related readers.
-- It will count borrowed books by family members on the condition that either the reader or the family member has borrowed the book.
 
 ---
 

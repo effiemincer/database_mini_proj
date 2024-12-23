@@ -56,7 +56,7 @@ ORDER BY
 -- 1) We use a CTE called BorrowCounts that joins Readers (r) and BooksOnLoan (b) to compute how many books
 --    each reader has borrowed in the past year.
 -- 2) In the UPDATE, we join ReaderCard (rc) to BorrowCounts (bc) on ReaderID, then update the ExpirationDate
---    for those whose BorrowCount exceeds 10.
+--    for those whose BorrowCount exceeds 3.
 
 WITH BorrowCounts AS (
     SELECT
@@ -75,6 +75,6 @@ SET ExpirationDate = rc.ExpirationDate + INTERVAL '1 year'
 FROM BorrowCounts bc
 WHERE
     rc.ReaderID = bc.ReaderID
-    AND bc.BorrowCount > 10;
+    AND bc.BorrowCount > 3;
 
-    -- TIME: 00.058
+    -- TIME: 00.140

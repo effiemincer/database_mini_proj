@@ -429,6 +429,8 @@ For each view, we created at least one **SELECT** query plus **INSERT/UPDATE/DEL
 
 ## Visualizations
 
+The script for generating these visualizations are located in the [Visualizations folder](https://github.com/effiemincer/database_mini_proj/tree/main/Visualizations).
+
 ### Query 1: Overdue Loans by Days Overdue
 
 ```sql
@@ -448,6 +450,8 @@ Insights into overdue loans: This query helps librarians see patterns in overdue
 Prioritization: By identifying groups of highly overdue loans, librarians can target their efforts to resolve the most pressing cases.
 Data aggregation: Grouping overdue loans by days simplifies the data, providing a clear picture of overdue trends.
 
+![overdue_loans_grouped_bar_chart](https://github.com/user-attachments/assets/a5e4a7bc-05b0-4784-b4b9-14a7e3173fd4)
+
 ### Query 2: Distribution of Card Types
 
 ```sql
@@ -464,3 +468,4 @@ Understanding card usage: This query gives library administrators insights into 
 Trend analysis: Monitoring card type distributions over time can help libraries assess the effectiveness of initiatives to promote electronic cards.
 Operational planning: Knowing the proportions of each card type can inform resource allocation, such as focusing on maintaining digital card systems or processing physical cards.
 
+![card_types_pie_chart](https://github.com/user-attachments/assets/0a6a120a-1977-4c21-ac38-02cfe633aaad)

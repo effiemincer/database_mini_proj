@@ -610,9 +610,3 @@ $$ LANGUAGE plpgsql;
 ##### Considerations:
 - The function assumes that the `FamilyTies` table correctly identifies related readers.
 - It will count borrowed books by family members on the condition that either the reader or the family member has borrowed the book.
-
----
-
-#### General Notes:
-- All functions use `plpgsql` as the procedural language for PostgreSQL.
-- These functions are designed to return specific metrics about readers, books, and notifications and can be used to generate reports or display user information in the library system.

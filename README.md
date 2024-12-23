@@ -472,6 +472,6 @@ Operational planning: Knowing the proportions of each card type can inform resou
 
 ## Functions
 
-Functions can be viewed in the [Functions.sql]() file with all the log information in [Functions.log]().
+Functions can be viewed in the [Functions.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Functions.sql) file with all the log information in [Functions.log](https://github.com/effiemincer/database_mini_proj/blob/main/Functions.log).
 
-Queries 1, 2, 3, and 4 had parts replaced with functions as can be seen in the [Queries.sql]() file with the original query from stage 2 below it in comments. Timing and results data is available in the [QueriesWithFunctions.log]() file.
+Queries 1, 2, 3, and 4 had parts replaced with functions as can be seen in the [Queries.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Queries.sql) file with the original query from stage 2 below it in comments. Timing and results data is available in the [QueriesWithFunctions.log](https://github.com/effiemincer/database_mini_proj/blob/main/QueriesWithFunctions.log) file.

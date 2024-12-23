@@ -1,0 +1,3 @@
+UPDATE 8376
+
+Query returned successfully in 263 msec.

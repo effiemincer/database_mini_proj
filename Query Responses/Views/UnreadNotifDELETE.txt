@@ -1,0 +1,3 @@
+DELETE 2
+
+Query returned successfully in 79 msec.

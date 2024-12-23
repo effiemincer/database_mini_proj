@@ -333,6 +333,97 @@ Frequent borrowers receive a benefit through this query, which extends the expir
 | 2       | Count Family Members of Electronic Card Readers   | **0:00.071s**       | 
 | 3       | Extend Expiration for Active Borrowers            | **0:00.140s**         | 
 
+## Views
 
+In this stage, we introduce **views** to address the needs of different user sub-groups. We have 4 different views here and there associated queries all sql for creating the views and the queries are located at [Views.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Views.sql). 
+The results of the queries are located in the csv and txt files at [Views](https://github.com/effiemincer/database_mini_proj/tree/main/Query%20Responses/Views).
+
+#### **1. OverdueLoansView**
+- **Purpose**: Provides librarians a direct, real-time look at overdue loans.
+- **Definition**: Displays records from `BooksOnLoan` that have passed their `DueDate` and do not appear in `BooksReturned`.
+- **Key Features**:
+  - *Joined Logic*: Combines `BooksOnLoan` with `BooksReturned` to identify unreturned items.
+  - *Focus on Overdue*: Filters to `DueDate < CURRENT_DATE`.
+- **Use Cases**:
+  - Checking how many days a book is overdue.
+  - Extending due dates or sending notifications to readers with outstanding loans.
+- **Updatability**: Because this view selects from multiple tables, this view is not updatable with regular queries.
+
+---
+
+#### **2. ElectronicCardHoldersView**
+- **Purpose**: Offers card managers an at-a-glance listing of readers who hold electronic library cards.
+- **Definition**: Filters the `ReaderCard` table for `CardType = 'Electronic'`.
+- **Key Features**:
+  - *With Check Option*: We applied `WITH CHECK OPTION` so that any updates or inserts that violate the view’s `WHERE` clause (e.g., changing a card to `'Physical'`) are disallowed.
+  - *Expiration Monitoring*: Library staff can easily see and update expiration dates for electronic cards without sifting through physical cards.
+- **Use Cases**:
+  - Extending the expiration dates for all electronic card holders at once.
+  - Ensuring no invalid card types are introduced into this subset.
+
+---
+
+#### **3. FamilyChildTiesView**
+- **Purpose**: Caters to family-services staff by isolating relationships specifically labeled as `'Child'`.
+- **Definition**: Displays rows from `FamilyTies` where `RelationType = 'Child'`.
+- **Key Features**:
+  - *Family-Focused*: Helps the library manage or analyze child members, potentially for age-specific benefits or parental controls.
+  - *With Check Option*: Again, `WITH CHECK OPTION` can prevent updates that change a row’s `RelationType` to something that no longer belongs in the view.
+- **Use Cases**:
+  - Correcting or reassigning which parent a child belongs to.
+  - Removing invalid child ties when data-entry mistakes happen.
+  - Counting how many children are linked to a specific parent.
+
+---
+
+#### **4. UnreadNotificationsView**
+- **Purpose**: Assists the notifications team in tracking only the notifications that have not been read yet.
+- **Definition**: Filters `Notifications` where `IsRead = FALSE`.
+- **Key Features**:
+  - *Real-Time Tracking*: As soon as a notification is marked read (`IsRead = TRUE`), it disappears from the view.
+  - *Data Clean-Up*: Library staff can delete outdated or irrelevant unread messages if needed (depending on library policy).
+- **Use Cases**:
+  - Marking a batch of unread notifications as read after follow-up.
+  - Quickly identifying which messages are pending action for each reader.
+- **Updatability**: Rows remain in the view only as long as `IsRead` is `FALSE`. Once updated to `TRUE`, the notification is effectively removed from the view on the next query.
+
+---
+
+### **Example Queries and DML**
+
+For each view, we created at least one **SELECT** query plus **INSERT/UPDATE/DELETE** statements to illustrate typical operations:
+
+1. **OverdueLoansView**  
+   - *SELECT*: Lists overdue books, showing how many days overdue they are.  
+
+2. **ElectronicCardHoldersView**  
+   - *SELECT*: Displays each electronic card holder and the days remaining until expiration.  
+   - *UPDATE*: Extends expiration dates for cards expiring soon.  
+   - *DELETE*: Removes the card entry for a specific reader who is no longer eligible for an electronic card.
+
+3. **FamilyChildTiesView**  
+   - *SELECT*: Shows child relationships for various families.  
+   - *UPDATE*: Extends the DueDate by 7 days for books borrowed by children of a family.  
+   - *DELETE*: Removes erroneous child ties when discovered.
+
+4. **UnreadNotificationsView**  
+   - *SELECT*: Identifies unread notifications, calculating how many days they’ve been pending.  
+   - *UPDATE*: Marks older notifications as read once they have been acknowledged.  
+   - *DELETE*: Purges unused or outdated unread notifications.
+
+### **Timing Table**
+
+| **Query #** | **View**                      | **Action**                           | **Time** | 
+|-------------|--------------------------------|--------------------------------------|-------------------------|
+| 1           | **OverdueLoansView**          | SELECT overdue loans (ORDER BY DaysOverdue)  | 0:00.153s             | 
+| 2           | **ElectronicCardHoldersView** | SELECT upcoming expiration (ORDER BY DaysLeft)| 0:00.060s             |
+| 3           | **ElectronicCardHoldersView** | UPDATE extending expiration dates             | 0:00.263s            | 
+| 4           | **ElectronicCardHoldersView** | DELETE by specific id                         | 0:00.056s          | 
+| 5           | **FamilyChildTiesView**       | SELECT all child relationships                | 0:00.077s             | 
+| 6           | **FamilyChildTiesView**       | UPDATE giving children 7 more days   | 0:00.143s   | 
+| 7           | **FamilyChildTiesView**       | DELETE child ties for a specific parent       | 0:00.053s             | 
+| 8           | **UnreadNotificationsView**   | SELECT unread notifications (ORDER BY DaysUnseen) | 0:00.092s         |
+| 9          | **UnreadNotificationsView**   | UPDATE marking older notifications as read    | 0:00.059s             |
+| 10          | **UnreadNotificationsView**   | DELETE notifications for a certain reader     | 0:00.079s             |
 
 

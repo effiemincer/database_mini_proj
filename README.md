@@ -2,9 +2,9 @@
 Mini project for Database systems
 
 ### Navigate to:
-&nbsp;&nbsp;&nbsp;&nbsp;[Stage 1](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-1)
-&nbsp;&nbsp;&nbsp;&nbsp;[Stage 2](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-2)
-&nbsp;&nbsp;&nbsp;&nbsp;[Stage 3](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-3)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Stage 1](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-1)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Stage 2](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-2)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Stage 3](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-3)
 
 # Stage 1
 

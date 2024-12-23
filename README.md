@@ -506,13 +506,13 @@ GROUP BY DaysOverdue
 ORDER BY DaysOverdue DESC
 LIMIT 25;
 ```
-Explanation:
+Explanation: <br/>
 This query calculates how many days each loan is overdue (DaysOverdue) and groups all overdue loans by that number. For each group, it counts the number of loans overdue for the same number of days (LoanCount). The results are then ordered by the highest number of overdue days and limited to the top 25 results.
 
-Why It’s Useful:
-Insights into overdue loans: This query helps librarians see patterns in overdue loans, focusing on loans that are significantly overdue.
-Prioritization: By identifying groups of highly overdue loans, librarians can target their efforts to resolve the most pressing cases.
-Data aggregation: Grouping overdue loans by days simplifies the data, providing a clear picture of overdue trends.
+Why It’s Useful:<br/>
+   - Insights into overdue loans: This query helps librarians see patterns in overdue loans, focusing on loans that are significantly overdue.
+   - Prioritization: By identifying groups of highly overdue loans, librarians can target their efforts to resolve the most pressing cases.
+   - Data aggregation: Grouping overdue loans by days simplifies the data, providing a clear picture of overdue trends.
 
 ![overdue_loans_grouped_bar_chart](https://github.com/user-attachments/assets/a5e4a7bc-05b0-4784-b4b9-14a7e3173fd4)
 
@@ -526,13 +526,13 @@ SELECT
 FROM ReaderCard
 GROUP BY CardType;
 ```
-Explanation:
+Explanation:<br/>
 This query counts the total number of library cards for each CardType (e.g., "Electronic" or "Physical") by grouping the data based on the card type.
 
-Why It’s Useful:
-Understanding card usage: This query gives library administrators insights into the distribution of electronic and physical cards among users.
-Trend analysis: Monitoring card type distributions over time can help libraries assess the effectiveness of initiatives to promote electronic cards.
-Operational planning: Knowing the proportions of each card type can inform resource allocation, such as focusing on maintaining digital card systems or processing physical cards.
+Why It’s Useful:<br/>
+   - Understanding card usage: This query gives library administrators insights into the distribution of electronic and physical cards among users.
+   - Trend analysis: Monitoring card type distributions over time can help libraries assess the effectiveness of initiatives to promote electronic cards.
+   - Operational planning: Knowing the proportions of each card type can inform resource allocation, such as focusing on maintaining digital card systems or processing physical cards.
 
 ![card_types_pie_chart](https://github.com/user-attachments/assets/0a6a120a-1977-4c21-ac38-02cfe633aaad)
 

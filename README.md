@@ -510,9 +510,9 @@ Explanation: <br/>
 This query calculates how many days each loan is overdue (DaysOverdue) and groups all overdue loans by that number. For each group, it counts the number of loans overdue for the same number of days (LoanCount). The results are then ordered by the highest number of overdue days and limited to the top 25 results.
 
 Why It’s Useful:
-   - Insights into overdue loans: This query helps librarians see patterns in overdue loans, focusing on loans that are significantly overdue.
-   - Prioritization: By identifying groups of highly overdue loans, librarians can target their efforts to resolve the most pressing cases.
-   - Data aggregation: Grouping overdue loans by days simplifies the data, providing a clear picture of overdue trends.
+- Insights into overdue loans: This query helps librarians see patterns in overdue loans, focusing on loans that are significantly overdue.
+- Prioritization: By identifying groups of highly overdue loans, librarians can target their efforts to resolve the most pressing cases.
+- Data aggregation: Grouping overdue loans by days simplifies the data, providing a clear picture of overdue trends.
 
 ![overdue_loans_grouped_bar_chart](https://github.com/user-attachments/assets/a5e4a7bc-05b0-4784-b4b9-14a7e3173fd4)
 
@@ -530,9 +530,9 @@ Explanation:<br/>
 This query counts the total number of library cards for each CardType (e.g., "Electronic" or "Physical") by grouping the data based on the card type.
 
 Why It’s Useful:
-   - Understanding card usage: This query gives library administrators insights into the distribution of electronic and physical cards among users.
-   - Trend analysis: Monitoring card type distributions over time can help libraries assess the effectiveness of initiatives to promote electronic cards.
-   - Operational planning: Knowing the proportions of each card type can inform resource allocation, such as focusing on maintaining digital card systems or processing physical cards.
+- Understanding card usage: This query gives library administrators insights into the distribution of electronic and physical cards among users.
+- Trend analysis: Monitoring card type distributions over time can help libraries assess the effectiveness of initiatives to promote electronic cards.
+- Operational planning: Knowing the proportions of each card type can inform resource allocation, such as focusing on maintaining digital card systems or processing physical cards.
 
 ![card_types_pie_chart](https://github.com/user-attachments/assets/0a6a120a-1977-4c21-ac38-02cfe633aaad)
 
@@ -569,10 +569,6 @@ $$ LANGUAGE plpgsql;
 - This function queries the `BooksOnLoan` table, which stores the details of all books currently on loan.
 - It counts the `LoanID` values associated with the given `reader_id` to determine how many books the reader has borrowed.
 
-##### Considerations:
-- This function does not account for any returned books, so it only counts books that are still on loan.
-- The function could be extended to include conditions such as overdue books if needed.
-
 ---
 
 #### Function 2: `GetLastNotificationDetails`
@@ -601,10 +597,6 @@ $$ LANGUAGE plpgsql;
 - The function queries the `Notifications` table, filtering by `ReaderID`.
 - It orders the notifications by `SentDate` in descending order and limits the result to the most recent notification.
 - The result includes the message text (`Message_`), the `SentDate`, and a boolean (`IsRead`) indicating if the notification has been read.
-
-##### Considerations:
-- If there are no notifications for a reader, the function will return `NULL` values.
-- The function assumes that the `Notifications` table stores notifications with a timestamp for when they were sent.
 
 ---
 
@@ -639,10 +631,6 @@ $$ LANGUAGE plpgsql;
 - It uses a `LEFT JOIN` to connect with the `BooksOnLoan` table, counting the `LoanID` for each reader.
 - The result is grouped by `ReaderID`, and the function calculates the average of these counts.
 
-##### Considerations:
-- The function assumes that every reader has a card type, and it handles cases where no books are borrowed by a reader (i.e., `0` books will be counted).
-- A `LEFT JOIN` ensures that readers with no borrowed books are included in the average.
-
 ---
 
 #### Function 4: `GetFamilyBooksBorrowed`
@@ -670,10 +658,6 @@ $$ LANGUAGE plpgsql;
 ##### How It Works:
 - This function uses a `LEFT JOIN` to connect the `FamilyTies` table (which links family members) with the `BooksOnLoan` table.
 - It counts the total number of `LoanID` values for the reader and their related family members.
-
-##### Considerations:
-- The function assumes that the `FamilyTies` table correctly identifies related readers.
-- It will count borrowed books by family members on the condition that either the reader or the family member has borrowed the book.
 
 ---
 

@@ -1,7 +1,20 @@
 \timing
 
--- 1. Retrieve a list of all readers along with the total number of books they have ever borrowed.
+-- COMMAND TO RUN THIS FILE: psql -U postgres -d "Mini Project" -f Queries.sql > QueriesWithFunctions.log
 
+
+-- 1. Retrieve a list of all readers along with the total number of books they have ever borrowed.
+SELECT
+    r.ReaderID,
+    r.FirstName,
+    r.LastName,
+    GetTotalBooksBorrowed(r.ReaderID) AS TotalBooksBorrowed
+FROM Readers r
+ORDER BY TotalBooksBorrowed DESC;
+
+    -- TIMING
+
+/* Query before functions were created:
 SELECT
     r.ReaderID,
     r.FirstName,
@@ -18,8 +31,23 @@ ORDER BY
     TotalBooksBorrowed DESC;
 
     -- TIME: 00.169s
+*/
+
 
 -- 2. Find the last notification sent to each reader and its status.
+
+SELECT 
+    r.ReaderID, 
+    r.FirstName, 
+    r.LastName, 
+    n.Message_, 
+    n.SentDate, 
+    n.IsRead
+FROM Readers r
+CROSS JOIN LATERAL GetLastNotificationDetails(r.ReaderID) n
+ORDER BY n.SentDate DESC;
+
+/* Query before functions were created:
 SELECT 
     Readers.ReaderID, 
     Readers.FirstName, 
@@ -37,9 +65,18 @@ WHERE Notifications.SentDate = (
 ORDER BY Notifications.SentDate DESC;
 
     -- TIME: 02:15.844s
+*/
+
 
 -- 3. Calculate the average number of books borrowed by readers for each card type ('Electronic' or 'Physical').
 
+SELECT
+    rc.CardType,
+    GetAverageBooksByCardType(rc.CardType) AS AverageBooksBorrowed
+FROM ReaderCard rc
+GROUP BY rc.CardType;
+
+/* Query before functions were created:
 WITH ReaderBorrowCounts AS (
     SELECT
         rc.ReaderID,
@@ -61,9 +98,26 @@ GROUP BY
     CardType;
 
     -- TIME: 00.112s
+*/
+
 
 -- 4. Retrieve a list of readers along with the number of their family members
 -- and the total number of books borrowed by their family members.
+
+SELECT
+    r.ReaderID,
+    r.FirstName,
+    r.LastName,
+    COALESCE((
+        SELECT COUNT(RelatedReaderID)
+        FROM FamilyTies
+        WHERE ReaderID = r.ReaderID
+    ), 0) AS FamilyMemberCount,
+    COALESCE(GetFamilyBooksBorrowed(r.ReaderID), 0) AS TotalFamilyBooksBorrowed
+FROM Readers r
+ORDER BY FamilyMemberCount DESC, TotalFamilyBooksBorrowed DESC;
+
+/* Query before functions were created:
 WITH AllFamilyTies AS (
     -- Combine family ties in both directions to account for bidirectional relationships
     SELECT ReaderID, RelatedReaderID FROM FamilyTies
@@ -106,6 +160,8 @@ ORDER BY
     TotalFamilyBooksBorrowedByFamily DESC;
 
     -- TIME: 00.125s
+
+*/
 
 -- 5. Update unread notifications older than a month to indicate follow-up is needed.
 UPDATE Notifications

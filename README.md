@@ -613,6 +613,9 @@ $$ LANGUAGE plpgsql;
 
 ---
 
-For backup and restore to Stage 3, use the following commands:
+## For backup and restore to Stage 3, use the following commands:
+
 **Backup:** pg_dump -U postgres -h localhost -d "Mini Project" --file=backupPSQL_Stage3.sql --verbose --clean --if-exists -F c 2> backupPSQL_Stage3.log
 **Restore:** pg_restore -U postgres -h localhost -v -d "Mini Project" -F c --if-exists --clean backupPSQL_Stage3.SQL 2> restorePSQL_Stage3.log
+
+---

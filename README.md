@@ -452,6 +452,8 @@ Data aggregation: Grouping overdue loans by days simplifies the data, providing 
 
 ![overdue_loans_grouped_bar_chart](https://github.com/user-attachments/assets/a5e4a7bc-05b0-4784-b4b9-14a7e3173fd4)
 
+Script to generate bar chart located [here](https://github.com/effiemincer/database_mini_proj/blob/main/Visualizations/Visualiztion_BarChart_Stage3.py).
+
 ### Query 2: Distribution of Card Types
 
 ```sql
@@ -469,6 +471,8 @@ Trend analysis: Monitoring card type distributions over time can help libraries 
 Operational planning: Knowing the proportions of each card type can inform resource allocation, such as focusing on maintaining digital card systems or processing physical cards.
 
 ![card_types_pie_chart](https://github.com/user-attachments/assets/0a6a120a-1977-4c21-ac38-02cfe633aaad)
+
+Script for generating pie chart located [here](https://github.com/effiemincer/database_mini_proj/blob/main/Visualizations/Visualiztion_PieChart_Stage3.py).
 
 ## Functions
 

@@ -308,3 +308,30 @@ Here's a summary of the tests conducted along with the explanation of the errors
 
   ![WhatsApp Image 2024-12-02 at 17 39 04_4f8eb440](https://github.com/user-attachments/assets/4f4bc2f2-8632-4756-a78c-a1701d83b176)
 
+
+# Stage 3
+
+## Multi Table Queries: 
+
+## These are the 3 queries that were ran they can be found at [QueriesMultiTable.sql](https://github.com/effiemincer/database_mini_proj/blob/main/QueriesMultiTable.sql). 
+
+### **1. Retrieve Top 5 Readers with the Most Unreturned Books in the Last 30 Days**  
+This query identifies readers with the highest number of books that remain unreturned, borrowed within the past 30 days. It uses joins across the `Readers`, `BooksOnLoan`, and `BooksReturned` tables to track overdue books. This information helps the library staff prioritize overdue notifications and manage book circulation more efficiently.  
+
+### **2. Count Family Members of Readers with Electronic Cards**  
+To better understand borrowing patterns within families, this query calculates the number of family members for each reader who holds an electronic card. It leverages the `Readers`, `ReaderCard`, and `FamilyTies` tables to filter by card type and aggregate family ties. The results are sorted to highlight readers with the largest family connections, supporting policies around family-based borrowing benefits.  
+
+### **3. Extend Expiration Dates for Readers with More Than 10 Loans in the Past Year**  
+Frequent borrowers receive a benefit through this query, which extends the expiration date of their reader cards by one year. By joining `Readers`, `BooksOnLoan`, and `ReaderCard`, the system identifies readers who have borrowed more than 10 books in the last year. Their cards are automatically updated, ensuring continued access to library services without manual intervention.  
+
+### **Timing Results:**  
+
+| Query # | Description                                       | Time  | 
+|---------|---------------------------------------------------|---------------------|  
+| 1       | Top 5 Readers with Unreturned Books               | **2:35.204s**       | 
+| 2       | Count Family Members of Electronic Card Readers   | **1:10.125s**       | 
+| 3       | Extend Expiration for Active Borrowers            | **58.431s**         | 
+
+
+
+

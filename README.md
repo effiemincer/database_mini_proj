@@ -1,6 +1,10 @@
 # database_mini_proj
 Mini project for Database systems
 
+### Navigate to:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Stage 1](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-1)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Stage 2](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-2)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Stage 3](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-3)
 
 # Stage 1
 
@@ -452,6 +456,8 @@ Data aggregation: Grouping overdue loans by days simplifies the data, providing 
 
 ![overdue_loans_grouped_bar_chart](https://github.com/user-attachments/assets/a5e4a7bc-05b0-4784-b4b9-14a7e3173fd4)
 
+Script to generate bar chart located [here](https://github.com/effiemincer/database_mini_proj/blob/main/Visualizations/Visualiztion_BarChart_Stage3.py).
+
 ### Query 2: Distribution of Card Types
 
 ```sql
@@ -470,8 +476,150 @@ Operational planning: Knowing the proportions of each card type can inform resou
 
 ![card_types_pie_chart](https://github.com/user-attachments/assets/0a6a120a-1977-4c21-ac38-02cfe633aaad)
 
+Script for generating pie chart located [here](https://github.com/effiemincer/database_mini_proj/blob/main/Visualizations/Visualiztion_PieChart_Stage3.py).
+
 ## Functions
 
-Functions can be viewed in the [Functions.sql]() file with all the log information in [Functions.log]().
+Functions can be viewed in the [Functions.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Functions.sql) file with all the timing and output information in [Functions.log](https://github.com/effiemincer/database_mini_proj/blob/main/Functions.log).
 
-Queries 1, 2, 3, and 4 had parts replaced with functions as can be seen in the [Queries.sql]() file with the original query from stage 2 below it in comments. Timing and results data is available in the [QueriesWithFunctions.log]() file.
+Queries 1, 2, 3, and 4 had parts replaced inside them with functions as can be seen in the [Queries.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Queries.sql) file with the original query from Stage 2 below each new query in comments. Timing and results data is available in the [QueriesWithFunctions.log](https://github.com/effiemincer/database_mini_proj/blob/main/QueriesWithFunctions.log) file.
+
+#### Function 1: `GetTotalBooksBorrowed`
+
+##### Purpose:
+The function `GetTotalBooksBorrowed` calculates the total number of books borrowed by a specific reader. It takes the `reader_id` as input and returns an integer representing the total count of borrowed books.
+
+##### Function Definition:
+```sql
+DROP FUNCTION IF EXISTS GetTotalBooksBorrowed(integer);
+
+CREATE OR REPLACE FUNCTION GetTotalBooksBorrowed(reader_id INT)
+RETURNS INT AS $$
+BEGIN
+    RETURN (
+        SELECT COUNT(LoanID)
+        FROM BooksOnLoan
+        WHERE ReaderID = reader_id
+    );
+END;
+$$ LANGUAGE plpgsql;
+```
+
+##### How It Works:
+- This function queries the `BooksOnLoan` table, which stores the details of all books currently on loan.
+- It counts the `LoanID` values associated with the given `reader_id` to determine how many books the reader has borrowed.
+
+##### Considerations:
+- This function does not account for any returned books, so it only counts books that are still on loan.
+- The function could be extended to include conditions such as overdue books if needed.
+
+---
+
+#### Function 2: `GetLastNotificationDetails`
+
+##### Purpose:
+The function `GetLastNotificationDetails` retrieves the most recent notification for a specific reader. It returns the message content, the date it was sent, and whether the notification has been read.
+
+##### Function Definition:
+```sql
+DROP FUNCTION IF EXISTS GetLastNotificationDetails(integer);
+
+CREATE OR REPLACE FUNCTION GetLastNotificationDetails(reader_id INT)
+RETURNS TABLE (Message_ TEXT, SentDate DATE, IsRead BOOLEAN) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT Notifications.Message AS Message_, Notifications.SentDate, Notifications.IsRead
+    FROM Notifications
+    WHERE ReaderID = reader_id
+    ORDER BY SentDate DESC
+    LIMIT 1;
+END;
+$$ LANGUAGE plpgsql;
+```
+
+##### How It Works:
+- The function queries the `Notifications` table, filtering by `ReaderID`.
+- It orders the notifications by `SentDate` in descending order and limits the result to the most recent notification.
+- The result includes the message text (`Message_`), the `SentDate`, and a boolean (`IsRead`) indicating if the notification has been read.
+
+##### Considerations:
+- If there are no notifications for a reader, the function will return `NULL` values.
+- The function assumes that the `Notifications` table stores notifications with a timestamp for when they were sent.
+
+---
+
+#### Function 3: `GetAverageBooksByCardType`
+
+##### Purpose:
+The function `GetAverageBooksByCardType` calculates the average number of books borrowed by readers of a specific card type. It returns a numeric value representing the average.
+
+##### Function Definition:
+```sql
+DROP FUNCTION IF EXISTS GetAverageBooksByCardType(text);
+
+CREATE OR REPLACE FUNCTION GetAverageBooksByCardType(card_type TEXT)
+RETURNS NUMERIC AS $$
+BEGIN
+    RETURN (
+        SELECT AVG(BooksBorrowed)
+        FROM (
+            SELECT COUNT(b.LoanID) AS BooksBorrowed
+            FROM ReaderCard rc
+            LEFT JOIN BooksOnLoan b ON rc.ReaderID = b.ReaderID
+            WHERE rc.CardType = card_type
+            GROUP BY rc.ReaderID
+        ) AS BorrowCounts
+    );
+END;
+$$ LANGUAGE plpgsql;
+```
+
+##### How It Works:
+- The function first queries the `ReaderCard` table to filter readers by the given `card_type`.
+- It uses a `LEFT JOIN` to connect with the `BooksOnLoan` table, counting the `LoanID` for each reader.
+- The result is grouped by `ReaderID`, and the function calculates the average of these counts.
+
+##### Considerations:
+- The function assumes that every reader has a card type, and it handles cases where no books are borrowed by a reader (i.e., `0` books will be counted).
+- A `LEFT JOIN` ensures that readers with no borrowed books are included in the average.
+
+---
+
+#### Function 4: `GetFamilyBooksBorrowed`
+
+##### Purpose:
+The function `GetFamilyBooksBorrowed` calculates the total number of books borrowed by the family members of a given reader. It takes the `reader_id` as input and returns the total count of books borrowed by both the reader and their family members.
+
+##### Function Definition:
+```sql
+DROP FUNCTION IF EXISTS GetFamilyBooksBorrowed(integer);
+
+CREATE OR REPLACE FUNCTION GetFamilyBooksBorrowed(reader_id INT)
+RETURNS INT AS $$
+BEGIN
+    RETURN (
+        SELECT COUNT(bol.LoanID)
+        FROM FamilyTies ft
+        LEFT JOIN BooksOnLoan bol ON ft.RelatedReaderID = bol.ReaderID
+        WHERE ft.ReaderID = reader_id OR ft.RelatedReaderID = reader_id
+    );
+END;
+$$ LANGUAGE plpgsql;
+```
+
+##### How It Works:
+- This function uses a `LEFT JOIN` to connect the `FamilyTies` table (which links family members) with the `BooksOnLoan` table.
+- It counts the total number of `LoanID` values for the reader and their related family members.
+
+##### Considerations:
+- The function assumes that the `FamilyTies` table correctly identifies related readers.
+- It will count borrowed books by family members on the condition that either the reader or the family member has borrowed the book.
+
+---
+
+## For backup and restore to Stage 3, use the following commands:
+
+**Backup:** pg_dump -U postgres -h localhost -d "Mini Project" --file=backupPSQL_Stage3.sql --verbose --clean --if-exists -F c 2> backupPSQL_Stage3.log <br/>
+**Restore:** pg_restore -U postgres -h localhost -v -d "Mini Project" -F c --if-exists --clean backupPSQL_Stage3.SQL 2> restorePSQL_Stage3.log
+
+---

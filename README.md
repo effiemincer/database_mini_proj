@@ -311,9 +311,9 @@ Here's a summary of the tests conducted along with the explanation of the errors
 
 # Stage 3
 
-## Multi Table Queries: 
+## Multi-Table Queries: 
 
-## These are the 3 queries that were ran they can be found at [QueriesMultiTable.sql](https://github.com/effiemincer/database_mini_proj/blob/main/QueriesMultiTable.sql). 
+The code for the 3 queries below can be found at [QueriesMultiTable.sql](https://github.com/effiemincer/database_mini_proj/blob/main/QueriesMultiTable.sql). 
 
 ### **1. Retrieve Top 5 Readers with the Most Unreturned Books in the Last 30 Days**  
 This query identifies readers with the highest number of books that remain unreturned, borrowed within the past 30 days. It uses joins across the `Readers`, `BooksOnLoan`, and `BooksReturned` tables to track overdue books. This information helps the library staff prioritize overdue notifications and manage book circulation more efficiently.  

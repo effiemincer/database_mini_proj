@@ -469,3 +469,9 @@ Trend analysis: Monitoring card type distributions over time can help libraries 
 Operational planning: Knowing the proportions of each card type can inform resource allocation, such as focusing on maintaining digital card systems or processing physical cards.
 
 ![card_types_pie_chart](https://github.com/user-attachments/assets/0a6a120a-1977-4c21-ac38-02cfe633aaad)
+
+## Functions
+
+Functions can be viewed in the [Functions.sql]() file with all the log information in [Functions.log]().
+
+Queries 1, 2, 3, and 4 had parts replaced with functions as can be seen in the [Queries.sql]() file with the original query from stage 2 below it in comments. Timing and results data is available in the [QueriesWithFunctions.log]() file.

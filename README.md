@@ -675,12 +675,14 @@ $$ LANGUAGE plpgsql;
 ## ERD 
 
 ### Our Original ERD for Readers
-
+![image](https://github.com/user-attachments/assets/7ea9b400-9193-4dca-854a-fdfc6a8af3b3)
 
 ### Avi and Leib's Original ERD for Books
+![WhatsApp Image 2025-01-26 at 16 06 07_b7575986](https://github.com/user-attachments/assets/85271270-76c5-4472-b790-2db017e3d324)
 
 
 ### The Merged ERD
+![ERD combined](https://github.com/user-attachments/assets/e3f1f363-ca31-4332-a765-776490cb09ab)
 
 
 ---

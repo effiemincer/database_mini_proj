@@ -1,7 +1,9 @@
 # database_mini_proj
+
 Mini project for Database systems
 
 ### Navigate to:
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Stage 1](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-1)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Stage 2](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-2)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Stage 3](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-3)
@@ -9,28 +11,33 @@ Mini project for Database systems
 # Stage 1
 
 # ERD
-[ERD.json](https://github.com/effiemincer/database_mini_proj/blob/main/ERD.json)
+
+[ERD.json](https://github.com/effiemincer/database_mini_proj/blob/main/Json/ERD.json)
 ![image](https://github.com/user-attachments/assets/7ea9b400-9193-4dca-854a-fdfc6a8af3b3)
 
+### _Why These Entities Were Chosen_
 
-### *Why These Entities Were Chosen*
+1. _Readers_:
 
-1. *Readers*:
    - Represents the primary users of the library system. All interactions, including loans, notifications, and relationships, are centered around readers. The entity ensures each reader is uniquely identifiable by ReaderID.
 
-2. *FamilyTies*:
+2. _FamilyTies_:
+
    - Allows the library to establish and track family-based relationships between readers. This is particularly useful for family-oriented libraries that offer shared memberships, discounts, or policies based on familial connections (e.g., parental borrowing limits for children).
 
-3. *ReaderCard*:
+3. _ReaderCard_:
+
    - Captures the details of library cards issued to readers. Including attributes like ExpirationDate ensures that card usage is valid and allows the library to send reminders for renewal or deactivation of expired cards.
 
-4. *BooksOnLoan*:
+4. _BooksOnLoan_:
+
    - Tracks active loans, connecting specific readers to borrowed books. Attributes like LoanDate and DueDate allow the library to monitor borrowing periods and assess overdue penalties.
 
-5. *BooksReturned*:
+5. _BooksReturned_:
+
    - Captures return-related details, including the condition of the book and the date of return. This ensures proper inventory management and accountability for damages.
 
-6. *Notifications*:
+6. _Notifications_:
    - Central to the library’s communication system, Notifications tracks messages sent to readers. Notifications are used for:
      - Reminders about upcoming due dates for books.
      - Alerts about expired or expiring library cards.
@@ -39,81 +46,88 @@ Mini project for Database systems
 
 ---
 
-### *How the Design Was Built*
+### _How the Design Was Built_
 
-1. *Use Cases*:
-   - *Readers*: Track user details for issuing loans, notifications, and library card management.
-   - *FamilyTies*: Provide support for libraries with family-based borrowing privileges or discounts.
-   - *ReaderCard*: Enable both physical and electronic access to library services, ensuring cards remain valid via expiration tracking.
-   - *Books and Loans*: Allow seamless tracking of which books are borrowed, by whom, and when they are due or returned.
-   - *Notifications*: Automate and track communication with readers, ensuring timely updates about their accounts and loans.
+1. _Use Cases_:
 
-2. *Target Users*:
-   - *Library Staff*: For managing books, loans, returns, and issuing cards.
-   - *Readers*: For viewing their loan history, managing notifications, and using library cards.
-   - *Library Management*: For maintaining accountability and ensuring compliance with borrowing policies.
+   - _Readers_: Track user details for issuing loans, notifications, and library card management.
+   - _FamilyTies_: Provide support for libraries with family-based borrowing privileges or discounts.
+   - _ReaderCard_: Enable both physical and electronic access to library services, ensuring cards remain valid via expiration tracking.
+   - _Books and Loans_: Allow seamless tracking of which books are borrowed, by whom, and when they are due or returned.
+   - _Notifications_: Automate and track communication with readers, ensuring timely updates about their accounts and loans.
 
-3. *Normalization (3NF)*:
+2. _Target Users_:
+
+   - _Library Staff_: For managing books, loans, returns, and issuing cards.
+   - _Readers_: For viewing their loan history, managing notifications, and using library cards.
+   - _Library Management_: For maintaining accountability and ensuring compliance with borrowing policies.
+
+3. _Normalization (3NF)_:
+
    - The design follows strict normalization rules:
      - Each entity is unique and stores only attributes directly related to it.
      - Relationships are properly represented using join tables (e.g., FamilyTies).
      - All attributes are atomic and depend only on the primary key of their respective entities.
 
-4. *Notifications Integration*:
+4. _Notifications Integration_:
+
    - The Notifications entity is linked to the Readers entity through the "Notified" relationship.
    - Each notification is uniquely identified using NotificationID and captures:
-     - *Who*: The ReaderID associated with the notification.
-     - *What*: The Message content of the notification.
-     - *When*: The SentDate of the notification.
-     - *Status*: Whether the notification has been read (IsRead).
+     - _Who_: The ReaderID associated with the notification.
+     - _What_: The Message content of the notification.
+     - _When_: The SentDate of the notification.
+     - _Status_: Whether the notification has been read (IsRead).
 
-5. *Why Notifications Matter*:
+5. _Why Notifications Matter_:
    - Ensures proactive communication, reducing overdue books and keeping readers engaged.
    - Provides accountability by logging sent notifications and their read status.
 
-
 # DSD
+
 ![image](https://github.com/user-attachments/assets/8f1b499b-25c4-4d90-b054-fa55dce401b2)
 
-
 # SQL File Reflecting Database Build
+
 The file titled [DB1.sql](https://github.com/effiemincer/database_mini_proj/blob/main/DB1.sql) has our database schema and build.
 
 # Data Population Script and SQL Files
+
 [Link to the folder with the population script and population sql files](https://github.com/effiemincer/database_mini_proj/tree/main/Population%20Script%20and%20Files)
 
 # pg_dump
-### pg_dump command: 
-   pg_dump -U postgres -h localhost -d "Mini Project" > [MiniProjectDump.sql](https://github.com/effiemincer/database_mini_proj/blob/main/MiniProjectDump.sql)
-   
+
+### pg_dump command:
+
+pg_dump -U postgres -h localhost -d "Mini Project" > [MiniProjectDump.sql](https://github.com/effiemincer/database_mini_proj/blob/main/MiniProjectDump.sql)
+
 Screenshots of the dump:
 ![image](https://github.com/user-attachments/assets/7fb5832f-ee11-4314-bea3-0591a2e70494)
 ![image](https://github.com/user-attachments/assets/b8016182-b651-40e2-bc54-02d06790b8a7)
 
-
-
 # Stage 2
+
 ## Backup
+
 Run these commands in windows powershell:
 
-*Command for SQL backup:* Measure-Command {pg_dump -U postgres -h localhost -d "Mini Project" --file=backupSQL.sql --verbose --clean --if-exists 2> backupSQL.log}
+_Command for SQL backup:_ Measure-Command {pg_dump -U postgres -h localhost -d "Mini Project" --file=backupSQL.sql --verbose --clean --if-exists 2> backupSQL.log}
 
-*Command for PSQL backup:* Measure-Command {pg_dump -U postgres -h localhost -d "Mini Project" --file=backupPSQL.sql --verbose --clean --if-exists -F c 2> backupPSQL.log}
+_Command for PSQL backup:_ Measure-Command {pg_dump -U postgres -h localhost -d "Mini Project" --file=backupPSQL.sql --verbose --clean --if-exists -F c 2> backupPSQL.log}
 
-*Command for PSQL Restore:* Measure-Command {pg_restore -U postgres -h localhost -v -d "Mini Project" -F c --if-exists --clean backupPSQL.SQL 2> restorePSQL.log}
+_Command for PSQL Restore:_ Measure-Command {pg_restore -U postgres -h localhost -v -d "Mini Project" -F c --if-exists --clean backupPSQL.SQL 2> restorePSQL.log}
 
 The files with timing information is stored in the folder titled: ["Backup for Stage 2"](https://github.com/effiemincer/database_mini_proj/tree/main/Backup%20for%20Stage%202).
 
 ![WhatsApp Image 2024-12-02 at 17 15 43_e289a98e](https://github.com/user-attachments/assets/f13a1715-7b19-4f43-96fc-b5613efce293)
 
-
 ## Queries
+
 Any query or parameterized query that returned tables are stored as csv files in [Query Responses](https://github.com/effiemincer/database_mini_proj/tree/main/Query%20Responses). Responses that are just a message are commented in the sql file underneath the query. The log file with timing and output is [here](https://github.com/effiemincer/database_mini_proj/blob/main/QueriesOutputLog.log).
 
 ![WhatsApp Image 2024-12-02 at 17 13 50_76a35d22](https://github.com/user-attachments/assets/0653f90d-1da0-43bc-aa86-6b6483f8a723)
 
-
 Here are the queries in our own words, they are all available in full with timing information in [Queries.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Queries.sql):
+
 1. Retrieve a list of all readers along with the total number of books they have ever borrowed.
 2. Find the last notification sent to each reader and its status.
 3. Calculate the average number of books borrowed by readers for each card type ('Electronic' or 'Physical').
@@ -124,116 +138,124 @@ Here are the queries in our own words, they are all available in full with timin
 8. Remove a specific reader from the system (and cascade delete related loans).
 
 ## Parameterized Queries
+
 Any query or parameterized query that returned tables are stored as csv files in [Query Responses](https://github.com/effiemincer/database_mini_proj/tree/main/Query%20Responses). Responses that are just a message are commented in the sql file underneath the query. The log file with timing and output is [here](https://github.com/effiemincer/database_mini_proj/blob/main/ParamsQueriesOutputLog.log).
 
 Here are the paramterized queries in our own words, they are all available in full with timing information in [ParamsQueries.sql](https://github.com/effiemincer/database_mini_proj/blob/main/ParamsQueries.sql):
+
 1. Retrieve All Family Members for a Specific Reader.
 2. Find Readers Who Borrowed More Than a Specified Number of Books Within a Date Range.
 3. Update the expiration date of reader cards by extending them by one year for readers who have borrowed more than a specified number of books within the last year.
 4. Delete readers who have not borrowed any books in the last x years.
 
 ## Indexes
+
 The create queries for the above indices are stored in [Constraints.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Constraints.sql).
 
-### *Index 1: Optimize Reader and ReaderCard Relationships*
-*Purpose*: Enhance performance for operations that join Readers and ReaderCard tables. This relationship is fundamental since every reader has an associated card.
+### _Index 1: Optimize Reader and ReaderCard Relationships_
+
+_Purpose_: Enhance performance for operations that join Readers and ReaderCard tables. This relationship is fundamental since every reader has an associated card.
 
 sql
 CREATE INDEX idx_reader_card_readerid
 ON ReaderCard (ReaderID);
 
+_Reason_:
 
-*Reason*:
 - ReaderID in ReaderCard is frequently used for joining with the Readers table.
 - This index ensures quick access to all cards associated with a specific reader.
 
 ---
 
-### *Index 2: Optimize Book Borrowing and Returning Workflow*
-*Purpose*: Support operations linking BooksOnLoan and BooksReturned. Since the loan and return tables are tightly coupled, efficient lookups between them are essential.
+### _Index 2: Optimize Book Borrowing and Returning Workflow_
+
+_Purpose_: Support operations linking BooksOnLoan and BooksReturned. Since the loan and return tables are tightly coupled, efficient lookups between them are essential.
 
 sql
 CREATE INDEX idx_booksreturned_loanid
 ON BooksReturned (LoanID);
 
+_Reason_:
 
-*Reason*:
 - LoanID is the foreign key linking BooksReturned and BooksOnLoan.
 - This index optimizes queries that need to retrieve return records for a specific loan or join these two tables.
 
 ---
 
-### *Index 3: Optimize Notifications for Recent Activity*
-*Purpose*: Facilitate efficient access to notifications based on SentDate. Notifications are typically accessed in chronological order or filtered by date ranges.
+### _Index 3: Optimize Notifications for Recent Activity_
+
+_Purpose_: Facilitate efficient access to notifications based on SentDate. Notifications are typically accessed in chronological order or filtered by date ranges.
 
 sql
 CREATE INDEX idx_notifications_sentdate
 ON Notifications (SentDate DESC);
 
+_Reason_:
 
-*Reason*:
 - Sorting or filtering notifications by SentDate is a common use case.
 - This index enables efficient retrieval of recent notifications without needing to scan the entire table.
 
 ---
 
-### *Index 4: Optimize Notifications for Reader-Specific Lookups and Recent Activity*
+### _Index 4: Optimize Notifications for Reader-Specific Lookups and Recent Activity_
 
 sql
 CREATE INDEX idx_notifications_readerid_sentdate
 ON Notifications (ReaderID, SentDate DESC);
 
-*Reason*:
+_Reason_:
+
 - This index optimizes queries by enabling fast lookups, sorting, and aggregation of notifications based on ReaderID and the most recent SentDate.
 
 ---
 
-### *Index 5: Optimize Book Loan Activity and Inactive Reader Filtering*
+### _Index 5: Optimize Book Loan Activity and Inactive Reader Filtering_
 
 sql
 CREATE INDEX idx_booksonloan_readerid_loandate
 ON BooksOnLoan (ReaderID, LoanDate DESC);
 
-*Reason*:
+_Reason_:
+
 - This index speeds up joins and efficiently retrieves the most recent LoanDate for each ReaderID to optimize filtering inactive readers.
 
 ---
 
-### *Summary of Indices*
+### _Summary of Indices_
+
 1. **idx_reader_card_readerid**: Supports efficient joins between Readers and ReaderCard.
 2. **idx_booksreturned_loanid**: Optimizes the workflow between loans and returns for books.
 3. **idx_notifications_sentdate**: Enhances access to notifications, especially for recent or date-based queries.
 4. **idx_notifications_readerid_sentdate**: Enables fast lookups, sorting, and aggregation of notifications based on ReaderID.
 5. **idx_booksonloan_readerid_loandate**: Speeds up joins and efficiently retrieves the most recent LoanDate for each ReaderID.
 
-
 Timing of commands before and after indices:
 
-| Query # | Time before indices   | Time after indices   |
-|------------|------------|------------|
-| 1| 00.169s | 00.169s |
-| 2| 02:15.844s | 00.217s |
-| 3| 00.112s | 00.112s |
-| 4| 00.125s | 00.125s |
-| 5| 00.422s | 00.422s |
-| 6| 00.432s | 00.432s |
-| 7| 00.045s | 00.045s |
-| 8| 00.050s | 00.050s |
+| Query # | Time before indices | Time after indices |
+| ------- | ------------------- | ------------------ |
+| 1       | 00.169s             | 00.169s            |
+| 2       | 02:15.844s          | 00.217s            |
+| 3       | 00.112s             | 00.112s            |
+| 4       | 00.125s             | 00.125s            |
+| 5       | 00.422s             | 00.422s            |
+| 6       | 00.432s             | 00.432s            |
+| 7       | 00.045s             | 00.045s            |
+| 8       | 00.050s             | 00.050s            |
 
-| Parameterized Query # | Time before indices   | Time after indices   |
-|------------|------------|------------|
-| 1| 00.046s | 00.046s |
-| 2| 00.060s | 00.060s |
-| 3| 00.190s | 00.190s |
-| 4| 01:06.616s | 02.627s |
+| Parameterized Query # | Time before indices | Time after indices |
+| --------------------- | ------------------- | ------------------ |
+| 1                     | 00.046s             | 00.046s            |
+| 2                     | 00.060s             | 00.060s            |
+| 3                     | 00.190s             | 00.190s            |
+| 4                     | 01:06.616s          | 02.627s            |
 
 As we can see our 2 longest commands have been significantly reduced!
 
 ## Constraints
 
-To see Constraints see the file [Constraints.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Constraints.sql). 
+To see Constraints see the file [Constraints.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Constraints.sql).
 
-To see Tests done on the restraints as well as errors thrown see the file [ConstraintsErrorMessages.log](https://github.com/effiemincer/database_mini_proj/blob/main/ConstraintsErrorMessages.log). 
+To see Tests done on the restraints as well as errors thrown see the file [ConstraintsErrorMessages.log](https://github.com/effiemincer/database_mini_proj/blob/main/ConstraintsErrorMessages.log).
 
 ![WhatsApp Image 2024-12-02 at 17 39 36_a2b8ca57](https://github.com/user-attachments/assets/bea7f139-c143-46aa-a4eb-090aa22973be)
 
@@ -242,70 +264,89 @@ For a summary of the inputs and outputs, see below.
 Here's a summary of the tests conducted along with the explanation of the errors thrown:
 
 ### **1. Readers Table Constraints**
+
 #### **A. Invalid Phone Number Insertion**
+
 - **Test**: Inserted a record with an invalid phone number.
 - **Error**: Violates the `chk_phone_number` constraint, which ensures that the phone number follows a valid format.
 
 #### **B. Duplicate Contact**
+
 - **Test**: Inserted two identical records with the same name and phone number.
 - **Error**: Violates the `unique_reader_contact` constraint, which enforces unique combinations of `FirstName`, `LastName`, and `PhoneNumber`.
 
 ---
 
 ### **2. FamilyTies Constraints**
+
 #### **A. Self-Referencing Family Tie**
+
 - **Test**: Attempted to create a family tie where a reader is related to themselves.
 - **Error**: Violates the `chk_different_readers` constraint, which ensures `ReaderID` and `RelatedReaderID` are different.
 
 #### **B. Invalid Relation Type**
+
 - **Test**: Inserted a family tie with an invalid `RelationType` value.
 - **Error**: Violates the `familyties_relationtype_check` constraint, which ensures `RelationType` contains predefined valid values.
 
 #### **C. Duplicate Family Tie**
+
 - **Test**: Inserted two identical family ties between the same `ReaderID` and `RelatedReaderID`.
 - **Error**: Violates the `unique_family_relation` constraint, which prevents duplicate relationships.
 
 ---
 
 ### **3. ReaderCard Constraints**
+
 #### **A. Expired Card**
+
 - **Test**: Attempted to insert a card with an already expired `ExpirationDate`.
 - **Error**: Not explicitly mentioned as invalid expiration date; error instead refers to a `unique_reader_card` constraint, possibly due to a pre-existing card of the same type.
 
 #### **B. Multiple Cards of Same Type**
+
 - **Test**: Inserted multiple cards of the same type for one reader.
 - **Error**: Violates the `unique_reader_card` constraint, which ensures a reader can only have one card of each type.
 
 ---
 
 ### **4. BooksOnLoan Constraints**
+
 #### **A. Invalid Date Range**
+
 - **Test**: Created a loan where the `DueDate` is earlier than the `LoanDate`.
 - **Error**: Violates the `chk_loan_dates` constraint, which ensures the `DueDate` is later than the `LoanDate`.
 
 ---
 
 ### **5. BooksReturned Constraints**
+
 #### **A. Invalid Book Condition**
+
 - **Test**: Returned a book with an invalid `ConditionOnReturn` value.
 - **Error**: Violates the `chk_conditiononreturn` constraint, which restricts `ConditionOnReturn` to predefined acceptable values.
 
 ---
 
 ### **6. Update Constraint Violation Tests**
+
 #### **Readers Table**
+
 - **Test**: Updated a reader's phone number to an invalid value.
 - **Error**: Violates the `chk_phone_number` constraint.
 
 #### **FamilyTies**
+
 - **Test**: Updated a family tie to make it self-referencing.
 - **Error**: Violates the `chk_different_readers` constraint.
 
 #### **BooksOnLoan**
+
 - **Test**: Updated a loan record to have a `DueDate` earlier than `LoanDate`.
 - **Error**: Violates the `chk_loan_dates` constraint.
 
 #### **BooksReturned**
+
 - **Test**: Updated the condition of a returned book to an invalid value.
 - **Error**: Violates the `chk_conditiononreturn` constraint.
 
@@ -313,16 +354,17 @@ Here's a summary of the tests conducted along with the explanation of the errors
 
   ![WhatsApp Image 2024-12-02 at 17 39 04_4f8eb440](https://github.com/user-attachments/assets/4f4bc2f2-8632-4756-a78c-a1701d83b176)
 
-
 # Stage 3
 
-## Multi-Table Queries: 
+## Multi-Table Queries:
 
-The code for the 3 queries below can be found at [QueriesMultiTable.sql](https://github.com/effiemincer/database_mini_proj/blob/main/QueriesMultiTable_Stage3.sql). 
+The code for the 3 queries below can be found at [QueriesMultiTable.sql](https://github.com/effiemincer/database_mini_proj/blob/main/QueriesMultiTable_Stage3.sql).
 The results for these three queries are listed as the MultiQuery files in [Query Responses](https://github.com/effiemincer/database_mini_proj/tree/main/Query%20Responses).
 
-### **1. Retrieve Top 5 Readers with the Most Unreturned Books in the Last 30 Days**  
-This query identifies readers with the highest number of books that remain unreturned, borrowed within the past 30 days. It uses joins across the `Readers`, `BooksOnLoan`, and `BooksReturned` tables to track overdue books. This information helps the library staff prioritize overdue notifications and manage book circulation more efficiently.  
+### **1. Retrieve Top 5 Readers with the Most Unreturned Books in the Last 30 Days**
+
+This query identifies readers with the highest number of books that remain unreturned, borrowed within the past 30 days. It uses joins across the `Readers`, `BooksOnLoan`, and `BooksReturned` tables to track overdue books. This information helps the library staff prioritize overdue notifications and manage book circulation more efficiently.
+
 ```sql
 SELECT
     r.ReaderID,
@@ -345,8 +387,10 @@ ORDER BY
 LIMIT 5;
 ```
 
-### **2. Count Family Members of Readers with Electronic Cards**  
-To better understand borrowing patterns within families, this query calculates the number of family members for each reader who holds an electronic card. It leverages the `Readers`, `ReaderCard`, and `FamilyTies` tables to filter by card type and aggregate family ties. The results are sorted to highlight readers with the largest family connections, supporting policies around family-based borrowing benefits.  
+### **2. Count Family Members of Readers with Electronic Cards**
+
+To better understand borrowing patterns within families, this query calculates the number of family members for each reader who holds an electronic card. It leverages the `Readers`, `ReaderCard`, and `FamilyTies` tables to filter by card type and aggregate family ties. The results are sorted to highlight readers with the largest family connections, supporting policies around family-based borrowing benefits.
+
 ```sql
 SELECT
     r.ReaderID,
@@ -367,8 +411,10 @@ ORDER BY
     TotalFamilyMembers DESC;
 ```
 
-### **3. Extend Expiration Dates for Readers with More Than 3 Loans in the Past Year**  
-Frequent borrowers receive a benefit through this query, which extends the expiration date of their reader cards by one year. By joining `Readers`, `BooksOnLoan`, and `ReaderCard`, the system identifies readers who have borrowed more than 3 books in the last year. Their cards are automatically updated, ensuring continued access to library services without manual intervention.  
+### **3. Extend Expiration Dates for Readers with More Than 3 Loans in the Past Year**
+
+Frequent borrowers receive a benefit through this query, which extends the expiration date of their reader cards by one year. By joining `Readers`, `BooksOnLoan`, and `ReaderCard`, the system identifies readers who have borrowed more than 3 books in the last year. Their cards are automatically updated, ensuring continued access to library services without manual intervention.
+
 ```sql
 WITH BorrowCounts AS (
     SELECT
@@ -390,25 +436,26 @@ WHERE
     AND bc.BorrowCount > 3;
 ```
 
-### **Timing Results:**  
+### **Timing Results:**
 
-| Query # | Description                                       | Time  | 
-|---------|---------------------------------------------------|---------------------|  
-| 1       | Top 5 Readers with Unreturned Books               | **0:00.087s**       | 
-| 2       | Count Family Members of Electronic Card Readers   | **0:00.071s**       | 
-| 3       | Extend Expiration for Active Borrowers            | **0:00.140s**         | 
+| Query # | Description                                     | Time          |
+| ------- | ----------------------------------------------- | ------------- |
+| 1       | Top 5 Readers with Unreturned Books             | **0:00.087s** |
+| 2       | Count Family Members of Electronic Card Readers | **0:00.071s** |
+| 3       | Extend Expiration for Active Borrowers          | **0:00.140s** |
 
 ## Views
 
-In this stage, we introduce **views** to address the needs of different user sub-groups. We have 4 different views here and there associated queries all sql for creating the views and the queries are located at [Views.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Views.sql). 
+In this stage, we introduce **views** to address the needs of different user sub-groups. We have 4 different views here and there associated queries all sql for creating the views and the queries are located at [Views.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Views.sql).
 The results of the queries are located in the csv and txt files at [Views](https://github.com/effiemincer/database_mini_proj/tree/main/Query%20Responses/Views).
 
 #### **1. OverdueLoansView**
+
 - **Purpose**: Provides librarians a direct, real-time look at overdue loans.
 - **Definition**: Displays records from `BooksOnLoan` that have passed their `DueDate` and do not appear in `BooksReturned`.
 - **Key Features**:
-  - *Joined Logic*: Combines `BooksOnLoan` with `BooksReturned` to identify unreturned items.
-  - *Focus on Overdue*: Filters to `DueDate < CURRENT_DATE`.
+  - _Joined Logic_: Combines `BooksOnLoan` with `BooksReturned` to identify unreturned items.
+  - _Focus on Overdue_: Filters to `DueDate < CURRENT_DATE`.
 - **Use Cases**:
   - Checking how many days a book is overdue.
   - Extending due dates or sending notifications to readers with outstanding loans.
@@ -417,11 +464,12 @@ The results of the queries are located in the csv and txt files at [Views](https
 ---
 
 #### **2. ElectronicCardHoldersView**
+
 - **Purpose**: Offers card managers an at-a-glance listing of readers who hold electronic library cards.
 - **Definition**: Filters the `ReaderCard` table for `CardType = 'Electronic'`.
 - **Key Features**:
-  - *With Check Option*: We applied `WITH CHECK OPTION` so that any updates or inserts that violate the view’s `WHERE` clause (e.g., changing a card to `'Physical'`) are disallowed.
-  - *Expiration Monitoring*: Library staff can easily see and update expiration dates for electronic cards without sifting through physical cards.
+  - _With Check Option_: We applied `WITH CHECK OPTION` so that any updates or inserts that violate the view’s `WHERE` clause (e.g., changing a card to `'Physical'`) are disallowed.
+  - _Expiration Monitoring_: Library staff can easily see and update expiration dates for electronic cards without sifting through physical cards.
 - **Use Cases**:
   - Extending the expiration dates for all electronic card holders at once.
   - Ensuring no invalid card types are introduced into this subset.
@@ -429,11 +477,12 @@ The results of the queries are located in the csv and txt files at [Views](https
 ---
 
 #### **3. FamilyChildTiesView**
+
 - **Purpose**: Caters to family-services staff by isolating relationships specifically labeled as `'Child'`.
 - **Definition**: Displays rows from `FamilyTies` where `RelationType = 'Child'`.
 - **Key Features**:
-  - *Family-Focused*: Helps the library manage or analyze child members, potentially for age-specific benefits or parental controls.
-  - *With Check Option*: Again, `WITH CHECK OPTION` can prevent updates that change a row’s `RelationType` to something that no longer belongs in the view.
+  - _Family-Focused_: Helps the library manage or analyze child members, potentially for age-specific benefits or parental controls.
+  - _With Check Option_: Again, `WITH CHECK OPTION` can prevent updates that change a row’s `RelationType` to something that no longer belongs in the view.
 - **Use Cases**:
   - Correcting or reassigning which parent a child belongs to.
   - Removing invalid child ties when data-entry mistakes happen.
@@ -442,11 +491,12 @@ The results of the queries are located in the csv and txt files at [Views](https
 ---
 
 #### **4. UnreadNotificationsView**
+
 - **Purpose**: Assists the notifications team in tracking only the notifications that have not been read yet.
 - **Definition**: Filters `Notifications` where `IsRead = FALSE`.
 - **Key Features**:
-  - *Real-Time Tracking*: As soon as a notification is marked read (`IsRead = TRUE`), it disappears from the view.
-  - *Data Clean-Up*: Library staff can delete outdated or irrelevant unread messages if needed (depending on library policy).
+  - _Real-Time Tracking_: As soon as a notification is marked read (`IsRead = TRUE`), it disappears from the view.
+  - _Data Clean-Up_: Library staff can delete outdated or irrelevant unread messages if needed (depending on library policy).
 - **Use Cases**:
   - Marking a batch of unread notifications as read after follow-up.
   - Quickly identifying which messages are pending action for each reader.
@@ -458,39 +508,41 @@ The results of the queries are located in the csv and txt files at [Views](https
 
 For each view, we created at least one **SELECT** query plus **INSERT/UPDATE/DELETE** statements to illustrate typical operations:
 
-1. **OverdueLoansView**  
-   - *SELECT*: Lists overdue books, showing how many days overdue they are.  
+1. **OverdueLoansView**
 
-2. **ElectronicCardHoldersView**  
-   - *SELECT*: Displays each electronic card holder and the days remaining until expiration.  
-   - *UPDATE*: Extends expiration dates for cards expiring soon.  
-   - *DELETE*: Removes the card entry for a specific reader who is no longer eligible for an electronic card.
+   - _SELECT_: Lists overdue books, showing how many days overdue they are.
 
-3. **FamilyChildTiesView**  
-   - *SELECT*: Shows child relationships for various families.  
-   - *UPDATE*: Extends the DueDate by 7 days for books borrowed by children of a family.  
-   - *DELETE*: Removes erroneous child ties when discovered.
+2. **ElectronicCardHoldersView**
 
-4. **UnreadNotificationsView**  
-   - *SELECT*: Identifies unread notifications, calculating how many days they’ve been pending.  
-   - *UPDATE*: Marks older notifications as read once they have been acknowledged.  
-   - *DELETE*: Purges unused or outdated unread notifications.
+   - _SELECT_: Displays each electronic card holder and the days remaining until expiration.
+   - _UPDATE_: Extends expiration dates for cards expiring soon.
+   - _DELETE_: Removes the card entry for a specific reader who is no longer eligible for an electronic card.
+
+3. **FamilyChildTiesView**
+
+   - _SELECT_: Shows child relationships for various families.
+   - _UPDATE_: Extends the DueDate by 7 days for books borrowed by children of a family.
+   - _DELETE_: Removes erroneous child ties when discovered.
+
+4. **UnreadNotificationsView**
+   - _SELECT_: Identifies unread notifications, calculating how many days they’ve been pending.
+   - _UPDATE_: Marks older notifications as read once they have been acknowledged.
+   - _DELETE_: Purges unused or outdated unread notifications.
 
 ### **Timing Table**
 
-| **Query #** | **View**                      | **Action**                           | **Time** | 
-|-------------|--------------------------------|--------------------------------------|-------------------------|
-| 1           | **OverdueLoansView**          | SELECT overdue loans (ORDER BY DaysOverdue)  | 0:00.153s             | 
-| 2           | **ElectronicCardHoldersView** | SELECT upcoming expiration (ORDER BY DaysLeft)| 0:00.060s             |
-| 3           | **ElectronicCardHoldersView** | UPDATE extending expiration dates             | 0:00.263s            | 
-| 4           | **ElectronicCardHoldersView** | DELETE by specific id                         | 0:00.056s          | 
-| 5           | **FamilyChildTiesView**       | SELECT all child relationships                | 0:00.077s             | 
-| 6           | **FamilyChildTiesView**       | UPDATE giving children 7 more days   | 0:00.143s   | 
-| 7           | **FamilyChildTiesView**       | DELETE child ties for a specific parent       | 0:00.053s             | 
-| 8           | **UnreadNotificationsView**   | SELECT unread notifications (ORDER BY DaysUnseen) | 0:00.092s         |
-| 9          | **UnreadNotificationsView**   | UPDATE marking older notifications as read    | 0:00.059s             |
-| 10          | **UnreadNotificationsView**   | DELETE notifications for a certain reader     | 0:00.079s             |
-
+| **Query #** | **View**                      | **Action**                                        | **Time**  |
+| ----------- | ----------------------------- | ------------------------------------------------- | --------- |
+| 1           | **OverdueLoansView**          | SELECT overdue loans (ORDER BY DaysOverdue)       | 0:00.153s |
+| 2           | **ElectronicCardHoldersView** | SELECT upcoming expiration (ORDER BY DaysLeft)    | 0:00.060s |
+| 3           | **ElectronicCardHoldersView** | UPDATE extending expiration dates                 | 0:00.263s |
+| 4           | **ElectronicCardHoldersView** | DELETE by specific id                             | 0:00.056s |
+| 5           | **FamilyChildTiesView**       | SELECT all child relationships                    | 0:00.077s |
+| 6           | **FamilyChildTiesView**       | UPDATE giving children 7 more days                | 0:00.143s |
+| 7           | **FamilyChildTiesView**       | DELETE child ties for a specific parent           | 0:00.053s |
+| 8           | **UnreadNotificationsView**   | SELECT unread notifications (ORDER BY DaysUnseen) | 0:00.092s |
+| 9           | **UnreadNotificationsView**   | UPDATE marking older notifications as read        | 0:00.059s |
+| 10          | **UnreadNotificationsView**   | DELETE notifications for a certain reader         | 0:00.079s |
 
 ## Visualizations
 
@@ -499,18 +551,20 @@ The script for generating these visualizations are located in the [Visualization
 ### Query 1: Overdue Loans by Days Overdue
 
 ```sql
-SELECT 
-    (CURRENT_DATE - DueDate) AS DaysOverdue, 
+SELECT
+    (CURRENT_DATE - DueDate) AS DaysOverdue,
     COUNT(*) AS LoanCount
 FROM OverdueLoansView
 GROUP BY DaysOverdue
 ORDER BY DaysOverdue DESC
 LIMIT 25;
 ```
+
 Explanation: <br/>
 This query calculates how many days each loan is overdue (DaysOverdue) and groups all overdue loans by that number. For each group, it counts the number of loans overdue for the same number of days (LoanCount). The results are then ordered by the highest number of overdue days and limited to the top 25 results.
 
 Why It’s Useful:
+
 - Insights into overdue loans: This query helps librarians see patterns in overdue loans, focusing on loans that are significantly overdue.
 - Prioritization: By identifying groups of highly overdue loans, librarians can target their efforts to resolve the most pressing cases.
 - Data aggregation: Grouping overdue loans by days simplifies the data, providing a clear picture of overdue trends.
@@ -522,15 +576,17 @@ Script to generate bar chart located [here](https://github.com/effiemincer/datab
 ### Query 2: Distribution of Card Types
 
 ```sql
-SELECT 
+SELECT
     CardType, COUNT(*) AS Count
 FROM ReaderCard
 GROUP BY CardType;
 ```
+
 Explanation:<br/>
 This query counts the total number of library cards for each CardType (e.g., "Electronic" or "Physical") by grouping the data based on the card type.
 
 Why It’s Useful:
+
 - Understanding card usage: This query gives library administrators insights into the distribution of electronic and physical cards among users.
 - Trend analysis: Monitoring card type distributions over time can help libraries assess the effectiveness of initiatives to promote electronic cards.
 - Operational planning: Knowing the proportions of each card type can inform resource allocation, such as focusing on maintaining digital card systems or processing physical cards.
@@ -548,9 +604,11 @@ Queries 1, 2, 3, and 4 had parts replaced inside them with functions as can be s
 #### Function 1: `GetTotalBooksBorrowed`
 
 ##### Purpose:
+
 The function `GetTotalBooksBorrowed` calculates the total number of books borrowed by a specific reader. It takes the `reader_id` as input and returns an integer representing the total count of borrowed books.
 
 ##### Function Definition:
+
 ```sql
 DROP FUNCTION IF EXISTS GetTotalBooksBorrowed(integer);
 
@@ -567,6 +625,7 @@ $$ LANGUAGE plpgsql;
 ```
 
 ##### How It Works:
+
 - This function queries the `BooksOnLoan` table, which stores the details of all books currently on loan.
 - It counts the `LoanID` values associated with the given `reader_id` to determine how many books the reader has borrowed.
 
@@ -575,9 +634,11 @@ $$ LANGUAGE plpgsql;
 #### Function 2: `GetLastNotificationDetails`
 
 ##### Purpose:
+
 The function `GetLastNotificationDetails` retrieves the most recent notification for a specific reader. It returns the message content, the date it was sent, and whether the notification has been read.
 
 ##### Function Definition:
+
 ```sql
 DROP FUNCTION IF EXISTS GetLastNotificationDetails(integer);
 
@@ -595,6 +656,7 @@ $$ LANGUAGE plpgsql;
 ```
 
 ##### How It Works:
+
 - The function queries the `Notifications` table, filtering by `ReaderID`.
 - It orders the notifications by `SentDate` in descending order and limits the result to the most recent notification.
 - The result includes the message text (`Message_`), the `SentDate`, and a boolean (`IsRead`) indicating if the notification has been read.
@@ -604,9 +666,11 @@ $$ LANGUAGE plpgsql;
 #### Function 3: `GetAverageBooksByCardType`
 
 ##### Purpose:
+
 The function `GetAverageBooksByCardType` calculates the average number of books borrowed by readers of a specific card type. It returns a numeric value representing the average.
 
 ##### Function Definition:
+
 ```sql
 DROP FUNCTION IF EXISTS GetAverageBooksByCardType(text);
 
@@ -628,6 +692,7 @@ $$ LANGUAGE plpgsql;
 ```
 
 ##### How It Works:
+
 - The function first queries the `ReaderCard` table to filter readers by the given `card_type`.
 - It uses a `LEFT JOIN` to connect with the `BooksOnLoan` table, counting the `LoanID` for each reader.
 - The result is grouped by `ReaderID`, and the function calculates the average of these counts.
@@ -637,9 +702,11 @@ $$ LANGUAGE plpgsql;
 #### Function 4: `GetFamilyBooksBorrowed`
 
 ##### Purpose:
+
 The function `GetFamilyBooksBorrowed` calculates the total number of books borrowed by the family members of a given reader. It takes the `reader_id` as input and returns the total count of books borrowed by both the reader and their family members.
 
 ##### Function Definition:
+
 ```sql
 DROP FUNCTION IF EXISTS GetFamilyBooksBorrowed(integer);
 
@@ -657,6 +724,7 @@ $$ LANGUAGE plpgsql;
 ```
 
 ##### How It Works:
+
 - This function uses a `LEFT JOIN` to connect the `FamilyTies` table (which links family members) with the `BooksOnLoan` table.
 - It counts the total number of `LoanID` values for the reader and their related family members.
 
@@ -670,37 +738,40 @@ $$ LANGUAGE plpgsql;
 
 ---
 
-
 # Stage 4
 
-## ERD 
+## ERD
 
 ### Our Original ERD for Readers
+
 ![image](https://github.com/user-attachments/assets/7ea9b400-9193-4dca-854a-fdfc6a8af3b3)
-JSON File: [ERD.json](https://github.com/effiemincer/database_mini_proj/blob/main/ERD.json)
+JSON File: [ERD.json](https://github.com/effiemincer/database_mini_proj/blob/main/Json/ERD.json)
 
 ### Avi and Leib's Original ERD for Books
+
 ![WhatsApp Image 2025-01-26 at 16 06 07_b7575986](https://github.com/user-attachments/assets/85271270-76c5-4472-b790-2db017e3d324)
-JSON File: [BookERDMap.json](https://github.com/effiemincer/database_mini_proj/blob/main/BookERDMap.json)
+JSON File: [BookERDMap.json](https://github.com/effiemincer/database_mini_proj/blob/main/Json/BookERDMap.json)
 
 ### The Merged ERD
-![ERD combined](https://github.com/user-attachments/assets/e3f1f363-ca31-4332-a765-776490cb09ab)
-JSON File: [MiniProjectERD.json](https://github.com/effiemincer/database_mini_proj/blob/main/MiniProjectERD.json)
 
+![ERD combined](https://github.com/user-attachments/assets/e3f1f363-ca31-4332-a765-776490cb09ab)
+JSON File: [MiniProjectERD.json](https://github.com/effiemincer/database_mini_proj/blob/main/Json/MiniProjectERD.json)
 
 ---
 
 ## DSD
 
 ### Our Original DSD for Readers
+
 ![image](https://github.com/user-attachments/assets/5d537c9a-804c-4b67-ab08-651945c06b2d)
-JSON File: [DSD.json](https://github.com/effiemincer/database_mini_proj/blob/main/DSD.json)
+JSON File: [DSD.json](https://github.com/effiemincer/database_mini_proj/blob/main/Json/DSD.json)
 
 ### Avi and Leib's Original DSD for Books
+
 ![image](https://github.com/user-attachments/assets/2b8fe1cb-b81f-4bd5-a12e-255ad4d905e2)
-JSON File: [BookDSD.json](https://github.com/effiemincer/database_mini_proj/blob/main/BookDSDMap.json)
+JSON File: [BookDSD.json](https://github.com/effiemincer/database_mini_proj/blob/main/Json/BookDSDMap.json)
 
 ### The Merged DSD
-![image (4)](https://github.com/user-attachments/assets/c54b9150-f4d5-4f8e-981d-0d472e70a033)
-JSON File: [MergedDSD.json](https://github.com/effiemincer/database_mini_proj/blob/main/Merged_DSD.json)
 
+![image (4)](https://github.com/user-attachments/assets/c54b9150-f4d5-4f8e-981d-0d472e70a033)
+JSON File: [MergedDSD.json](https://github.com/effiemincer/database_mini_proj/blob/main/Json/Merged_DSD.json)

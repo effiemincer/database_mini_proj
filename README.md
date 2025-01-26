@@ -668,3 +668,32 @@ $$ LANGUAGE plpgsql;
 **Restore:** pg_restore -U postgres -h localhost -v -d "Mini Project" -F c --if-exists --clean backupPSQL_Stage3.SQL 2> restorePSQL_Stage3.log
 
 ---
+
+
+# Stage 4
+
+## ERD 
+
+### Our Original ERD for Readers
+
+
+### Avi and Leib's Original ERD for Books
+
+
+### The Merged ERD
+
+
+---
+
+## DSD
+
+### Our Original DSD for Readers
+![image](https://github.com/user-attachments/assets/5d537c9a-804c-4b67-ab08-651945c06b2d)
+
+### Avi and Leib's Original DSD for Books
+![image](https://github.com/user-attachments/assets/2b8fe1cb-b81f-4bd5-a12e-255ad4d905e2)
+
+### The Merged DSD
+![image (4)](https://github.com/user-attachments/assets/c54b9150-f4d5-4f8e-981d-0d472e70a033)
+
+

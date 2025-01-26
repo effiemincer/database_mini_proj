@@ -759,6 +759,10 @@ JSON File: [BookERDMap.json](https://github.com/effiemincer/database_mini_proj/b
 ![ERD combined](https://github.com/user-attachments/assets/e3f1f363-ca31-4332-a765-776490cb09ab)
 JSON File: [MiniProjectERD.json](https://github.com/effiemincer/database_mini_proj/blob/main/Json/MiniProjectERD.json)
 
+### ERD Explanation:
+
+We combined our Readers ERD quite smoothly with the Books ERD. As can be seen from the images above Books are an integral part of the BooksOnLoan/BooksReturned Component of the Readers Database, as such the Books Database is connected through our books on loan through the Loans relationship. Each Book can be on a number of Loans and in addition, we can now make more advanced queries regarding the info of the books and their return/loan data among readers.
+
 ---
 
 ## DSD

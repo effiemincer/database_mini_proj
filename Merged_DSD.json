@@ -1,1 +1,1012 @@
-﻿{"version":2,"www":"erdplus.com","shapes":[{"type":"Table","details":{"name":"Readers","x":46,"y":396,"sort":"automatic","attributes":[{"names":["Address"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":2},{"names":["ReaderID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":3},{"names":["FirstName"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":4},{"names":["LastName"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":5},{"names":["PhoneNumber"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":6}],"uniqueGroups":[],"id":1}},{"type":"Table","details":{"name":"Notifications","x":308,"y":577,"sort":"automatic","attributes":[{"names":["NotificationID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":8},{"names":["Message"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":9},{"names":["SentDate"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":10},{"names":["IsRead"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":11},{"names":["ReaderID"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":true,"dataType":"int","dataTypeSize":null,"id":56,"references":[{"tableId":1,"attributeId":3}]}],"uniqueGroups":[],"id":7}},{"type":"Table","details":{"name":"ReadCard","x":324,"y":242,"sort":"automatic","attributes":[{"names":["CardID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":13},{"names":["CardType"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":14},{"names":["ExpirationDate"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":15},{"names":["ReaderID"],"order":1,"pkMember":false,"optional":false,"soloUnique":false,"fk":true,"dataType":"int","dataTypeSize":null,"references":[{"tableId":1,"attributeId":3}],"id":16}],"uniqueGroups":[],"id":12}},{"type":"Table","details":{"name":"BooksOnLoan","x":311,"y":445,"sort":"automatic","attributes":[{"names":["LoanID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":17},{"names":["LoanDate"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":18},{"names":["DueDate"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":19},{"names":["ReaderID"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":true,"dataType":"int","dataTypeSize":null,"id":60,"references":[{"tableId":1,"attributeId":3}]},{"names":["ID"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":true,"dataType":"int","dataTypeSize":null,"id":62,"references":[{"tableId":24,"attributeId":30}]},{"names":["ReturnID"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":true,"dataType":"int","dataTypeSize":null,"id":64,"references":[{"tableId":20,"attributeId":21}]}],"uniqueGroups":[],"id":16}},{"type":"Table","details":{"name":"BooksReturned","x":570,"y":518,"sort":"automatic","attributes":[{"names":["ReturnID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":21},{"names":["ReturnDate"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":22},{"names":["ConditionOnReturn"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":23}],"uniqueGroups":[],"id":20}},{"type":"Table","details":{"name":"Book","x":575,"y":374,"sort":"automatic","attributes":[{"names":["ISBN"],"order":0,"pkMember":false,"optional":false,"soloUnique":true,"fk":false,"dataType":"int","dataTypeSize":null,"id":25},{"names":["Description"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":26},{"names":["Format"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":27},{"names":["Page Count"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":28},{"names":["Title"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":29},{"names":["ID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":30},{"names":["Release Date"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":31}],"uniqueGroups":[],"id":24}},{"type":"Table","details":{"name":"Location","x":850,"y":445,"sort":"automatic","attributes":[{"names":["Condition"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":33},{"names":["Quantity"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":34},{"names":["Floor"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":35},{"names":["Shelf"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":36},{"names":["Location ID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":37},{"names":["ID"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":true,"dataType":"int","dataTypeSize":null,"id":66,"references":[{"tableId":24,"attributeId":30}]}],"uniqueGroups":[],"id":32}},{"type":"Table","details":{"name":"Author","x":1108,"y":272,"sort":"automatic","attributes":[{"names":["Author ID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":39},{"names":["First Name"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":40},{"names":["Last Name"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":41},{"names":["Biography"],"order":0,"pkMember":false,"optional":true,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":42},{"names":["Date of Birth"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":43}],"uniqueGroups":[],"id":38}},{"type":"Table","details":{"name":"Genre","x":1108,"y":374,"sort":"automatic","attributes":[{"names":["Genre ID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":45},{"names":["Description"],"order":0,"pkMember":false,"optional":true,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":46},{"names":["Name"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":47}],"uniqueGroups":[],"id":44}},{"type":"Table","details":{"name":"Publisher","x":1105,"y":178,"sort":"automatic","attributes":[{"names":["Phone Number"],"order":0,"pkMember":false,"optional":false,"soloUnique":true,"fk":false,"dataType":"int","dataTypeSize":null,"id":49},{"names":["Publisher ID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":50},{"names":["Name"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":51},{"names":["Website"],"order":0,"pkMember":false,"optional":true,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":52}],"uniqueGroups":[],"id":48}},{"type":"Table","details":{"name":"Country","x":1570,"y":179,"sort":"automatic","attributes":[{"names":["Country ID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":54},{"names":["Name"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":55}],"uniqueGroups":[],"id":53}},{"type":"Table","details":{"name":"Written By","x":845,"y":306,"sort":"automatic","attributes":[{"names":["ID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":true,"dataType":"int","dataTypeSize":null,"id":69,"references":[{"tableId":24,"attributeId":30}]},{"names":["Author ID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":true,"dataType":"int","dataTypeSize":null,"id":71,"references":[{"tableId":38,"attributeId":39}]}],"uniqueGroups":[],"id":68}},{"type":"Table","details":{"name":"Type of","x":849,"y":374,"sort":"automatic","attributes":[{"names":["ID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":true,"dataType":"int","dataTypeSize":null,"id":74,"references":[{"tableId":24,"attributeId":30}]},{"names":["Genre ID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":true,"dataType":"int","dataTypeSize":null,"id":76,"references":[{"tableId":44,"attributeId":45}]}],"uniqueGroups":[],"id":73}},{"type":"Table","details":{"name":"Published By","x":846,"y":232,"sort":"automatic","attributes":[{"names":["ID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":true,"dataType":"int","dataTypeSize":null,"id":79,"references":[{"tableId":24,"attributeId":30}]},{"names":["Publisher ID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":true,"dataType":"int","dataTypeSize":null,"id":81,"references":[{"tableId":48,"attributeId":50}]}],"uniqueGroups":[],"id":78}},{"type":"Table","details":{"name":"Is In","x":1355,"y":177,"sort":"automatic","attributes":[{"names":["Publisher ID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":true,"dataType":"int","dataTypeSize":null,"id":84,"references":[{"tableId":48,"attributeId":50}]},{"names":["Country ID"],"order":0,"pkMember":true,"optional":false,"soloUnique":false,"fk":true,"dataType":"int","dataTypeSize":null,"id":86,"references":[{"tableId":53,"attributeId":54}]}],"uniqueGroups":[],"id":83}},{"type":"Table","details":{"name":"Family RelationShip","x":319,"y":347,"sort":"automatic","attributes":[{"names":["ReaderID"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":true,"dataType":"int","dataTypeSize":null,"id":89,"references":[{"tableId":1,"attributeId":3}]},{"names":["RelatedReaderID"],"order":0,"pkMember":false,"optional":false,"soloUnique":false,"fk":true,"dataType":"int","dataTypeSize":null,"id":91,"references":[{"tableId":1,"attributeId":3}]},{"names":["TieID"],"order":1,"pkMember":true,"optional":false,"soloUnique":false,"fk":false,"dataType":"int","dataTypeSize":null,"id":92},{"names":["RelationshipType"],"order":2,"pkMember":false,"optional":false,"soloUnique":false,"fk":false,"dataType":"custom","dataTypeSize":"TEXT","id":93}],"uniqueGroups":[],"id":88}}],"connectors":[{"type":"TableConnector","details":{"fkAttributeId":56,"id":57},"source":1,"destination":7},{"type":"TableConnector","details":{"fkAttributeId":60,"id":61},"source":1,"destination":16},{"type":"TableConnector","details":{"fkAttributeId":62,"id":63},"source":24,"destination":16},{"type":"TableConnector","details":{"fkAttributeId":64,"id":65},"source":20,"destination":16},{"type":"TableConnector","details":{"fkAttributeId":66,"id":67},"source":24,"destination":32},{"type":"TableConnector","details":{"fkAttributeId":69,"id":70},"source":24,"destination":68},{"type":"TableConnector","details":{"fkAttributeId":71,"id":72},"source":38,"destination":68},{"type":"TableConnector","details":{"fkAttributeId":74,"id":75},"source":24,"destination":73},{"type":"TableConnector","details":{"fkAttributeId":76,"id":77},"source":44,"destination":73},{"type":"TableConnector","details":{"fkAttributeId":79,"id":80},"source":24,"destination":78},{"type":"TableConnector","details":{"fkAttributeId":81,"id":82},"source":48,"destination":78},{"type":"TableConnector","details":{"fkAttributeId":84,"id":85},"source":48,"destination":83},{"type":"TableConnector","details":{"fkAttributeId":86,"id":87},"source":53,"destination":83},{"type":"TableConnector","details":{"fkAttributeId":89,"id":90},"source":1,"destination":88},{"type":"TableConnector","details":{"fkAttributeId":91,"id":92},"source":1,"destination":88},{"type":"TableConnector","details":{"fkAttributeId":16,"id":93},"source":1,"destination":12}],"width":2000,"height":1000}
+﻿{
+  "version": 2,
+  "www": "erdplus.com",
+  "shapes": [
+    {
+      "type": "Table",
+      "details": {
+        "name": "Readers",
+        "x": 46,
+        "y": 396,
+        "sort": "automatic",
+        "attributes": [
+          {
+            "names": ["Address"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 2
+          },
+          {
+            "names": ["ReaderID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 3
+          },
+          {
+            "names": ["FirstName"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 4
+          },
+          {
+            "names": ["LastName"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 5
+          },
+          {
+            "names": ["PhoneNumber"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 6
+          }
+        ],
+        "uniqueGroups": [],
+        "id": 1
+      }
+    },
+    {
+      "type": "Table",
+      "details": {
+        "name": "Notifications",
+        "x": 308,
+        "y": 577,
+        "sort": "automatic",
+        "attributes": [
+          {
+            "names": ["NotificationID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 8
+          },
+          {
+            "names": ["Message"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 9
+          },
+          {
+            "names": ["SentDate"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 10
+          },
+          {
+            "names": ["IsRead"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 11
+          },
+          {
+            "names": ["ReaderID"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": true,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 56,
+            "references": [{ "tableId": 1, "attributeId": 3 }]
+          }
+        ],
+        "uniqueGroups": [],
+        "id": 7
+      }
+    },
+    {
+      "type": "Table",
+      "details": {
+        "name": "ReadCard",
+        "x": 324,
+        "y": 242,
+        "sort": "automatic",
+        "attributes": [
+          {
+            "names": ["CardID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 13
+          },
+          {
+            "names": ["CardType"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 14
+          },
+          {
+            "names": ["ExpirationDate"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 15
+          },
+          {
+            "names": ["ReaderID"],
+            "order": 1,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": true,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "references": [{ "tableId": 1, "attributeId": 3 }],
+            "id": 16
+          }
+        ],
+        "uniqueGroups": [],
+        "id": 12
+      }
+    },
+    {
+      "type": "Table",
+      "details": {
+        "name": "BooksOnLoan",
+        "x": 311,
+        "y": 445,
+        "sort": "automatic",
+        "attributes": [
+          {
+            "names": ["LoanID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 17
+          },
+          {
+            "names": ["LoanDate"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 18
+          },
+          {
+            "names": ["DueDate"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 19
+          },
+          {
+            "names": ["ReaderID"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": true,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 60,
+            "references": [{ "tableId": 1, "attributeId": 3 }]
+          },
+          {
+            "names": ["ID"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": true,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 62,
+            "references": [{ "tableId": 24, "attributeId": 30 }]
+          },
+          {
+            "names": ["ReturnID"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": true,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 64,
+            "references": [{ "tableId": 20, "attributeId": 21 }]
+          }
+        ],
+        "uniqueGroups": [],
+        "id": 16
+      }
+    },
+    {
+      "type": "Table",
+      "details": {
+        "name": "BooksReturned",
+        "x": 570,
+        "y": 518,
+        "sort": "automatic",
+        "attributes": [
+          {
+            "names": ["ReturnID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 21
+          },
+          {
+            "names": ["ReturnDate"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 22
+          },
+          {
+            "names": ["ConditionOnReturn"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 23
+          }
+        ],
+        "uniqueGroups": [],
+        "id": 20
+      }
+    },
+    {
+      "type": "Table",
+      "details": {
+        "name": "Book",
+        "x": 575,
+        "y": 374,
+        "sort": "automatic",
+        "attributes": [
+          {
+            "names": ["ISBN"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": true,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 25
+          },
+          {
+            "names": ["Description"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 26
+          },
+          {
+            "names": ["Format"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 27
+          },
+          {
+            "names": ["Page Count"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 28
+          },
+          {
+            "names": ["Title"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 29
+          },
+          {
+            "names": ["ID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 30
+          },
+          {
+            "names": ["Release Date"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 31
+          }
+        ],
+        "uniqueGroups": [],
+        "id": 24
+      }
+    },
+    {
+      "type": "Table",
+      "details": {
+        "name": "Location",
+        "x": 850,
+        "y": 445,
+        "sort": "automatic",
+        "attributes": [
+          {
+            "names": ["Condition"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 33
+          },
+          {
+            "names": ["Quantity"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 34
+          },
+          {
+            "names": ["Floor"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 35
+          },
+          {
+            "names": ["Shelf"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 36
+          },
+          {
+            "names": ["Location ID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 37
+          },
+          {
+            "names": ["ID"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": true,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 66,
+            "references": [{ "tableId": 24, "attributeId": 30 }]
+          }
+        ],
+        "uniqueGroups": [],
+        "id": 32
+      }
+    },
+    {
+      "type": "Table",
+      "details": {
+        "name": "Author",
+        "x": 1108,
+        "y": 272,
+        "sort": "automatic",
+        "attributes": [
+          {
+            "names": ["Author ID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 39
+          },
+          {
+            "names": ["First Name"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 40
+          },
+          {
+            "names": ["Last Name"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 41
+          },
+          {
+            "names": ["Biography"],
+            "order": 0,
+            "pkMember": false,
+            "optional": true,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 42
+          },
+          {
+            "names": ["Date of Birth"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 43
+          }
+        ],
+        "uniqueGroups": [],
+        "id": 38
+      }
+    },
+    {
+      "type": "Table",
+      "details": {
+        "name": "Genre",
+        "x": 1108,
+        "y": 374,
+        "sort": "automatic",
+        "attributes": [
+          {
+            "names": ["Genre ID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 45
+          },
+          {
+            "names": ["Description"],
+            "order": 0,
+            "pkMember": false,
+            "optional": true,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 46
+          },
+          {
+            "names": ["Name"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 47
+          }
+        ],
+        "uniqueGroups": [],
+        "id": 44
+      }
+    },
+    {
+      "type": "Table",
+      "details": {
+        "name": "Publisher",
+        "x": 1105,
+        "y": 178,
+        "sort": "automatic",
+        "attributes": [
+          {
+            "names": ["Phone Number"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": true,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 49
+          },
+          {
+            "names": ["Publisher ID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 50
+          },
+          {
+            "names": ["Name"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 51
+          },
+          {
+            "names": ["Website"],
+            "order": 0,
+            "pkMember": false,
+            "optional": true,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 52
+          }
+        ],
+        "uniqueGroups": [],
+        "id": 48
+      }
+    },
+    {
+      "type": "Table",
+      "details": {
+        "name": "Country",
+        "x": 1570,
+        "y": 179,
+        "sort": "automatic",
+        "attributes": [
+          {
+            "names": ["Country ID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 54
+          },
+          {
+            "names": ["Name"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 55
+          }
+        ],
+        "uniqueGroups": [],
+        "id": 53
+      }
+    },
+    {
+      "type": "Table",
+      "details": {
+        "name": "Written By",
+        "x": 845,
+        "y": 306,
+        "sort": "automatic",
+        "attributes": [
+          {
+            "names": ["ID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": true,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 69,
+            "references": [{ "tableId": 24, "attributeId": 30 }]
+          },
+          {
+            "names": ["Author ID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": true,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 71,
+            "references": [{ "tableId": 38, "attributeId": 39 }]
+          }
+        ],
+        "uniqueGroups": [],
+        "id": 68
+      }
+    },
+    {
+      "type": "Table",
+      "details": {
+        "name": "Type of",
+        "x": 849,
+        "y": 374,
+        "sort": "automatic",
+        "attributes": [
+          {
+            "names": ["ID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": true,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 74,
+            "references": [{ "tableId": 24, "attributeId": 30 }]
+          },
+          {
+            "names": ["Genre ID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": true,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 76,
+            "references": [{ "tableId": 44, "attributeId": 45 }]
+          }
+        ],
+        "uniqueGroups": [],
+        "id": 73
+      }
+    },
+    {
+      "type": "Table",
+      "details": {
+        "name": "Published By",
+        "x": 846,
+        "y": 232,
+        "sort": "automatic",
+        "attributes": [
+          {
+            "names": ["ID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": true,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 79,
+            "references": [{ "tableId": 24, "attributeId": 30 }]
+          },
+          {
+            "names": ["Publisher ID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": true,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 81,
+            "references": [{ "tableId": 48, "attributeId": 50 }]
+          }
+        ],
+        "uniqueGroups": [],
+        "id": 78
+      }
+    },
+    {
+      "type": "Table",
+      "details": {
+        "name": "Is In",
+        "x": 1355,
+        "y": 177,
+        "sort": "automatic",
+        "attributes": [
+          {
+            "names": ["Publisher ID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": true,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 84,
+            "references": [{ "tableId": 48, "attributeId": 50 }]
+          },
+          {
+            "names": ["Country ID"],
+            "order": 0,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": true,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 86,
+            "references": [{ "tableId": 53, "attributeId": 54 }]
+          }
+        ],
+        "uniqueGroups": [],
+        "id": 83
+      }
+    },
+    {
+      "type": "Table",
+      "details": {
+        "name": "Family RelationShip",
+        "x": 319,
+        "y": 347,
+        "sort": "automatic",
+        "attributes": [
+          {
+            "names": ["ReaderID"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": true,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 89,
+            "references": [{ "tableId": 1, "attributeId": 3 }]
+          },
+          {
+            "names": ["RelatedReaderID"],
+            "order": 0,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": true,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 91,
+            "references": [{ "tableId": 1, "attributeId": 3 }]
+          },
+          {
+            "names": ["TieID"],
+            "order": 1,
+            "pkMember": true,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "int",
+            "dataTypeSize": null,
+            "id": 92
+          },
+          {
+            "names": ["RelationshipType"],
+            "order": 2,
+            "pkMember": false,
+            "optional": false,
+            "soloUnique": false,
+            "fk": false,
+            "dataType": "custom",
+            "dataTypeSize": "TEXT",
+            "id": 93
+          }
+        ],
+        "uniqueGroups": [],
+        "id": 88
+      }
+    }
+  ],
+  "connectors": [
+    {
+      "type": "TableConnector",
+      "details": { "fkAttributeId": 56, "id": 57 },
+      "source": 1,
+      "destination": 7
+    },
+    {
+      "type": "TableConnector",
+      "details": { "fkAttributeId": 60, "id": 61 },
+      "source": 1,
+      "destination": 16
+    },
+    {
+      "type": "TableConnector",
+      "details": { "fkAttributeId": 62, "id": 63 },
+      "source": 24,
+      "destination": 16
+    },
+    {
+      "type": "TableConnector",
+      "details": { "fkAttributeId": 64, "id": 65 },
+      "source": 20,
+      "destination": 16
+    },
+    {
+      "type": "TableConnector",
+      "details": { "fkAttributeId": 66, "id": 67 },
+      "source": 24,
+      "destination": 32
+    },
+    {
+      "type": "TableConnector",
+      "details": { "fkAttributeId": 69, "id": 70 },
+      "source": 24,
+      "destination": 68
+    },
+    {
+      "type": "TableConnector",
+      "details": { "fkAttributeId": 71, "id": 72 },
+      "source": 38,
+      "destination": 68
+    },
+    {
+      "type": "TableConnector",
+      "details": { "fkAttributeId": 74, "id": 75 },
+      "source": 24,
+      "destination": 73
+    },
+    {
+      "type": "TableConnector",
+      "details": { "fkAttributeId": 76, "id": 77 },
+      "source": 44,
+      "destination": 73
+    },
+    {
+      "type": "TableConnector",
+      "details": { "fkAttributeId": 79, "id": 80 },
+      "source": 24,
+      "destination": 78
+    },
+    {
+      "type": "TableConnector",
+      "details": { "fkAttributeId": 81, "id": 82 },
+      "source": 48,
+      "destination": 78
+    },
+    {
+      "type": "TableConnector",
+      "details": { "fkAttributeId": 84, "id": 85 },
+      "source": 48,
+      "destination": 83
+    },
+    {
+      "type": "TableConnector",
+      "details": { "fkAttributeId": 86, "id": 87 },
+      "source": 53,
+      "destination": 83
+    },
+    {
+      "type": "TableConnector",
+      "details": { "fkAttributeId": 89, "id": 90 },
+      "source": 1,
+      "destination": 88
+    },
+    {
+      "type": "TableConnector",
+      "details": { "fkAttributeId": 91, "id": 92 },
+      "source": 1,
+      "destination": 88
+    },
+    {
+      "type": "TableConnector",
+      "details": { "fkAttributeId": 16, "id": 93 },
+      "source": 1,
+      "destination": 12
+    }
+  ],
+  "width": 2000,
+  "height": 1000
+}

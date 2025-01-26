@@ -694,11 +694,13 @@ JSON File: [MiniProjectERD.json](https://github.com/effiemincer/database_mini_pr
 
 ### Our Original DSD for Readers
 ![image](https://github.com/user-attachments/assets/5d537c9a-804c-4b67-ab08-651945c06b2d)
+JSON File: [DSD.json](https://github.com/effiemincer/database_mini_proj/blob/main/DSD.json)
 
 ### Avi and Leib's Original DSD for Books
 ![image](https://github.com/user-attachments/assets/2b8fe1cb-b81f-4bd5-a12e-255ad4d905e2)
+JSON File: [BookDSD.json](https://github.com/effiemincer/database_mini_proj/blob/main/BookDSDMap.json)
 
 ### The Merged DSD
 ![image (4)](https://github.com/user-attachments/assets/c54b9150-f4d5-4f8e-981d-0d472e70a033)
-
+JSON File: [MergedDSD.json](https://github.com/effiemincer/database_mini_proj/blob/main/Merged_DSD.json)
 

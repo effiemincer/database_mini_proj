@@ -1,6 +1,10 @@
 # database_mini_proj
 Mini project for Database systems
 
+### Navigate to:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Stage 1](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-1)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Stage 2](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-2)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Stage 3](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-3)
 
 # Stage 1
 
@@ -69,7 +73,7 @@ Mini project for Database systems
 
 
 # DSD
-![image (3)](https://github.com/user-attachments/assets/d723f5ab-8abb-48d4-b187-5df511ac8272)
+![image](https://github.com/user-attachments/assets/6454e3ac-eb59-421b-b4a3-e38ff55ea008)
 
 # SQL File Reflecting Database Build
 The file titled [DB1.sql](https://github.com/effiemincer/database_mini_proj/blob/main/DB1.sql) has our database schema and build.
@@ -313,17 +317,77 @@ Here's a summary of the tests conducted along with the explanation of the errors
 
 ## Multi-Table Queries: 
 
-The code for the 3 queries below can be found at [QueriesMultiTable.sql](https://github.com/effiemincer/database_mini_proj/blob/main/QueriesMultiTable.sql). 
+The code for the 3 queries below can be found at [QueriesMultiTable.sql](https://github.com/effiemincer/database_mini_proj/blob/main/QueriesMultiTable_Stage3.sql). 
 The results for these three queries are listed as the MultiQuery files in [Query Responses](https://github.com/effiemincer/database_mini_proj/tree/main/Query%20Responses).
 
 ### **1. Retrieve Top 5 Readers with the Most Unreturned Books in the Last 30 Days**  
 This query identifies readers with the highest number of books that remain unreturned, borrowed within the past 30 days. It uses joins across the `Readers`, `BooksOnLoan`, and `BooksReturned` tables to track overdue books. This information helps the library staff prioritize overdue notifications and manage book circulation more efficiently.  
+```sql
+SELECT
+    r.ReaderID,
+    r.FirstName,
+    r.LastName,
+    COUNT(bol.LoanID) AS UnreturnedBooks
+FROM
+    Readers r
+    JOIN BooksOnLoan bol ON r.ReaderID = bol.ReaderID
+    LEFT JOIN BooksReturned br ON bol.LoanID = br.LoanID
+WHERE
+    bol.LoanDate >= CURRENT_DATE - INTERVAL '30 days'
+    AND br.LoanID IS NULL  -- Books that have not been returned
+GROUP BY
+    r.ReaderID,
+    r.FirstName,
+    r.LastName
+ORDER BY
+    UnreturnedBooks DESC
+LIMIT 5;
+```
 
 ### **2. Count Family Members of Readers with Electronic Cards**  
 To better understand borrowing patterns within families, this query calculates the number of family members for each reader who holds an electronic card. It leverages the `Readers`, `ReaderCard`, and `FamilyTies` tables to filter by card type and aggregate family ties. The results are sorted to highlight readers with the largest family connections, supporting policies around family-based borrowing benefits.  
+```sql
+SELECT
+    r.ReaderID,
+    r.FirstName,
+    r.LastName,
+    COUNT(ft.RelatedReaderID) AS TotalFamilyMembers
+FROM
+    Readers r
+    JOIN ReaderCard rc ON r.ReaderID = rc.ReaderID
+    LEFT JOIN FamilyTies ft ON r.ReaderID = ft.ReaderID
+WHERE
+    rc.CardType = 'Electronic'
+GROUP BY
+    r.ReaderID,
+    r.FirstName,
+    r.LastName
+ORDER BY
+    TotalFamilyMembers DESC;
+```
 
 ### **3. Extend Expiration Dates for Readers with More Than 3 Loans in the Past Year**  
 Frequent borrowers receive a benefit through this query, which extends the expiration date of their reader cards by one year. By joining `Readers`, `BooksOnLoan`, and `ReaderCard`, the system identifies readers who have borrowed more than 3 books in the last year. Their cards are automatically updated, ensuring continued access to library services without manual intervention.  
+```sql
+WITH BorrowCounts AS (
+    SELECT
+        r.ReaderID,
+        COUNT(b.LoanID) AS BorrowCount
+    FROM
+        Readers r
+        JOIN BooksOnLoan b ON r.ReaderID = b.ReaderID
+    WHERE
+        b.LoanDate >= CURRENT_DATE - INTERVAL '1 year'
+    GROUP BY
+        r.ReaderID
+)
+UPDATE ReaderCard rc
+SET ExpirationDate = rc.ExpirationDate + INTERVAL '1 year'
+FROM BorrowCounts bc
+WHERE
+    rc.ReaderID = bc.ReaderID
+    AND bc.BorrowCount > 3;
+```
 
 ### **Timing Results:**  
 
@@ -425,5 +489,213 @@ For each view, we created at least one **SELECT** query plus **INSERT/UPDATE/DEL
 | 8           | **UnreadNotificationsView**   | SELECT unread notifications (ORDER BY DaysUnseen) | 0:00.092s         |
 | 9          | **UnreadNotificationsView**   | UPDATE marking older notifications as read    | 0:00.059s             |
 | 10          | **UnreadNotificationsView**   | DELETE notifications for a certain reader     | 0:00.079s             |
+
+
+## Visualizations
+
+The script for generating these visualizations are located in the [Visualizations folder](https://github.com/effiemincer/database_mini_proj/tree/main/Visualizations).
+
+### Query 1: Overdue Loans by Days Overdue
+
+```sql
+SELECT 
+    (CURRENT_DATE - DueDate) AS DaysOverdue, 
+    COUNT(*) AS LoanCount
+FROM OverdueLoansView
+GROUP BY DaysOverdue
+ORDER BY DaysOverdue DESC
+LIMIT 25;
+```
+Explanation: <br/>
+This query calculates how many days each loan is overdue (DaysOverdue) and groups all overdue loans by that number. For each group, it counts the number of loans overdue for the same number of days (LoanCount). The results are then ordered by the highest number of overdue days and limited to the top 25 results.
+
+Why It’s Useful:
+- Insights into overdue loans: This query helps librarians see patterns in overdue loans, focusing on loans that are significantly overdue.
+- Prioritization: By identifying groups of highly overdue loans, librarians can target their efforts to resolve the most pressing cases.
+- Data aggregation: Grouping overdue loans by days simplifies the data, providing a clear picture of overdue trends.
+
+![overdue_loans_grouped_bar_chart](https://github.com/user-attachments/assets/a5e4a7bc-05b0-4784-b4b9-14a7e3173fd4)
+
+Script to generate bar chart located [here](https://github.com/effiemincer/database_mini_proj/blob/main/Visualizations/Visualiztion_BarChart_Stage3.py).
+
+### Query 2: Distribution of Card Types
+
+```sql
+SELECT 
+    CardType, COUNT(*) AS Count
+FROM ReaderCard
+GROUP BY CardType;
+```
+Explanation:<br/>
+This query counts the total number of library cards for each CardType (e.g., "Electronic" or "Physical") by grouping the data based on the card type.
+
+Why It’s Useful:
+- Understanding card usage: This query gives library administrators insights into the distribution of electronic and physical cards among users.
+- Trend analysis: Monitoring card type distributions over time can help libraries assess the effectiveness of initiatives to promote electronic cards.
+- Operational planning: Knowing the proportions of each card type can inform resource allocation, such as focusing on maintaining digital card systems or processing physical cards.
+
+![card_types_pie_chart](https://github.com/user-attachments/assets/0a6a120a-1977-4c21-ac38-02cfe633aaad)
+
+Script for generating pie chart located [here](https://github.com/effiemincer/database_mini_proj/blob/main/Visualizations/Visualiztion_PieChart_Stage3.py).
+
+## Functions
+
+Functions can be viewed in the [Functions.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Functions.sql) file with all the timing and output information in [Functions.log](https://github.com/effiemincer/database_mini_proj/blob/main/Functions.log).
+
+Queries 1, 2, 3, and 4 had parts replaced inside them with functions as can be seen in the [Queries.sql](https://github.com/effiemincer/database_mini_proj/blob/main/Queries.sql) file with the original query from Stage 2 below each new query in comments. Timing and results data is available in the [QueriesWithFunctions.log](https://github.com/effiemincer/database_mini_proj/blob/main/QueriesWithFunctions.log) file.
+
+#### Function 1: `GetTotalBooksBorrowed`
+
+##### Purpose:
+The function `GetTotalBooksBorrowed` calculates the total number of books borrowed by a specific reader. It takes the `reader_id` as input and returns an integer representing the total count of borrowed books.
+
+##### Function Definition:
+```sql
+DROP FUNCTION IF EXISTS GetTotalBooksBorrowed(integer);
+
+CREATE OR REPLACE FUNCTION GetTotalBooksBorrowed(reader_id INT)
+RETURNS INT AS $$
+BEGIN
+    RETURN (
+        SELECT COUNT(LoanID)
+        FROM BooksOnLoan
+        WHERE ReaderID = reader_id
+    );
+END;
+$$ LANGUAGE plpgsql;
+```
+
+##### How It Works:
+- This function queries the `BooksOnLoan` table, which stores the details of all books currently on loan.
+- It counts the `LoanID` values associated with the given `reader_id` to determine how many books the reader has borrowed.
+
+---
+
+#### Function 2: `GetLastNotificationDetails`
+
+##### Purpose:
+The function `GetLastNotificationDetails` retrieves the most recent notification for a specific reader. It returns the message content, the date it was sent, and whether the notification has been read.
+
+##### Function Definition:
+```sql
+DROP FUNCTION IF EXISTS GetLastNotificationDetails(integer);
+
+CREATE OR REPLACE FUNCTION GetLastNotificationDetails(reader_id INT)
+RETURNS TABLE (Message_ TEXT, SentDate DATE, IsRead BOOLEAN) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT Notifications.Message AS Message_, Notifications.SentDate, Notifications.IsRead
+    FROM Notifications
+    WHERE ReaderID = reader_id
+    ORDER BY SentDate DESC
+    LIMIT 1;
+END;
+$$ LANGUAGE plpgsql;
+```
+
+##### How It Works:
+- The function queries the `Notifications` table, filtering by `ReaderID`.
+- It orders the notifications by `SentDate` in descending order and limits the result to the most recent notification.
+- The result includes the message text (`Message_`), the `SentDate`, and a boolean (`IsRead`) indicating if the notification has been read.
+
+---
+
+#### Function 3: `GetAverageBooksByCardType`
+
+##### Purpose:
+The function `GetAverageBooksByCardType` calculates the average number of books borrowed by readers of a specific card type. It returns a numeric value representing the average.
+
+##### Function Definition:
+```sql
+DROP FUNCTION IF EXISTS GetAverageBooksByCardType(text);
+
+CREATE OR REPLACE FUNCTION GetAverageBooksByCardType(card_type TEXT)
+RETURNS NUMERIC AS $$
+BEGIN
+    RETURN (
+        SELECT AVG(BooksBorrowed)
+        FROM (
+            SELECT COUNT(b.LoanID) AS BooksBorrowed
+            FROM ReaderCard rc
+            LEFT JOIN BooksOnLoan b ON rc.ReaderID = b.ReaderID
+            WHERE rc.CardType = card_type
+            GROUP BY rc.ReaderID
+        ) AS BorrowCounts
+    );
+END;
+$$ LANGUAGE plpgsql;
+```
+
+##### How It Works:
+- The function first queries the `ReaderCard` table to filter readers by the given `card_type`.
+- It uses a `LEFT JOIN` to connect with the `BooksOnLoan` table, counting the `LoanID` for each reader.
+- The result is grouped by `ReaderID`, and the function calculates the average of these counts.
+
+---
+
+#### Function 4: `GetFamilyBooksBorrowed`
+
+##### Purpose:
+The function `GetFamilyBooksBorrowed` calculates the total number of books borrowed by the family members of a given reader. It takes the `reader_id` as input and returns the total count of books borrowed by both the reader and their family members.
+
+##### Function Definition:
+```sql
+DROP FUNCTION IF EXISTS GetFamilyBooksBorrowed(integer);
+
+CREATE OR REPLACE FUNCTION GetFamilyBooksBorrowed(reader_id INT)
+RETURNS INT AS $$
+BEGIN
+    RETURN (
+        SELECT COUNT(bol.LoanID)
+        FROM FamilyTies ft
+        LEFT JOIN BooksOnLoan bol ON ft.RelatedReaderID = bol.ReaderID
+        WHERE ft.ReaderID = reader_id OR ft.RelatedReaderID = reader_id
+    );
+END;
+$$ LANGUAGE plpgsql;
+```
+
+##### How It Works:
+- This function uses a `LEFT JOIN` to connect the `FamilyTies` table (which links family members) with the `BooksOnLoan` table.
+- It counts the total number of `LoanID` values for the reader and their related family members.
+
+---
+
+## For backup and restore to Stage 3, use the following commands:
+
+**Backup:** pg_dump -U postgres -h localhost -d "Mini Project" --file=backupPSQL_Stage3.sql --verbose --clean --if-exists -F c 2> backupPSQL_Stage3.log <br/>
+
+**Restore:** pg_restore -U postgres -h localhost -v -d "Mini Project" -F c --if-exists --clean backupPSQL_Stage3.SQL 2> restorePSQL_Stage3.log
+
+---
+
+
+# Stage 4
+
+## ERD 
+
+### Our Original ERD for Readers
+![image](https://github.com/user-attachments/assets/7ea9b400-9193-4dca-854a-fdfc6a8af3b3)
+
+### Avi and Leib's Original ERD for Books
+![WhatsApp Image 2025-01-26 at 16 06 07_b7575986](https://github.com/user-attachments/assets/85271270-76c5-4472-b790-2db017e3d324)
+
+
+### The Merged ERD
+![ERD combined](https://github.com/user-attachments/assets/e3f1f363-ca31-4332-a765-776490cb09ab)
+
+
+---
+
+## DSD
+
+### Our Original DSD for Readers
+![image](https://github.com/user-attachments/assets/5d537c9a-804c-4b67-ab08-651945c06b2d)
+
+### Avi and Leib's Original DSD for Books
+![image](https://github.com/user-attachments/assets/2b8fe1cb-b81f-4bd5-a12e-255ad4d905e2)
+
+### The Merged DSD
+![image (4)](https://github.com/user-attachments/assets/c54b9150-f4d5-4f8e-981d-0d472e70a033)
 
 

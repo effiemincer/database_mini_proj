@@ -7,6 +7,7 @@ Mini project for Database systems
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Stage 1](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-1)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Stage 2](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-2)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Stage 3](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-3)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[Stage 4](https://github.com/effiemincer/database_mini_proj/blob/main/README.md#stage-4)
 
 # Stage 1
 
@@ -85,6 +86,7 @@ Mini project for Database systems
 # DSD
 
 ![image](https://github.com/user-attachments/assets/8f1b499b-25c4-4d90-b054-fa55dce401b2)
+JSON FILE: [DSD.json](https://github.com/effiemincer/database_mini_proj/blob/main/Json/DSD.json)
 
 # SQL File Reflecting Database Build
 

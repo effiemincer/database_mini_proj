@@ -73,7 +73,8 @@ Mini project for Database systems
 
 
 # DSD
-![image](https://github.com/user-attachments/assets/6454e3ac-eb59-421b-b4a3-e38ff55ea008)
+![image](https://github.com/user-attachments/assets/8f1b499b-25c4-4d90-b054-fa55dce401b2)
+
 
 # SQL File Reflecting Database Build
 The file titled [DB1.sql](https://github.com/effiemincer/database_mini_proj/blob/main/DB1.sql) has our database schema and build.

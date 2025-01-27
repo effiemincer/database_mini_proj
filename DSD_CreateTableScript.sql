@@ -1,44 +1,43 @@
 CREATE TABLE Readers (
-    Address INT NOT NULL,
-    ReaderID INT PRIMARY KEY NOT NULL,
-    FirstName INT NOT NULL,
-    LastName INT NOT NULL,
-    PhoneNumber INT NOT NULL
+    ReaderID SERIAL PRIMARY KEY,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Address TEXT NOT NULL,
+    PhoneNumber VARCHAR(25)
 );
 
 CREATE TABLE Notifications (
-    NotificationID INT PRIMARY KEY NOT NULL,
-    Message INT NOT NULL,
-    SentDate INT NOT NULL,
-    IsRead INT NOT NULL,
+    NotificationID SERIAL PRIMARY KEY,
     ReaderID INT NOT NULL,
-    FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID)
+    Message TEXT NOT NULL,
+    SentDate DATE NOT NULL,
+    IsRead BOOLEAN NOT NULL,
+    FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID) ON DELETE CASCADE
 );
 
-CREATE TABLE ReadCard (
-    CardID INT PRIMARY KEY NOT NULL,
-    CardType INT NOT NULL,
-    ExpirationDate INT NOT NULL,
+CREATE TABLE ReaderCard (
+    CardID SERIAL PRIMARY KEY,
     ReaderID INT NOT NULL,
-    FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID)
+    CardType VARCHAR(20) CHECK (CardType IN ('Electronic', 'Physical')),
+    ExpirationDate DATE NOT NULL,
+    FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID) ON DELETE CASCADE
 );
 
 CREATE TABLE BooksOnLoan (
-    LoanID INT PRIMARY KEY NOT NULL,
-    LoanDate INT NOT NULL,
-    DueDate INT NOT NULL,
+    LoanID SERIAL PRIMARY KEY,
     ReaderID INT NOT NULL,
-    ID INT NOT NULL,
-    ReturnID INT NOT NULL,
-    FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID),
-    FOREIGN KEY (ID) REFERENCES Book(ID),
-    FOREIGN KEY (ReturnID) REFERENCES BooksReturned(ReturnID)
+    ID INT NOT NULL,            --> book ID
+    LoanDate DATE NOT NULL,
+    DueDate DATE NOT NULL,
+    FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID) ON DELETE CASCADE
 );
 
 CREATE TABLE BooksReturned (
-    ReturnID INT PRIMARY KEY NOT NULL,
-    ReturnDate INT NOT NULL,
-    ConditionOnReturn INT NOT NULL
+    ReturnID SERIAL PRIMARY KEY,
+    LoanID INT NOT NULL,
+    ConditionOnReturn TEXT NOT NULL,
+    ReturnDate DATE NOT NULL,
+    FOREIGN KEY (LoanID) REFERENCES BooksOnLoan(LoanID) ON DELETE CASCADE
 );
 
 CREATE TABLE Book (
@@ -119,11 +118,11 @@ CREATE TABLE IsIn (
     FOREIGN KEY (CountryID) REFERENCES Country(CountryID)
 );
 
-CREATE TABLE FamilyRelationship (
+CREATE TABLE FamilyTies(
+    TieID SERIAL PRIMARY KEY,
     ReaderID INT NOT NULL,
     RelatedReaderID INT NOT NULL,
-    TieID INT PRIMARY KEY NOT NULL,
-    RelationshipType TEXT NOT NULL,
-    FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID),
-    FOREIGN KEY (RelatedReaderID) REFERENCES Readers(ReaderID)
+    RelationType VARCHAR(8) CHECK (RelationType IN ('Parent', 'Child', 'Spouse', 'Sibling')),
+    FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID) ON DELETE CASCADE,
+    FOREIGN KEY (RelatedReaderID) REFERENCES Readers(ReaderID) ON DELETE CASCADE
 );

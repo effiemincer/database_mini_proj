@@ -951,6 +951,110 @@ CREATE TABLE IF NOT EXISTS Is_In
 );
 ```
 ---
+## Views
+
+### Active Loans For Readers
+This view is to see all active book loans with their titles and book IDs.
+```sql
+CREATE VIEW ActiveLoansView AS
+SELECT
+    R.ReaderID,
+    R.FirstName,
+    R.LastName,
+    L.BookID AS ID,
+    L.LoanDate,
+    L.DueDate
+FROM
+    Readers R
+    JOIN BooksOnLoan L ON R.ReaderID = L.ReaderID
+WHERE
+    NOT EXISTS (
+        SELECT 1
+        FROM BooksReturned BR
+        WHERE BR.LoanID = L.LoanID
+    );
+```
+
+### Select Query - Active Loans Pack Their Due Date
+```sql
+SELECT DISTINCT
+    L.LoanID,
+    R.ReaderID,
+    R.FirstName,
+    R.LastName,
+    L.BookID,
+    B.Title AS BookTitle,
+    L.LoanDate,
+    L.DueDate
+FROM 
+    Readers R
+    JOIN BooksOnLoan L ON R.ReaderID = L.ReaderID
+    JOIN Book B ON L.BookID = B.ID
+WHERE 
+    NOT EXISTS (
+        SELECT 1 
+        FROM BooksReturned BR
+        WHERE BR.LoanID = L.LoanID
+    )
+    AND L.DueDate < CURRENT_DATE;
+```
+
+### Manipulating Data
+
+#### Insert
+```sql
+-- Insert into ActiveLoansView (valid record)
+INSERT INTO BooksOnLoan (ReaderID, BookID, LoanDate, DueDate)
+VALUES (100, 101, '2025-01-01', '2025-01-15');
+```
+
+#### Update
+
+
+#### Delete
+
+### Most Read Genres by Reader
+This view is to which genre each reader reads most.
+```sql
+CREATE VIEW MostReadGenresView AS
+WITH GenreRanking AS (
+    SELECT
+        R.ReaderID,
+        R.FirstName,
+        R.LastName,
+        G.Name AS GenreName,
+        COUNT(*) AS ReadCount,
+        ROW_NUMBER() OVER (PARTITION BY R.ReaderID ORDER BY COUNT(*) DESC) AS Rank
+    FROM
+        Readers R
+        JOIN BooksOnLoan L ON R.ReaderID = L.ReaderID
+        JOIN Type_of T ON L.BookID = T.ID
+        JOIN Genre G ON T.Genre_ID = G.Genre_ID
+    GROUP BY
+        R.ReaderID, R.FirstName, R.LastName, G.Name
+)
+SELECT
+    ReaderID,
+    FirstName,
+    LastName,
+    GenreName,
+    ReadCount
+FROM
+    GenreRanking
+WHERE
+    Rank = 1;
+```
+### Manipulating Data
+
+#### Insert
+
+
+#### Update
+
+
+#### Delete
+
+---
 ## Dump and Restore for Stage 4
 Backup: pg_dump -U postgres -h localhost -d "Mini Project" --file=backupPSQL_Stage4.sql --verbose --clean --if-exists -F c 2> backupPSQL_Stage4.log
 

@@ -26,7 +26,7 @@ CREATE TABLE ReaderCard (
 CREATE TABLE BooksOnLoan (
     LoanID SERIAL PRIMARY KEY,
     ReaderID INT NOT NULL,
-    ID INT NOT NULL,            --> book ID
+    ID INT NOT NULL,                --> book ID
     LoanDate DATE NOT NULL,
     DueDate DATE NOT NULL,
     FOREIGN KEY (ReaderID) REFERENCES Readers(ReaderID) ON DELETE CASCADE

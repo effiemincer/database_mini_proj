@@ -5,7 +5,7 @@ SELECT
     R.ReaderID,
     R.FirstName,
     R.LastName,
-    L.ID AS ID,
+    L.BookID AS ID,
     L.LoanDate,
     L.DueDate
 FROM

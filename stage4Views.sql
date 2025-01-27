@@ -116,13 +116,10 @@ VALUES (100, 101, '2025-01-01', '2025-01-15');
 
 --> timing 0.090
 
--- Update a record in ActiveLoansView
--- Simulate a book being returned by adding a record to BooksReturned
-INSERT INTO BooksReturned (LoanID, ReturnDate)
-VALUES (1, '2025-01-10');
-
-
 -- Delete in ActiveLoansView 
+DELETE FROM BooksOnLoan
+WHERE LoanID = 10001;
+-- Timing 0.082
 
 -- Update in MostReadGenresView (indirectly through the base tables)
 -- Simulate a reader liking a new genre by adding a loan for a book of that genre
@@ -134,14 +131,3 @@ VALUES (2, 102, '2025-01-01', '2025-01-15');
 DELETE FROM BooksOnLoan
 WHERE LoanID = 1;
 -- Timing : 00.128
-
-
--- LOGGING AND EXPLANATIONS
--- 1. The first INSERT into BooksOnLoan succeeded because it was a valid loan record.
--- 2. The second INSERT was excluded by the `ActiveLoansView` because the loan already had a corresponding entry in `BooksReturned`.
--- 3. The addition of a loan for a new genre successfully updated the `MostReadGenresView`.
--- 4. The first DELETE from `BooksOnLoan` removed a valid loan record, while the second failed due to a nonexistent `LoanID`.
-
--- NOTES
--- The first view ensures loans are "active" by checking for the absence of a `ReturnID` in `BooksReturned` and the due date.
--- The second view uses a CTE with `ROW_NUMBER()` to ensure only the most-read genre per reader is included.

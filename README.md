@@ -86,6 +86,7 @@ Mini project for Database systems
 # DSD
 
 ![image](https://github.com/user-attachments/assets/8f1b499b-25c4-4d90-b054-fa55dce401b2)
+
 JSON FILE: [DSD.json](https://github.com/effiemincer/database_mini_proj/blob/main/Json/DSD.json)
 
 # SQL File Reflecting Database Build

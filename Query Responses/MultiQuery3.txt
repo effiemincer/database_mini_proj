@@ -1,3 +1,3 @@
-UPDATE 2508
-
-Query returned successfully in 140 msec.
+version https://git-lfs.github.com/spec/v1
+oid sha256:d2cbe782c72866c95adf8b1da9482664c64b1e77262c35d59aaaf78adf09684a
+size 55

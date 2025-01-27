@@ -7,3 +7,4 @@ readers.sql filter=lfs diff=lfs merge=lfs -text
 backupPSQL.sql filter=lfs diff=lfs merge=lfs -text
 backupSQL.sql filter=lfs diff=lfs merge=lfs -text
 MiniProjectDump.sql filter=lfs diff=lfs merge=lfs -text
+Query[[:space:]]Responses/** filter=lfs diff=lfs merge=lfs -text

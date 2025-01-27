@@ -1,3 +1,3 @@
-DELETE 2
-
-Query returned successfully in 79 msec.
+version https://git-lfs.github.com/spec/v1
+oid sha256:e061e9003b393e11e6f951474df14310028e7c5509a456488a3826cc02ff538a
+size 51

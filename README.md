@@ -955,8 +955,8 @@ CREATE TABLE IF NOT EXISTS Is_In
 
 Timing info is available in a table below.
 
-### Active Loans For Readers
-This view is to see all active book loans with their titles and book IDs.
+### View 1 - Active Loans For Readers
+This view is to see all active book loans with their reader information and book title and book ID.
 ```sql
 CREATE VIEW ActiveLoansView AS
 SELECT
@@ -977,7 +977,7 @@ WHERE
     );
 ```
 
-### Select Query - Active Loans Pack Their Due Date
+### Select Query - Active Loans Past Their Due Date
 ```sql
 SELECT DISTINCT
     L.LoanID,
@@ -1016,7 +1016,7 @@ DELETE FROM BooksOnLoan
 WHERE LoanID = 10001;
 ```
 
-### Most Read Genres by Reader
+### View 2 - Most Read Genres by Reader
 This view is to which genre each reader reads most.
 ```sql
 CREATE VIEW MostReadGenresView AS

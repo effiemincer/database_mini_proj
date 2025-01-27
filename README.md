@@ -951,3 +951,7 @@ CREATE TABLE IF NOT EXISTS Is_In
 );
 ```
 ---
+## Dump and Restore for Stage 4
+Backup: pg_dump -U postgres -h localhost -d "Mini Project" --file=backupPSQL_Stage4.sql --verbose --clean --if-exists -F c 2> backupPSQL_Stage4.log
+
+Restore: pg_restore -U postgres -h localhost -v -d "Mini Project" -F c --if-exists --clean backupPSQL_Stage4.SQL 2> restorePSQL_Stage4.log

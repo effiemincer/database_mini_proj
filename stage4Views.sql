@@ -20,7 +20,6 @@ WHERE
 
 -- Timing: 00.084
 
-
 -- View 2: Most Read Genres by Reader
 CREATE VIEW MostReadGenresView AS
 WITH GenreRanking AS (

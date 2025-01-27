@@ -953,6 +953,8 @@ CREATE TABLE IF NOT EXISTS Is_In
 ---
 ## Views
 
+Timing info is available in a table below.
+
 ### Active Loans For Readers
 This view is to see all active book loans with their titles and book IDs.
 ```sql
@@ -998,6 +1000,7 @@ WHERE
     )
     AND L.DueDate < CURRENT_DATE;
 ```
+Results are [here](https://github.com/effiemincer/database_mini_proj/blob/main/Query%20Responses/Stage4QueryView1.csv).
 
 ### Manipulating Data
 
@@ -1044,15 +1047,53 @@ FROM
 WHERE
     Rank = 1;
 ```
+
+### Select Query - Readers and Their Most Read Genre
+```sql
+WITH GenreRanking AS (
+    SELECT
+        R.ReaderID,
+        R.FirstName,
+        R.LastName,
+        G.Name AS GenreName,
+        COUNT(*) AS ReadCount,
+        ROW_NUMBER() OVER (PARTITION BY R.ReaderID ORDER BY COUNT(*) DESC) AS Rank
+    FROM
+        Readers R
+        JOIN BooksOnLoan L ON R.ReaderID = L.ReaderID
+        JOIN Type_of T ON L.BookID = T.ID
+        JOIN Genre G ON T.Genre_ID = G.Genre_ID
+    GROUP BY
+        R.ReaderID, R.FirstName, R.LastName, G.Name
+)
+SELECT
+    ReaderID,
+    FirstName,
+    LastName,
+    GenreName,
+    ReadCount
+FROM
+    GenreRanking
+WHERE
+    Rank = 1;
+```
+Results are [here.](https://github.com/effiemincer/database_mini_proj/blob/main/Query%20Responses/Stage4QueryView2.csv)
+
 ### Manipulating Data
 
 #### Insert
-
-
+```sql
+INSERT INTO BooksOnLoan (ReaderID, BookID, LoanDate, DueDate)
+VALUES (2, 102, '2025-01-01', '2025-01-15');
+```
 #### Update
 
 
 #### Delete
+```sql
+DELETE FROM BooksOnLoan
+WHERE LoanID = 1;
+```
 
 ---
 ## Dump and Restore for Stage 4

@@ -1211,6 +1211,7 @@ Query results [here](https://github.com/effiemincer/database_mini_proj/blob/main
 | 2    | 2     | 02.875s |
 
 ---
+
 ## Dump and Restore for Stage 4
 Backup: pg_dump -U postgres -h localhost -d "Mini Project" --file=backupPSQL_Stage4.sql --verbose --clean --if-exists -F c 2> backupPSQL_Stage4.log
 

@@ -163,6 +163,7 @@ ORDER BY
 
 */
 
+
 -- 5. Update unread notifications older than a month to indicate follow-up is needed.
 UPDATE Notifications
 SET Message = CONCAT(Message, ' - Follow-Up Required')
@@ -175,6 +176,7 @@ WHERE IsRead = FALSE
 --         Query returned successfully in 422 msec.
 
   -- TIME: 00.422s
+
 
 -- 6. Extend the return date for all overdue loans by 14 days.
 UPDATE BooksOnLoan
